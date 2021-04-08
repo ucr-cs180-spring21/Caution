@@ -1,52 +1,25 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    Welcome!
-</head>
-
-<script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
-   <script src="/socket.io/socket.io.js" type="text/javascript">
-        var socket = io.connect('/');
-        // var socket = io.connect('http://localhost:3000/');
-
-        function sendMessage() {
-            //var msg = document.getElementById("hello").value;
-            socket.emit("hello", {message: "Hello!"});
-        }
-
-        socket.on('hw', function(data) {
-            console.log("Hello World!");
-        });
-    </script>
-
-<body>
-    <button onclick="sendMessage()">Send</button>
-</body>
-
-
-</html> -->
-
 <!DOCTYPE html>
 <html>
    <head>
    </head>
    <body>
-		 <h1>Socket.io Demo</h1>	 
+		 <h1>Welcome!</h1>	 
 		 <p id="hellow"></p>
 		 <button onclick="buttonClicked()">Hello!</button>
 		 <script src="/socket.io/socket.io.js"></script>
 		 <script>
-			 var socket = io.connect();
+			var socket = io.connect();
+        
+            // When button is clickeds
+		    function buttonClicked(){
+			    socket.emit('hello');
+			}
 			 
-			 function buttonClicked(){
-			   socket.emit('hello');
-			 }
-			 
-			 //when we receive buttonUpdate, do this
-			 socket.on('hello world', function(data){
-                 console.log("Hello World!");
-				 document.getElementById("hellow").innerHTML = 'Hello World!';
-			 });
+			 // When the server sends, update the HTML
+			socket.on('hello world', function(data){
+                console.log("Hello World!");
+				document.getElementById("hellow").innerHTML = 'Hello World!';
+			});
 		</script>
    </body>
 </html>
