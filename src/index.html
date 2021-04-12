@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   </head>
+   <body>
+		 <h1>Welcome!</h1>	 
+		 <p id="hellow"></p>
+		 <button onclick="buttonClicked()">Hello!</button>
+		 <script src="/socket.io/socket.io.js"></script>
+		 <script>
+			var socket = io.connect();
+        
+            // When button is clickeds
+		    function buttonClicked(){
+			    socket.emit('hello');
+			}
+			 
+			 // When the server sends, update the HTML
+			socket.on('hello world', function(data){
+                console.log("Hello World!");
+				document.getElementById("hellow").innerHTML = 'Hello World!';
+			});
+		</script>
+   </body>
+</html>
