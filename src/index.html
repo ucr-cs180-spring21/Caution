@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html>
    <head>
+	   <link rel="stylesheet" href="style.css">
    </head>
    <body>
-		 <h1>Welcome!</h1>	 
-		 <p id="hellow"></p>
+		 <h1>Caution!</h1>	 
+		 <p id="hello"></p>
+		 <div class="filter-table">
+			<table>
+				<tr class="table-row"></tr>
+			</table>
+		 </div>
+		 <textarea class="text-area">Queued data will be displayed here</textarea>
+		 <div class=button>
+			 <button type="button" onclick="">Update</button>
+			 <button type="button" onclick="">Export</button>
+		 </div>
 		 <button onclick="buttonClicked()">Hello!</button>
 		 <script src="/socket.io/socket.io.js"></script>
 		 <script>
