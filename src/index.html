@@ -1,13 +1,49 @@
 <!DOCTYPE html>
 <html>
-   <head>
-   </head>
-   <body>
-		 <h1>Welcome!</h1>	 
-		 <p id="hellow"></p>
-		 <button onclick="buttonClicked()">Hello!</button>
-		 <script src="/socket.io/socket.io.js"></script>
-		 <script>
+	<head>
+		<link rel="stylesheet" href="styling/style.css">
+	</head>
+	<body>
+		<h1>Caution!</h1>	 
+		<div>
+			<select multiple="multiple" class="multi-select">
+				<option value="" disabled selected>Select filters</option>
+				<option id="year" value="year">year</option>
+				<option id="month"value="month">month</option>
+				<option id="day" value="day">day</option>
+				<option id="startTime" value="startTime">startTime</option>
+				<option id="endTime" value="endTime">endTime</option>
+				<option id="state" value="state">state</option>
+				<option id="county" value="county">county</option>
+				<option id="zipcode" value="zipcode">zipcode</option>
+				<option id="street" value="street">street</option>
+				<option id="number" value="number">number</option>
+				<option id="startLat" value="startLat">startLat</option>
+				<option id="endLat" value="endLat">endLat</option>
+				<option id="startLong" value="startLong">startLong</option>
+				<option id="endLong" value="endLong">endLong</option>
+				<option id="severity" value="severity">severity</option>
+				<option id="bump" value="bump">bump</option>
+				<option id="stop" value="stop">stop</option>
+				<option id="signal" value="signal">signal</option>
+				<option id="weather" value="weather">weather</option>
+				<option id="humidity" value="humidity">humidity</option>
+			</select>
+		</div>
+		<div>
+			<textarea class="text-area">Queued data will be displayed here</textarea>
+		</div>
+		<div class="button">
+			<button type="button" onclick="">Update</button>
+			<button type="button" onclick="">Export</button>
+		</div>
+
+		<p id="hellow"></p>
+		<button onclick="buttonClicked()">Hello!</button>
+
+		<script src="front_end/multiselect.js"></script> 
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
 			var socket = io.connect();
         
             // When button is clickeds
@@ -21,5 +57,5 @@
 				document.getElementById("hellow").innerHTML = 'Hello World!';
 			});
 		</script>
-   </body>
+	</body>
 </html>
