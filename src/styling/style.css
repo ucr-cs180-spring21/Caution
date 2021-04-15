@@ -1,0 +1,13 @@
+.multi-select {
+    width: 100px;
+    height: 100px;
+    line-height: 3em;
+    overflow: auto;
+    padding: 5px;
+    border: 4px single;
+}
+
+.text-area {
+    width: 30%;
+    height: 150px;
+}
