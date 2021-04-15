@@ -5,18 +5,16 @@
    </head>
    <body>
 		 <h1>Caution!</h1>	 
-		 <p id="hello"></p>
-		 <div class="filter-table">
-			<table>
-				<tr class="table-row"></tr>
-			</table>
-		 </div>
+		 <p id="hellow"></p>
 		 <textarea class="text-area">Queued data will be displayed here</textarea>
 		 <div class=button>
 			 <button type="button" onclick="">Update</button>
 			 <button type="button" onclick="">Export</button>
 		 </div>
-		 <button onclick="buttonClicked()">Hello!</button>
+
+		 <button onclick="buttonClicked()">Hello!</button> 
+
+		 <!-- This is for calling jquery without installing it-->
 		 <script src="/socket.io/socket.io.js"></script>
 		 <script>
 			var socket = io.connect();
