@@ -1,11 +1,15 @@
-(function(values, sel) {
-    var sel = document.querySelector('select');
-    values = new Array(sel.length);
+// Function executes immediately 
+(function(filters, selectTag) {
+    var selectTag = document.querySelector('select');
+    filters = new Array(selectTag.length);
   
-    sel.addEventListener('click', function(e) {
-        values[e.target.index] = !values[e.target.index];    
-        for(var i = 0; i < values.length; ++i) {
-            sel.options[i].selected = values[i];
+    selectTag.addEventListener('click', function(e) {
+        // Initialize all the filters to be unselected 
+        filters[e.target.index] = !filters[e.target.index];
+        
+        // If filter is selected, mark it
+        for(var i = 0; i < filters.length; ++i) {
+            selectTag.options[i].selected = filters[i];
         }
     });
 })();
