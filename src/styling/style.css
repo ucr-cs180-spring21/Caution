@@ -11,3 +11,26 @@
     width: 30%;
     height: 150px;
 }
+
+body {
+    text-align: center;
+  }
+  
+  div{
+    display: inline-block;
+  }
+  
+  button{
+    display: inline-block;
+    padding: 10px 20px;
+  }
+  
+  #table{
+    display: block;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid black;
+    padding: 5px
+  }
