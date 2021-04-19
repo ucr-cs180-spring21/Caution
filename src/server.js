@@ -198,7 +198,7 @@ io.on('connection', function(client) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
             var stringToJsonObject = JSON.parse(arrayToString);
 
-            
+
             retdata.push(stringToJsonObject);
         }
         console.log(retdata);
@@ -207,7 +207,7 @@ io.on('connection', function(client) {
     });
     client.on('clear', function(client){
         retdata = [];
-        io.emit('senddata', retdata);
+        io.emit('empty', retdata);
     });
 });
 

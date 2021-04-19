@@ -123,9 +123,35 @@
                 console.log("Hello World!");
 				document.getElementById("hellow").innerHTML = 'Hello World!';
 			});
+			socket.on('empty', function(data){
+                var table = '<table>';
+				table += '<tr>';
+				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
+				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
+				'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 'Visibility(mi)',
+				'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 'Crossing', 'Give_Way', 'Junction',
+				'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight',
+				'Nautical_Twilight', 'Astronomical_Twilight']
+				
+				for(var i in data[0]) {
+					table += '<th>' + i + '</th>';
+					console.log(i);
+				}
+
+				table += '</tr>';
+				for(var j = 0; j < data.length; j++){
+					table += '<tr>';
+					for(var k in data[j]){
+					table += '<td>' + data[j][k] + '</td>';
+					}
+					table += '</tr>';
+				}
+				table += '</table>';
+				document.getElementById('infotable').innerHTML = table;
+			});
 			socket.on('senddata', function(data){
                 console.log("Received Data");
-				console.log(data);
+				//console.log(data);
 				// var data = [
 				// 		{"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2"},
 				// 		{"ID":"A-2","Source":"apQuest","TMC":"204","Severity":"3"},
@@ -136,22 +162,36 @@
 				// 		{"ID":"A-7","Source":"MapQust","TMC":"247","Severity":"2"},
 				// ];
 				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
-					var table = '<table>';
+				var table = '<table>';
+				table += '<tr>';
+				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
+				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
+				'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 'Visibility(mi)',
+				'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 'Crossing', 'Give_Way', 'Junction',
+				'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight',
+				'Nautical_Twilight', 'Astronomical_Twilight']
+				
+				// for(var i in data[0]) {
+				// 	table += '<th>' + i + '</th>';
+				// 	console.log(i);
+				// }
+
+				for(var i in testarr) {
+					table += '<th>' + testarr[i] + '</th>';
+					console.log(i);
+				}
+
+				table += '</tr>';
+				for(var j = 0; j < data.length; j++){
 					table += '<tr>';
-					for(var i in data[0]) {
-						table += '<th>' + i + '</th>';
+					for(var k in data[j]){
+					table += '<td>' + data[j][k] + '</td>';
 					}
 					table += '</tr>';
-					for(var j = 0; j < data.length; j++){
-						table += '<tr>';
-						for(var k in data[j]){
-						table += '<td>' + data[j][k] + '</td>';
-						}
-						table += '</tr>';
-					}
-					table += '</table>';
-					document.getElementById('infotable').innerHTML = table;
-					});
+				}
+				table += '</table>';
+				document.getElementById('infotable').innerHTML = table;
+			});
 		</script>
 	</body>
 </html>
