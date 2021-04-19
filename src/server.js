@@ -36,7 +36,7 @@ io.on('connection', function(client) {
             console.log("Request received from client");
 		    io.emit('hello world');
     });
-    client.on('rain', function(client){
+    client.on('snow', function(client){
         var re = []
 
         for(var j = 0; j < data.length; j++) {
