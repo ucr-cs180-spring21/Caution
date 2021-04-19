@@ -11,7 +11,7 @@ var obj = []
 let match
 
 const lineReader = require('readline').createInterface({
-    input: fs.createReadStream('data/book_100.csv')
+    input: fs.createReadStream('data/book.csv')
 })
 
 lineReader.on('line', function (line) {
