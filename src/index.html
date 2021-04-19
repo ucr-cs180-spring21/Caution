@@ -43,6 +43,13 @@
 
 		<button onclick="buttonweather()">Weather: Light Rain</button>
 		<button onclick="buttonhumid()">Humidity: 100%</button>
+		<button onclick="buttonbump()">Bump: True</button>
+		<button onclick="buttonseverity()">Severity: 3/3</button>
+		<button onclick="buttontimezone()">Timezone: US/Eastern</button>
+		<button onclick="buttoncity()">City: Dayton</button>
+		<button onclick="buttonairport()">Airport Code: KDAY</button>
+		<button onclick="buttonpressure()">Pressure(in): 29.61</button>
+		<button onclick="buttonclear()">Clear Table</button>
 
 		<table class="table" id="infotable"></table>
 
@@ -81,6 +88,9 @@
         
             // When button is clickeds
 		    function buttonClickedhello(){
+			    socket.emit('hello');
+			}
+			function buttonbump(){
 			    socket.emit('bump');
 			}
 			function buttonweather(){
@@ -89,14 +99,32 @@
 			function buttonhumid(){
 			    socket.emit('humid');
 			}
+			function buttonseverity(){
+			    socket.emit('severity');
+			}
+			function buttontimezone(){
+			    socket.emit('timezone');
+			}
+			function buttoncity(){
+			    socket.emit('city');
+			}
+			function buttonairport(){
+			    socket.emit('airport');
+			}
+			function buttonpressure(){
+			    socket.emit('pressure');
+			}
+			function buttonclear(){
+			    socket.emit('clear');
+			}
 			 
 			 // When the server sends, update the HTML
 			socket.on('hello world', function(data){
                 console.log("Hello World!");
 				document.getElementById("hellow").innerHTML = 'Hello World!';
 			});
-			socket.on('sendbump', function(data){
-                console.log("Received Bump");
+			socket.on('senddata', function(data){
+                console.log("Received Data");
 				console.log(data);
 				// var data = [
 				// 		{"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2"},

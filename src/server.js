@@ -52,13 +52,11 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-
-        //stringToJsonObject = [stringToJsonObject];
         console.log(retdata);
 
-        io.emit('sendbump', retdata);
+        io.emit('senddata', retdata);
     });
-    client.on('humidity', function(client){
+    client.on('humid', function(client){
         var re = []
 
         for(var j = 0; j < data.length; j++) {
@@ -67,6 +65,17 @@ io.on('connection', function(client) {
                 console.log(data[j]);
             }
         }
+
+        retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+        console.log(retdata);
+
+        io.emit('senddata', retdata);
     });
     client.on('bump', function(client){
         var re = []
@@ -85,11 +94,120 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-
-        //stringToJsonObject = [stringToJsonObject];
         console.log(retdata);
 
-        io.emit('sendbump', retdata);
+        io.emit('senddata', retdata);
+    });
+    client.on('severity', function(client){
+        var re = []
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][3] == '3'){
+                re.push(data[j]);
+                console.log(data[j]);
+            }
+        }
+
+        retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+        console.log(retdata);
+
+        io.emit('senddata', retdata);
+    });
+    client.on('timezone', function(client){
+        var re = []
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][20] == 'US/Eastern'){
+                re.push(data[j]);
+                console.log(data[j]);
+            }
+        }
+
+        retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+        console.log(retdata);
+
+        io.emit('senddata', retdata);
+    });
+    client.on('city', function(client){
+        var re = []
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][15] == 'Dayton'){
+                re.push(data[j]);
+                console.log(data[j]);
+            }
+        }
+
+        retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+        console.log(retdata);
+
+        io.emit('senddata', retdata);
+    });
+    client.on('airport', function(client){
+        var re = []
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][21] == 'KDAY'){
+                re.push(data[j]);
+                console.log(data[j]);
+            }
+        }
+
+        retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+        console.log(retdata);
+
+        io.emit('senddata', retdata);
+    });
+    client.on('pressure', function(client){
+        var re = []
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][26] == '29.61'){
+                re.push(data[j]);
+                console.log(data[j]);
+            }
+        }
+
+        retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+
+            
+            retdata.push(stringToJsonObject);
+        }
+        console.log(retdata);
+
+        io.emit('senddata', retdata);
+    });
+    client.on('clear', function(client){
+        retdata = [];
+        io.emit('senddata', retdata);
     });
 });
 
