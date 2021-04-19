@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="styling/style.css">
+		<link rel="stylesheet" href="/styling/style.css">
 	</head>
 	<body>
 		<h1>Caution!</h1>	 
 		<div>
-			<select multiple="multiple" class="multi-select">
+			<select multiple="multiple" class="multi-select" id="multi-select" onchange="updateFilters()">
 				<option value="" disabled selected>Select filters</option>
 				<option id="year" value="year">year</option>
 				<option id="month"value="month">month</option>
