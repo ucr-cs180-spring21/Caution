@@ -11,7 +11,7 @@ var obj = []
 let match
 
 const lineReader = require('readline').createInterface({
-    input: fs.createReadStream('data/book.csv')
+    input: fs.createReadStream('data/book_100.csv')
 })
 
 lineReader.on('line', function (line) {
@@ -42,7 +42,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             if (data[j][31] == 'Light Snow'){
                 re.push(data[j]);
-                console.log(data[j]);
+                //console.log(data[j]);
             }
         }
         retdata = [];
@@ -52,7 +52,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
+        //console.log(retdata);
 
         io.emit('senddata', retdata);
     });
@@ -62,7 +62,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             if (data[j][25] == '100'){
                 re.push(data[j]);
-                console.log(data[j]);
+                //console.log(data[j]);
             }
         }
 
@@ -73,7 +73,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
+        //console.log(retdata);
 
         io.emit('senddata', retdata);
     });
@@ -83,7 +83,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             if (data[j][33] == 'TRUE'){
                 re.push(data[j]);
-                console.log(data[j]);
+                //console.log(data[j]);
             }
         }
 
@@ -94,7 +94,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
+        //console.log(retdata);
 
         io.emit('senddata', retdata);
     });
@@ -104,7 +104,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             if (data[j][3] == '3'){
                 re.push(data[j]);
-                console.log(data[j]);
+                //console.log(data[j]);
             }
         }
 
@@ -115,7 +115,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
+        //console.log(retdata);
 
         io.emit('senddata', retdata);
     });
@@ -125,7 +125,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             if (data[j][20] == 'US/Eastern'){
                 re.push(data[j]);
-                console.log(data[j]);
+                //console.log(data[j]);
             }
         }
 
@@ -136,7 +136,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
+        //console.log(retdata);
 
         io.emit('senddata', retdata);
     });
@@ -146,7 +146,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             if (data[j][15] == 'Dayton'){
                 re.push(data[j]);
-                console.log(data[j]);
+                //console.log(data[j]);
             }
         }
 
@@ -157,7 +157,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
+        //console.log(retdata);
 
         io.emit('senddata', retdata);
     });
@@ -167,7 +167,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             if (data[j][21] == 'KDAY'){
                 re.push(data[j]);
-                console.log(data[j]);
+                //console.log(data[j]);
             }
         }
 
@@ -178,7 +178,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
+        //console.log(retdata);
 
         io.emit('senddata', retdata);
     });
@@ -188,7 +188,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             if (data[j][26] == '29.61'){
                 re.push(data[j]);
-                console.log(data[j]);
+                //console.log(data[j]);
             }
         }
 
@@ -201,7 +201,7 @@ io.on('connection', function(client) {
 
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
+        //console.log(retdata);
 
         io.emit('senddata', retdata);
     });
