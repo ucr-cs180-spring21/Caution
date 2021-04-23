@@ -35,7 +35,7 @@
 		</div>
 		<div class="button">
 			<button type="button" onclick="">Update</button>
-			<button type="button" onclick="">Export</button>
+			<button type="button" onclick="buttonExport()">Export</button>
 		</div>
 
 		<p id="hellow"></p>
@@ -53,7 +53,7 @@
 
 		<table class="table" id="infotable"></table>
 
-		<script src="front_end/multiselect.js"></script> 
+		<!--script src="front_end/multiselect.js"></script--> 
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			var socket = io.connect();
@@ -88,6 +88,10 @@
 			}
 			function buttonclear(){
 			    socket.emit('clear');
+			}
+
+			function buttonExport(){
+			    socket.emit('csvexport');
 			}
 			 
 			 // When the server sends, update the HTML
@@ -153,6 +157,11 @@
 				}
 				table += '</table>';
 				document.getElementById('infotable').innerHTML = table;
+			});
+			socket.on('csvexport', function(csvContent) {
+				console.log('ehehe');
+				var encodedUri = encodeURI(csvContent);
+				window.open(encodedUri);
 			});
 		</script>
 	</body>

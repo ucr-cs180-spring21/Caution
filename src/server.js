@@ -209,6 +209,16 @@ io.on('connection', function(client) {
         retdata = [];
         io.emit('empty', retdata);
     });
+    client.on('csvexport', function(client){
+        let csvContent = "data:text/csv;charset=utf-8,";
+
+        data.forEach(function(rowArray) {
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+        console.log(csvContent);
+        io.emit('csvexport', csvContent);
+    });
 });
 
 // Starting the server and listening to the port
