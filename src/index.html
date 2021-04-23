@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="/styling/style.css">
+		<link href="/styling/style.css">
 	</head>
 	<body>
 		<h1>Caution!</h1>	 
@@ -40,10 +40,10 @@
 				<option id="humidity" value="humidity">humidity</option>-->
 			</select>
 		</div>
-		<div>
-			<textarea class="text-area" id="text-area">
+		<div class="text-area" id="text-area">
+			<!--<textarea class="text-area" id="text-area">-->
 				<table class="table" id="infotable"></table>
-			</textarea>
+			<!--</textarea>-->
 		</div>
 		<div class="button">
 			<button type="button" onclick="updateTable()">Update</button>
@@ -54,6 +54,9 @@
 		<p id="hellow"></p>
 		<button onclick="buttonClickedhello()">Hello!</button>
 
+		
+		<script src="/front_end/multiselect.js"></script> 
+		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			// Global variables
 			var socket = io.connect();
@@ -99,26 +102,36 @@
 
 			// When the update button is pressed, update the table
 			function updateTable() {
-				for(let i = 0; i < selectedFilters.length; ++i) {
-					switch(selectedFilters[i]) {
-						case 'bump':
-							socket.emit('bump');
-						case 'snow':
-							socket.emit('snow');
-						case 'humid':
-							socket.emit('humid');
-						case 'severity':
-							socket.emit('severity');
-						case 'timezone':
-							socket.emit('timezone');
-						case 'city':
-							socket.emit('city');
-						case 'airport':
-							socket.emit('airport');
-						case 'pressure':
-							socket.emit('pressure');
-					}
+				if(selectedFilters[0] == 'bump') {
+					socket.emit('bump');
 				}
+				else if(selectedFilters[0] == 'snow') {
+					socket.emit('snow');
+				}
+				else if(selectedFilters[0] == 'humid') {
+					socket.emit('humid');
+				}
+				else if(selectedFilters[0] == 'severity') {
+					socket.emit('severity');
+				}
+				else if(selectedFilters[0] == 'timezone') {
+					socket.emit('timezone');
+				}
+				else if(selectedFilters[0] == 'city') {
+					socket.emit('city');
+				}
+				else if(selectedFilters[0] == 'airport') {
+					socket.emit('airport');
+				}
+				else if(selectedFilters[0] == 'pressure') {
+					socket.emit('pressure');
+				}
+			}
+			
+
+			// Emits to the server
+			function buttonClickedhello() {
+				socket.emit('hello');
 			}
 
 
@@ -197,7 +210,5 @@
 				document.getElementById('infotable').innerHTML = table;
 			});
 		</script>
-		<script src="/front_end/multiselect.js"></script> 
-		<script src="/socket.io/socket.io.js"></script>
 	</body>
 </html>
