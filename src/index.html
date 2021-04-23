@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<link href="/styling/style.css">
-	</head>
+ <html lang = "en">
+ <head>
+	 <meta charset = "UTF-8">
+	 <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+	 <title>Caution</title>
+ </head>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="styling/style.css">
 	<body>
 		<h1>Caution!</h1>	 
 		<div>
 			<select multiple="multiple" class="multi-select" id="multi-select" onchange="updateFilters()">
 				<option value="" disabled selected>Select filters</option>
-				<option id="bump" value="bump">Bump: True</option>
+				<option id="bump" value="bump">Bump</option>
 				<option id="snow" value="snow">snow</option>
-				<option id="humid" value="humid">Humidity: 100%</option>
+				<option id="humid" value="humid">Humidity</option>
 				<option id="severity" value="severity">severity</option>
 				<option id="timezone" value="timezone">timezone</option>
 				<option id="city" value="city">city</option>
@@ -41,9 +47,7 @@
 			</select>
 		</div>
 		<div class="text-area" id="text-area">
-			<!--<textarea class="text-area" id="text-area">-->
-				<table class="table" id="infotable"></table>
-			<!--</textarea>-->
+			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
 		</div>
 		<div class="button">
 			<button type="button" onclick="updateTable()">Update</button>
@@ -55,7 +59,6 @@
 		<button onclick="buttonClickedhello()">Hello!</button>
 
 		
-		<script src="/front_end/multiselect.js"></script> 
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			// Global variables
@@ -149,7 +152,9 @@
 
 
 			socket.on('empty', function(data){
+				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
 				var table = '<table>';
+				table += '<thead>';
 				table += '<tr>';
 				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
 				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
@@ -160,10 +165,10 @@
 				
 				for(var i in data[0]) {
 					table += '<th>' + i + '</th>';
-					console.log(i);
 				}
 
 				table += '</tr>';
+				table += '<tbody>';
 				for(var j = 0; j < data.length; j++){
 					table += '<tr>';
 					for(var k in data[j]){
@@ -171,8 +176,14 @@
 					}
 					table += '</tr>';
 				}
+				table += '</tbody>';
 				table += '</table>';
 				document.getElementById('infotable').innerHTML = table;
+				$(document).ready(function() {
+					$('#infotable').DataTable( {
+						"pagingType": "full_numbers",
+					} );
+				} );
 			});
 
 
@@ -180,6 +191,7 @@
 				console.log("Received Data");
 				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
 				var table = '<table>';
+				table += '<thead>';
 				table += '<tr>';
 				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
 				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
@@ -195,10 +207,10 @@
 
 				for(var i in testarr) {
 					table += '<th>' + testarr[i] + '</th>';
-					console.log(i);
 				}
 
 				table += '</tr>';
+				table += '<tbody>';
 				for(var j = 0; j < data.length; j++){
 					table += '<tr>';
 					for(var k in data[j]){
@@ -206,8 +218,14 @@
 					}
 					table += '</tr>';
 				}
+				table += '</tbody>';
 				table += '</table>';
 				document.getElementById('infotable').innerHTML = table;
+				$(document).ready(function() {
+					$('#infotable').DataTable( {
+						"pagingType": "full_numbers",
+					} );
+				} );
 			});
 		</script>
 	</body>
