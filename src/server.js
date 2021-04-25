@@ -47,14 +47,14 @@ io.on('connection', function(client) {
                 data.splice(j, 1);
             }
         }
-
         io.emit('senddata', data);
     });
     
     client.on('new', function(field) {
-        data.push(field);
+        var retdata = []
         console.log(data[data.length-1]);
-        io.emit('senddata', data);
+        retdata.push(field);
+        io.emit('senddata', retdata);
     });
 
     client.on('add', function(val) {
@@ -395,6 +395,17 @@ io.on('connection', function(client) {
     client.on('clear', function(client){
         retdata = [];
         io.emit('empty', retdata);
+    });
+
+    client.on('csvexport', function(client){
+        let csvContent = "data:text/csv;charset=utf-8,";
+
+        data.forEach(function(rowArray) {
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+        //console.log(csvContent);
+        io.emit('csvexport', csvContent);
     });
 });
 

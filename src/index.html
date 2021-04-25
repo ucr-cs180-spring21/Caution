@@ -45,6 +45,8 @@
 			<input type="text" class="recordForm" name="start_lat"><br>
 			<label for="start_lng">Start_Lng:</label>
 			<input type="text" class="recordForm" name="start_lng"><br>
+			<label for="start_lat">End_Lat:</label>
+			<input type="text" class="recordForm" name="end_lat"><br>
 			<label for="end_lat">End_Lng:</label>
 			<input type="text" class="recordForm" name="end_lat"><br>
 			<label for="distance">Distance(mi):</label>
@@ -93,8 +95,8 @@
 			<input type="text" class="recordForm" name="weather_condition"><br>
 			<label for="amenity">Amenity:</label>
 			<input type="text" class="recordForm" name="amenity"><br>
-			<label for="sig">Traffic Signal:</label>
-			<input type="text" class="recordForm" name="signal"><br>
+			<label for="sig">Bump:</label>
+			<input type="text" class="recordForm" name="bump"><br>
 			<label for="crossing">Crossing:</label>
 			<input type="text" class="recordForm" name="crossing"><br>
 			<label for="give_way">Give_Way:</label>
@@ -138,7 +140,6 @@
 				<option id="city" value="city">city</option>
 				<option id="airport" value="airport">airport</option>
 				<option id="pressure" value="pressure">pressure</option>
-				<option id="city" value="city">city</option>
 
 				<!--<option id="year" value="year">year</option>
 				<option id="month"value="month">month</option>
@@ -169,7 +170,7 @@
 		<div class="button">
 			<button type="button" onclick="updateTable()">Update</button>
 			<button type="button" onclick="buttonClear()">Clear</button>
-			<button type="button" onclick="">Export</button>
+			<button type="button" onclick="buttonExport()">Export</button>
 		</div>
 
 		<div class="text-area" id="text-area">
@@ -181,6 +182,7 @@
 			// Global variables
 			var socket = io.connect();
 			var selectedFilters = [];
+			var count = 0;
 
 			// Function executes immediately and displays which filters are selected
 			window.onload = multiselectFeature(); 
@@ -263,7 +265,7 @@
                 var child = document.getElementsByClassName('recordForm');
                 child = Array.prototype.slice.call(child);
 
-                //console.log(child);
+                console.log(child);
                 count += 1;
                 attributeValues.push('B-' + count);
                 for (var i = 0; i < child.length; i++){
@@ -285,6 +287,9 @@
 				socket.emit('clear');
 			}
 
+			function buttonExport(){
+			    socket.emit('csvexport');
+			}
 
 			// When the server sends, update the HTML
 			socket.on('hello world', function(data){
@@ -292,6 +297,10 @@
 				document.getElementById("hellow").innerHTML = 'Hello World!';
 			});
 
+			socket.on('csvexport', function(csvContent) {
+				var encodedUri = encodeURI(csvContent);
+				window.open(encodedUri);
+			});
 
 			socket.on('update_return', function(data) {
 				var id = document.getElementById('recordID');
