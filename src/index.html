@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<link type="text/css" href="styling/style.css">
-	</head>
+ <html lang = "en">
+ <head>
+	 <meta charset = "UTF-8">
+	 <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+	 <title>Caution</title>
+ </head>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+	<link type="text/css" href="styling/style.css">
 	<body>
 		<h1>Caution!</h1>	 
 		<div>
-			<select multiple="multiple" class="multi-select">
+			<select multiple="multiple" class="multi-select" id="multi-select" onchange="updateFilters()">
 				<option value="" disabled selected>Select filters</option>
-				<option id="year" value="year">year</option>
+				<option id="bump" value="bump">Bump</option>
+				<option id="snow" value="snow">snow</option>
+				<option id="humid" value="humid">Humidity</option>
+				<option id="severity" value="severity">severity</option>
+				<option id="timezone" value="timezone">timezone</option>
+				<option id="city" value="city">city</option>
+				<option id="airport" value="airport">airport</option>
+				<option id="pressure" value="pressure">pressure</option>
+				<option id="city" value="city">city</option>
+
+				<!--<option id="year" value="year">year</option>
 				<option id="month"value="month">month</option>
 				<option id="day" value="day">day</option>
 				<option id="startTime" value="startTime">startTime</option>
@@ -27,76 +43,118 @@
 				<option id="stop" value="stop">stop</option>
 				<option id="signal" value="signal">signal</option>
 				<option id="weather" value="weather">weather</option>
-				<option id="humidity" value="humidity">humidity</option>
+				<option id="humidity" value="humidity">humidity</option>-->
 			</select>
 		</div>
-		<div>
-			<textarea class="text-area">Queued data w
-				ill be displayed here</textarea>
+		<div class="text-area" id="text-area">
+			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
 		</div>
 		<div class="button">
-			<button type="button" onclick="">Update</button>
+			<button type="button" onclick="updateTable()">Update</button>
+			<button type="button" onclick="buttonClear()">Clear</button>
 			<button type="button" onclick="">Export</button>
 		</div>
 
 		<p id="hellow"></p>
 		<button onclick="buttonClickedhello()">Hello!</button>
 
-		<button onclick="buttonweather()">Weather: Light Snow</button>
-		<button onclick="buttonhumid()">Humidity: 100%</button>
-		<button onclick="buttonbump()">Bump: True</button>
-		<button onclick="buttonseverity()">Severity: 3/3</button>
-		<button onclick="buttontimezone()">Timezone: US/Eastern</button>
-		<button onclick="buttoncity()">City: Dayton</button>
-		<button onclick="buttonairport()">Airport Code: KDAY</button>
-		<button onclick="buttonpressure()">Pressure(in): 29.61</button>
-		<button onclick="buttonclear()">Clear Table</button>
-
-		<table class="table" id="infotable"></table>
-
+		
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
+			// Global variables
 			var socket = io.connect();
-        
-            // When button is clickeds
-		    function buttonClickedhello(){
-			    socket.emit('hello');
+			var selectedFilters = [];
+
+			// Function executes immediately and displays which filters are selected
+			window.onload = multiselectFeature(); 
+			function multiselectFeature() {
+				var selectTag = document.querySelector('select');
+				filters = new Array(selectTag.length);
+			
+				selectTag.addEventListener('click', function(e) {
+					// Initialize all the filters to be unselected 
+					filters[e.target.index] = !filters[e.target.index];
+					
+					// If filter is selected, mark it
+					for(var i = 0; i < filters.length; ++i) {
+						selectTag.options[i].selected = filters[i];
+					}
+				})
 			}
-			function buttonbump(){
-			    socket.emit('bump');
+
+
+			// This function gets the filters that are selected
+			function updateFilters() {
+				// Convert all of the options to an array
+				// Then, get an array of only the options that are selected
+				// Then, get an array of the selected option values
+				selectedFilters = Array.from(document.getElementById("multi-select").options).filter(function (option) {
+					return option.selected;
+				}).map(function (option) {
+					return option.value;
+				});
+				console.log(selectedFilters)
 			}
-			function buttonweather(){
-			    socket.emit('snow');
+
+
+			// This function returns the names of the filters that were selected
+			function getFilters() {
+				return selectedFilters;
 			}
-			function buttonhumid(){
-			    socket.emit('humid');
+
+
+			// When the update button is pressed, update the table
+			function updateTable() {
+				if(selectedFilters[0] == 'bump') {
+					socket.emit('bump');
+				}
+				else if(selectedFilters[0] == 'snow') {
+					socket.emit('snow');
+				}
+				else if(selectedFilters[0] == 'humid') {
+					socket.emit('humid');
+				}
+				else if(selectedFilters[0] == 'severity') {
+					socket.emit('severity');
+				}
+				else if(selectedFilters[0] == 'timezone') {
+					socket.emit('timezone');
+				}
+				else if(selectedFilters[0] == 'city') {
+					socket.emit('city');
+				}
+				else if(selectedFilters[0] == 'airport') {
+					socket.emit('airport');
+				}
+				else if(selectedFilters[0] == 'pressure') {
+					socket.emit('pressure');
+				}
 			}
-			function buttonseverity(){
-			    socket.emit('severity');
+			
+
+			// Emits to the server
+			function buttonClickedhello() {
+				socket.emit('hello');
 			}
-			function buttontimezone(){
-			    socket.emit('timezone');
+
+
+			// Button is pressed clears the table
+			function buttonClear() {
+				socket.emit('clear');
 			}
-			function buttoncity(){
-			    socket.emit('city');
-			}
-			function buttonairport(){
-			    socket.emit('airport');
-			}
-			function buttonpressure(){
-			    socket.emit('pressure');
-			}
-			function buttonclear(){
-			    socket.emit('clear');
-			}
-			 
-			 // When the server sends, update the HTML
+
+
+			// When the server sends, update the HTML
 			socket.on('hello world', function(data){
-                console.log("Hello World!");
+				console.log("Hello World!");
 				document.getElementById("hellow").innerHTML = 'Hello World!';
 			});
+
+
 			socket.on('empty', function(data){
-                var table = '<table>';
+				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
+				var table = '<table>';
+				table += '<thead>';
 				table += '<tr>';
 				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
 				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
@@ -107,10 +165,10 @@
 				
 				for(var i in data[0]) {
 					table += '<th>' + i + '</th>';
-					console.log(i);
 				}
 
 				table += '</tr>';
+				table += '<tbody>';
 				for(var j = 0; j < data.length; j++){
 					table += '<tr>';
 					for(var k in data[j]){
@@ -118,13 +176,22 @@
 					}
 					table += '</tr>';
 				}
+				table += '</tbody>';
 				table += '</table>';
 				document.getElementById('infotable').innerHTML = table;
+				$(document).ready(function() {
+					$('#infotable').DataTable( {
+						"pagingType": "full_numbers",
+					} );
+				} );
 			});
+
+
 			socket.on('senddata', function(data){
-                console.log("Received Data");
+				console.log("Received Data");
 				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
 				var table = '<table>';
+				table += '<thead>';
 				table += '<tr>';
 				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
 				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
@@ -140,10 +207,10 @@
 
 				for(var i in testarr) {
 					table += '<th>' + testarr[i] + '</th>';
-					console.log(i);
 				}
 
 				table += '</tr>';
+				table += '<tbody>';
 				for(var j = 0; j < data.length; j++){
 					table += '<tr>';
 					for(var k in data[j]){
@@ -151,8 +218,14 @@
 					}
 					table += '</tr>';
 				}
+				table += '</tbody>';
 				table += '</table>';
 				document.getElementById('infotable').innerHTML = table;
+				$(document).ready(function() {
+					$('#infotable').DataTable( {
+						"pagingType": "full_numbers",
+					} );
+				} );
 			});
 		</script>
 	</body>
