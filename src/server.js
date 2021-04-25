@@ -11,7 +11,7 @@ var obj = []
 let match
 
 const lineReader = require('readline').createInterface({
-    input: fs.createReadStream('data/book.csv')
+    input: fs.createReadStream('data/uT4KHvJR.csv')
 })
 
 lineReader.on('line', function (line) {
@@ -54,6 +54,7 @@ io.on('connection', function(client) {
         var retdata = []
         console.log(data[data.length-1]);
         retdata.push(field);
+        data.push(field);
         io.emit('senddata', retdata);
     });
 
