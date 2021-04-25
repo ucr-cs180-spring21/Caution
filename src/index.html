@@ -11,6 +11,7 @@
 	<link type="text/css" href="styling/style.css">
 	<body>
 		<h1>Caution!</h1>	 
+		
 		<div>
 			<select multiple="multiple" class="multi-select" id="multi-select" onchange="updateFilters()">
 				<option value="" disabled selected>Select filters</option>
@@ -46,18 +47,19 @@
 				<option id="humidity" value="humidity">humidity</option>-->
 			</select>
 		</div>
-		<div class="text-area" id="text-area">
-			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
-		</div>
+
+		<p id="hellow"></p>
+		<button onclick="buttonClickedhello()">Hello!</button>
+
 		<div class="button">
 			<button type="button" onclick="updateTable()">Update</button>
 			<button type="button" onclick="buttonClear()">Clear</button>
 			<button type="button" onclick="">Export</button>
 		</div>
 
-		<p id="hellow"></p>
-		<button onclick="buttonClickedhello()">Hello!</button>
-
+		<div class="text-area" id="text-area">
+			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
+		</div>
 		
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
