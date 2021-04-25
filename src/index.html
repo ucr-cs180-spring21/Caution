@@ -30,7 +30,7 @@
 			<button onclick="update()">Change Value</button>
 			<button onclick="del()">Delete</button>
 		</div><br><br>
-		<div id="newRecordForm">
+		<!--div id="newRecordForm">
 			<label for="source">Source:</label>
 			<input type="text" class="recordForm" name="source"><br>
 			<label for="tmc">TMC:</label>
@@ -128,7 +128,7 @@
 			<label for="astronomical_twilight">Astronomical_Twilight:</label>
 			<input type="text" class="recordForm" name="astronomical_twilight"><br><br>
 			<button onclick="newRecord()">Create New Record</button>
-		</div><br><br>
+		</div--><br><br>
 		<div>
 			<select multiple="multiple" class="multi-select" id="multi-select" onchange="updateFilters()">
 				<option value="" disabled selected>Select filters</option>
@@ -163,16 +163,6 @@
 				<option id="humidity" value="humidity">humidity</option>-->
 			</select>
 		</div>
-<<<<<<< HEAD
-		<div>
-			<textarea class="text-area">Queued data will be displayed here</textarea>
-		</div>
-		<div class="button">
-			<button type="button" onclick="">Update</button>
-			<button type="button" onclick="buttonExport()">Export</button>
-		</div>
-=======
->>>>>>> 9118465ac0757a97f530dc8a2e1962381e173264
 
 		<p id="hellow"></p>
 		<button onclick="buttonClickedhello()">Hello!</button>
@@ -180,17 +170,14 @@
 		<div class="button">
 			<button type="button" onclick="updateTable()">Update</button>
 			<button type="button" onclick="buttonClear()">Clear</button>
-			<button type="button" onclick="buttonExport()">Export</button>
+			<button type="button" onclick="buttonBackup()">Backup</button>
+			<!--button type="button" onclick="buttonExport()">Export</button-->
 		</div>
 
-<<<<<<< HEAD
-		<!--script src="front_end/multiselect.js"></script--> 
-=======
 		<div class="text-area" id="text-area">
 			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
 		</div>
 		
->>>>>>> 9118465ac0757a97f530dc8a2e1962381e173264
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			// Global variables
@@ -301,19 +288,16 @@
 				socket.emit('clear');
 			}
 
-			function buttonExport(){
-			    socket.emit('csvexport');
+			function buttonBackup() {
+				socket.emit('backup');
 			}
 
-<<<<<<< HEAD
-			function buttonExport(){
-			    socket.emit('csvexport');
-			}
-			 
-			 // When the server sends, update the HTML
-=======
+			// Button exports the filtered data to be downloaded on client's comp
+			// function buttonExport(){
+			//     socket.emit('csvexport');
+			// }
+
 			// When the server sends, update the HTML
->>>>>>> 9118465ac0757a97f530dc8a2e1962381e173264
 			socket.on('hello world', function(data){
 				console.log("Hello World!");
 				document.getElementById("hellow").innerHTML = 'Hello World!';
@@ -456,10 +440,15 @@
 					} );
 				} );
 			});
-			socket.on('csvexport', function(csvContent) {
-				console.log('ehehe');
-				var encodedUri = encodeURI(csvContent);
-				window.open(encodedUri);
+			// client side export button
+			// socket.on('csvexport', function(csvContent) {
+			// 	console.log('ehehe');
+			// 	var encodedUri = encodeURI(csvContent);
+			// 	window.open(encodedUri);
+			// });
+			socket.on('backup', function(backup){
+				console.log('backup successful');
+				
 			});
 		</script>
 	</body>
