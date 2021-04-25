@@ -1,14 +1,147 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<link rel="stylesheet" href="styling/style.css">
-	</head>
+ <html lang = "en">
+ <head>
+	 <meta charset = "UTF-8">
+	 <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+	 <title>Caution</title>
+ </head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+	<link type="text/css" href="styling/style.css">
 	<body>
 		<h1>Caution!</h1>	 
 		<div>
-			<select multiple="multiple" class="multi-select">
+			<label for="recordID">Record ID:</label>
+			<input type="text" id="recordID" name="recordID"><br><br>
+			<select id='select-dd'>
 				<option value="" disabled selected>Select filters</option>
-				<option id="year" value="year">year</option>
+				<option id="traffic_sig" value="traffic_sig">Traffic Signal</option>
+				<option id="snow" value="snow">snow</option>
+				<option id="humid" value="humid">Humidity</option>
+				<option id="severity" value="severity">severity</option>
+				<option id="timezone" value="timezone">timezone</option>
+				<option id="city" value="city">city</option>
+				<option id="airport" value="airport">airport</option>
+				<option id="pressure" value="pressure">pressure</option>
+			</select><br><br>
+			<label for="newValue">New Value:</label>
+			<input type="text" id="newValue" name="newValue"><br><br>
+			<button onclick="update()">Change Value</button>
+			<button onclick="del()">Delete</button>
+		</div><br><br>
+		<div id="newRecordForm">
+			<label for="source">Source:</label>
+			<input type="text" class="recordForm" name="source"><br>
+			<label for="tmc">TMC:</label>
+			<input type="text" class="recordForm" name="tmc"><br>
+			<label for="severity">Severity:</label>
+			<input type="text" class="recordForm" name="severity"><br>
+			<label for="start_time">Start_Time:</label>
+			<input type="text" class="recordForm" name="start_time"><br>
+			<label for="end_time">End_Time:</label>
+			<input type="text" class="recordForm" name="end_time"><br>
+			<label for="start_lat">Start_Lat:</label>
+			<input type="text" class="recordForm" name="start_lat"><br>
+			<label for="start_lng">Start_Lng:</label>
+			<input type="text" class="recordForm" name="start_lng"><br>
+			<label for="start_lat">End_Lat:</label>
+			<input type="text" class="recordForm" name="end_lat"><br>
+			<label for="end_lat">End_Lng:</label>
+			<input type="text" class="recordForm" name="end_lat"><br>
+			<label for="distance">Distance(mi):</label>
+			<input type="text" class="recordForm" name="distance"><br>
+			<label for="description">Description:</label>
+			<input type="text" class="recordForm" name="description"><br>
+			<label for="number">Number:</label>
+			<input type="text" class="recordForm" name="number"><br>
+			<label for="street">Street:</label>
+			<input type="text" class="recordForm" name="street"><br>
+			<label for="side">Side:</label>
+			<input type="text" class="recordForm" name="side"><br>
+			<label for="city">City:</label>
+			<input type="text" class="recordForm" name="city"><br>
+			<label for="county">County:</label>
+			<input type="text" class="recordForm" name="county"><br>
+			<label for="state">State:</label>
+			<input type="text" class="recordForm" name="state"><br>
+			<label for="zipcode">Zipcode:</label>
+			<input type="text" class="recordForm" name="zipcode"><br>
+			<label for="country">Country:</label>
+			<input type="text" class="recordForm" name="country"><br>
+			<label for="timezone">Timezone:</label>
+			<input type="text" class="recordForm" name="timezone"><br>
+			<label for="airport_code">Airport_Code:</label>
+			<input type="text" class="recordForm" name="airport_code"><br>
+			<label for="weather_timestamp">Weather_Timestamp:</label>
+			<input type="text" class="recordForm" name="weather_timestamp"><br>
+			<label for="temperature">Temperature(F):</label>
+			<input type="text" class="recordForm" name="temperature"><br>
+			<label for="wind_chill">Wind_Chill(F):</label>
+			<input type="text" class="recordForm" name="wind_chill"><br>
+			<label for="humidity">Humidity(%):</label>
+			<input type="text" class="recordForm" name="humidity"><br>
+			<label for="pressure">Pressure(in):</label>
+			<input type="text" class="recordForm" name="pressure"><br>
+			<label for="visibility">Visibility(mi):</label>
+			<input type="text" class="recordForm" name="visibility"><br>
+			<label for="wind_direction">Wind_Direction:</label>
+			<input type="text" class="recordForm" name="wind_direction"><br>
+			<label for="wind_speed">Wind_Speed(mph):</label>
+			<input type="text" class="recordForm" name="wind_speed"><br>
+			<label for="precipitation">Precipitation(in):</label>
+			<input type="text" class="recordForm" name="precipitation"><br>
+			<label for="weather_condition">Weather_Condition:</label>
+			<input type="text" class="recordForm" name="weather_condition"><br>
+			<label for="amenity">Amenity:</label>
+			<input type="text" class="recordForm" name="amenity"><br>
+			<label for="sig">Bump:</label>
+			<input type="text" class="recordForm" name="bump"><br>
+			<label for="crossing">Crossing:</label>
+			<input type="text" class="recordForm" name="crossing"><br>
+			<label for="give_way">Give_Way:</label>
+			<input type="text" class="recordForm" name="give_way"><br>
+			<label for="junction">Junction:</label>
+			<input type="text" class="recordForm" name="junction"><br>
+			<label for="no_exit">No_Exit:</label>
+			<input type="text" class="recordForm" name="no_exit"><br>
+			<label for="railway">Railway:</label>
+			<input type="text" class="recordForm" name="railway"><br>
+			<label for="roundabout">Roundabout:</label>
+			<input type="text" class="recordForm" name="roundabout"><br>
+			<label for="station">Station:</label>
+			<input type="text" class="recordForm" name="station"><br>
+			<label for="stop">Stop:</label>
+			<input type="text" class="recordForm" name="stop"><br>
+			<label for="traffic_calming">Traffic_Calming:</label>
+			<input type="text" class="recordForm" name="traffic_calming"><br>
+			<label for="traffic_signal">Traffic_Signal:</label>
+			<input type="text" class="recordForm" name="traffic_signal"><br>
+			<label for="turning_loop">Turning_loop:</label>
+			<input type="text" class="recordForm" name="turning_loop"><br>
+			<label for="sunrise_sunset">Sunrise_Sunset:</label>
+			<input type="text" class="recordForm" name="sunrise_sunset"><br>
+			<label for="civil_twilight">Civil_Twilight:</label>
+			<input type="text" class="recordForm" name="civil_twilight"><br>
+			<label for="nautical_twilight">Nautical_Twilight:</label>
+			<input type="text" class="recordForm" name="nautical_twilight"><br>
+			<label for="astronomical_twilight">Astronomical_Twilight:</label>
+			<input type="text" class="recordForm" name="astronomical_twilight"><br><br>
+			<button onclick="newRecord()">Create New Record</button>
+		</div><br><br>
+		<div>
+			<select multiple="multiple" class="multi-select" id="multi-select" onchange="updateFilters()">
+				<option value="" disabled selected>Select filters</option>
+				<option id="trafficsig" value="trafficsig">Traffic Signal</option>
+				<option id="snow" value="snow">snow</option>
+				<option id="humid" value="humid">Humidity</option>
+				<option id="severity" value="severity">severity</option>
+				<option id="timezone" value="timezone">timezone</option>
+				<option id="city" value="city">city</option>
+				<option id="airport" value="airport">airport</option>
+				<option id="pressure" value="pressure">pressure</option>
+
+				<!--<option id="year" value="year">year</option>
 				<option id="month"value="month">month</option>
 				<option id="day" value="day">day</option>
 				<option id="startTime" value="startTime">startTime</option>
@@ -27,9 +160,10 @@
 				<option id="stop" value="stop">stop</option>
 				<option id="signal" value="signal">signal</option>
 				<option id="weather" value="weather">weather</option>
-				<option id="humidity" value="humidity">humidity</option>
+				<option id="humidity" value="humidity">humidity</option>-->
 			</select>
 		</div>
+<<<<<<< HEAD
 		<div>
 			<textarea class="text-area">Queued data will be displayed here</textarea>
 		</div>
@@ -37,70 +171,217 @@
 			<button type="button" onclick="">Update</button>
 			<button type="button" onclick="buttonExport()">Export</button>
 		</div>
+=======
+>>>>>>> 9118465ac0757a97f530dc8a2e1962381e173264
 
 		<p id="hellow"></p>
 		<button onclick="buttonClickedhello()">Hello!</button>
 
-		<button onclick="buttonweather()">Weather: Light Snow</button>
-		<button onclick="buttonhumid()">Humidity: 100%</button>
-		<button onclick="buttonbump()">Bump: True</button>
-		<button onclick="buttonseverity()">Severity: 3/3</button>
-		<button onclick="buttontimezone()">Timezone: US/Eastern</button>
-		<button onclick="buttoncity()">City: Dayton</button>
-		<button onclick="buttonairport()">Airport Code: KDAY</button>
-		<button onclick="buttonpressure()">Pressure(in): 29.61</button>
-		<button onclick="buttonclear()">Clear Table</button>
+		<div class="button">
+			<button type="button" onclick="updateTable()">Update</button>
+			<button type="button" onclick="buttonClear()">Clear</button>
+			<button type="button" onclick="buttonExport()">Export</button>
+		</div>
 
-		<table class="table" id="infotable"></table>
-
+<<<<<<< HEAD
 		<!--script src="front_end/multiselect.js"></script--> 
+=======
+		<div class="text-area" id="text-area">
+			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
+		</div>
+		
+>>>>>>> 9118465ac0757a97f530dc8a2e1962381e173264
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
+			// Global variables
 			var socket = io.connect();
-        
-            // When button is clickeds
-		    function buttonClickedhello(){
-			    socket.emit('hello');
+			var selectedFilters = [];
+			var count = 0;
+
+			// Function executes immediately and displays which filters are selected
+			window.onload = multiselectFeature(); 
+			function multiselectFeature() {
+				var selectTag = document.querySelector('select');
+				filters = new Array(selectTag.length);
+			
+				selectTag.addEventListener('click', function(e) {
+					// Initialize all the filters to be unselected 
+					filters[e.target.index] = !filters[e.target.index];
+					
+					// If filter is selected, mark it
+					for(var i = 0; i < filters.length; ++i) {
+						selectTag.options[i].selected = filters[i];
+					}
+				})
 			}
-			function buttonbump(){
-			    socket.emit('bump');
+
+
+			// This function gets the filters that are selected
+			function updateFilters() {
+				// Convert all of the options to an array
+				// Then, get an array of only the options that are selected
+				// Then, get an array of the selected option values
+				selectedFilters = Array.from(document.getElementById("multi-select").options).filter(function (option) {
+					return option.selected;
+				}).map(function (option) {
+					return option.value;
+				});
+				console.log(selectedFilters)
 			}
-			function buttonweather(){
-			    socket.emit('snow');
+
+
+			// This function returns the names of the filters that were selected
+			function getFilters() {
+				return selectedFilters;
 			}
-			function buttonhumid(){
-			    socket.emit('humid');
+
+
+			// When the update button is pressed, update the table
+			function updateTable() {
+				if(selectedFilters[0] == 'trafficsig') {
+					socket.emit('trafficsig');
+				}
+				else if(selectedFilters[0] == 'snow') {
+					socket.emit('snow');
+				}
+				else if(selectedFilters[0] == 'humid') {
+					socket.emit('humid');
+				}
+				else if(selectedFilters[0] == 'severity') {
+					socket.emit('severity');
+				}
+				else if(selectedFilters[0] == 'timezone') {
+					socket.emit('timezone');
+				}
+				else if(selectedFilters[0] == 'city') {
+					socket.emit('city');
+				}
+				else if(selectedFilters[0] == 'airport') {
+					socket.emit('airport');
+				}
+				else if(selectedFilters[0] == 'pressure') {
+					socket.emit('pressure');
+				}
 			}
-			function buttonseverity(){
-			    socket.emit('severity');
+
+
+			function update() {
+				socket.emit('update');
 			}
-			function buttontimezone(){
-			    socket.emit('timezone');
+            function del() {
+                var id = document.getElementById('recordID');
+
+                socket.emit('delete', id.value);
+            }
+            function newRecord(){
+                var attributeValues = [];
+
+                var child = document.getElementsByClassName('recordForm');
+                child = Array.prototype.slice.call(child);
+
+                console.log(child);
+                count += 1;
+                attributeValues.push('B-' + count);
+                for (var i = 0; i < child.length; i++){
+                    attributeValues.push(child[i].value);
+                }
+                //console.log(attributeValues);
+                socket.emit('new', attributeValues);
+            }
+			
+
+			// Emits to the server
+			function buttonClickedhello() {
+				socket.emit('hello');
 			}
-			function buttoncity(){
-			    socket.emit('city');
-			}
-			function buttonairport(){
-			    socket.emit('airport');
-			}
-			function buttonpressure(){
-			    socket.emit('pressure');
-			}
-			function buttonclear(){
-			    socket.emit('clear');
+
+
+			// Button is pressed clears the table
+			function buttonClear() {
+				socket.emit('clear');
 			}
 
 			function buttonExport(){
 			    socket.emit('csvexport');
 			}
+
+<<<<<<< HEAD
+			function buttonExport(){
+			    socket.emit('csvexport');
+			}
 			 
 			 // When the server sends, update the HTML
+=======
+			// When the server sends, update the HTML
+>>>>>>> 9118465ac0757a97f530dc8a2e1962381e173264
 			socket.on('hello world', function(data){
-                console.log("Hello World!");
+				console.log("Hello World!");
 				document.getElementById("hellow").innerHTML = 'Hello World!';
 			});
+
+			socket.on('csvexport', function(csvContent) {
+				var encodedUri = encodeURI(csvContent);
+				window.open(encodedUri);
+			});
+
+			socket.on('update_return', function(data) {
+				var id = document.getElementById('recordID');
+				var dd = document.getElementById('select-dd');
+				var newval = document.getElementById('newValue');
+				var j_ind = 0;
+				console.log(id.value);
+
+				for(var j = 0; j < data.length; j++) {
+					if (data[j][0] == String(id.value)){
+						if(String(dd.value) == 'snow') {
+							data[j][31] = newval.value;
+                            console.log(data[j][31]);
+							socket.emit('update_snow', data);
+						}
+                        else if(String(dd.value) == 'traffic_sig') {
+							data[j][43] = newval.value;
+                            console.log(data[j][43]);
+							socket.emit('update_trafficsig', data);
+						}
+                        else if(String(dd.value) == 'humid') {
+							data[j][25] = newval.value;
+                            console.log(data[j][25]);
+							socket.emit('update_humid', data);
+						}
+                        else if(String(dd.value) == 'severity') {
+							data[j][3] = newval.value;
+                            console.log(data[j][3]);
+							socket.emit('update_severity', data);
+						}
+                        else if(String(dd.value) == 'timezone') {
+							data[j][20] = newval.value;
+                            console.log(data[j][20]);
+							socket.emit('update_timezone', data);
+						}
+                        else if(String(dd.value) == 'city') {
+							data[j][15] = newval.value;
+                            console.log(data[j][15]);
+							socket.emit('update_city', data);
+						}
+                        else if(String(dd.value) == 'airport') {
+							data[j][21] = newval.value;
+                            console.log(data[j][21]);
+							socket.emit('update_airport', data);
+						}
+                        else if(String(dd.value) == 'pressure') {
+							data[j][26] = newval.value;
+                            console.log(data[j][26]);
+							socket.emit('update_pressure', data);
+						}
+					}
+				}
+			});
+
+
 			socket.on('empty', function(data){
-                var table = '<table>';
+				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
+				var table = '<table>';
+				table += '<thead>';
 				table += '<tr>';
 				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
 				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
@@ -111,10 +392,10 @@
 				
 				for(var i in data[0]) {
 					table += '<th>' + i + '</th>';
-					console.log(i);
 				}
 
 				table += '</tr>';
+				table += '<tbody>';
 				for(var j = 0; j < data.length; j++){
 					table += '<tr>';
 					for(var k in data[j]){
@@ -122,13 +403,23 @@
 					}
 					table += '</tr>';
 				}
+				table += '</tbody>';
 				table += '</table>';
 				document.getElementById('infotable').innerHTML = table;
+				$(document).ready(function() {
+					$('#infotable').DataTable( {
+						"pagingType": "full_numbers",
+						"bDestroy": true
+					} );
+				} );
 			});
+
+
 			socket.on('senddata', function(data){
-                console.log("Received Data");
+				console.log("Received Data");
 				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
 				var table = '<table>';
+				table += '<thead>';
 				table += '<tr>';
 				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
 				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
@@ -144,10 +435,10 @@
 
 				for(var i in testarr) {
 					table += '<th>' + testarr[i] + '</th>';
-					console.log(i);
 				}
 
 				table += '</tr>';
+				table += '<tbody>';
 				for(var j = 0; j < data.length; j++){
 					table += '<tr>';
 					for(var k in data[j]){
@@ -155,8 +446,15 @@
 					}
 					table += '</tr>';
 				}
+				table += '</tbody>';
 				table += '</table>';
 				document.getElementById('infotable').innerHTML = table;
+				$(document).ready(function() {
+					$('#infotable').DataTable( {
+						"pagingType": "full_numbers",
+						"bDestroy": true
+					} );
+				} );
 			});
 			socket.on('csvexport', function(csvContent) {
 				console.log('ehehe');
