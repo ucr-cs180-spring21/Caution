@@ -6,8 +6,10 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server); 
 const fs = require('fs')
 
+// Globals
 var data = []
 var obj = []
+var stream
 let match
 
 const lineReader = require('readline').createInterface({
@@ -33,9 +35,35 @@ app.get('/', function(req, res,next) {
 io.on('connection', function(client) { 
 	// Clicked messages
     client.on('hello', function(data) {
-            console.log("Request received from client");
-		    io.emit('hello world');
+        console.log("Request received from client");
+		io.emit('hello world');
     });
+
+    client.on('update', function(field) {
+        io.emit('update_return', data);
+    });
+
+    client.on('delete', function(id) {
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == id){
+                data.splice(j, 1);
+            }
+        }
+        io.emit('senddata', data);
+    });
+    
+    client.on('new', function(field) {
+        var retdata = []
+        console.log(data[data.length-1]);
+        retdata.push(field);
+        data.push(field);
+        io.emit('senddata', retdata);
+    });
+
+    client.on('add', function(val) {
+        data.push(val);
+    });
+
     client.on('snow', function(client){
         var re = []
 
@@ -54,6 +82,26 @@ io.on('connection', function(client) {
         }
         //console.log(retdata);
 
+        io.emit('senddata', retdata);
+    });
+    client.on('update_snow', function(r_data){
+        var re = []
+        re.push(r_data);
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][31] = r_data[31];
+            }
+        }
+        var retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+
+        // data = r_data;
         io.emit('senddata', retdata);
     });
     client.on('humid', function(client){
@@ -77,13 +125,32 @@ io.on('connection', function(client) {
 
         io.emit('senddata', retdata);
     });
-    client.on('bump', function(client){
+    client.on('update_humid', function(r_data){
+        var re = []
+        re.push(r_data);
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][25] = r_data[25];
+            }
+        }
+        var retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+
+        // data = r_data;
+        io.emit('senddata', retdata);
+    });
+    client.on('trafficsig', function(client){
         var re = []
 
         for(var j = 0; j < data.length; j++) {
-            if (data[j][33] == 'TRUE'){
+            if (data[j][43] == 'TRUE'){
                 re.push(data[j]);
-                //console.log(data[j]);
             }
         }
 
@@ -98,6 +165,27 @@ io.on('connection', function(client) {
 
         io.emit('senddata', retdata);
     });
+    client.on('update_trafficsig', function(r_data){
+        var re = []
+        re.push(r_data);
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][43] = r_data[43];
+            }
+        }
+        var retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+
+        // data = r_data;
+        io.emit('senddata', retdata);
+    });
+
     client.on('severity', function(client){
         var re = []
 
@@ -119,6 +207,28 @@ io.on('connection', function(client) {
 
         io.emit('senddata', retdata);
     });
+
+    client.on('update_severity', function(r_data){
+        var re = []
+        re.push(r_data);
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][3] = r_data[3];
+            }
+        }
+        var retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+
+        // data = r_data;
+        io.emit('senddata', retdata);
+    });
+
     client.on('timezone', function(client){
         var re = []
 
@@ -140,6 +250,28 @@ io.on('connection', function(client) {
 
         io.emit('senddata', retdata);
     });
+
+    client.on('update_timezone', function(r_data){
+        var re = []
+        re.push(r_data);
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][20] = r_data[20];
+            }
+        }
+        var retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+
+        // data = r_data;
+        io.emit('senddata', retdata);
+    });
+
     client.on('city', function(client){
         var re = []
 
@@ -161,6 +293,28 @@ io.on('connection', function(client) {
 
         io.emit('senddata', retdata);
     });
+
+    client.on('update_city', function(r_data){
+        var re = []
+        re.push(r_data);
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][15] = r_data[15];
+            }
+        }
+        var retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+
+        // data = r_data;
+        io.emit('senddata', retdata);
+    });
+
     client.on('airport', function(client){
         var re = []
 
@@ -182,6 +336,28 @@ io.on('connection', function(client) {
 
         io.emit('senddata', retdata);
     });
+
+    client.on('update_airport', function(r_data){
+        var re = []
+        re.push(r_data);
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][21] = r_data[21];
+            }
+        }
+        var retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+
+        // data = r_data;
+        io.emit('senddata', retdata);
+    });
+
     client.on('pressure', function(client){
         var re = []
 
@@ -205,10 +381,61 @@ io.on('connection', function(client) {
 
         io.emit('senddata', retdata);
     });
+
+    client.on('update_pressure', function(r_data){
+        var re = []
+        re.push(r_data);
+
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][26] = r_data[26];
+            }
+        }
+        var retdata = [];
+
+        for(var i = 0; i < re.length; i++) {
+            var arrayToString = JSON.stringify(Object.assign({}, re[i]));
+            var stringToJsonObject = JSON.parse(arrayToString);
+            retdata.push(stringToJsonObject);
+        }
+
+        // data = r_data;
+        io.emit('senddata', retdata);
+    });
+
     client.on('clear', function(client){
         retdata = [];
         io.emit('empty', retdata);
     });
+
+    client.on('backup', function(client){
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+
+        data.forEach(function(rowArray) {
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+
+        stream = fs.createWriteStream("data/backup.csv");
+        stream.write(csvContent);
+        io.emit('backup', []);
+    });
+
+
+    // client.on('csvexport', function(client){
+    //     let csvContent = "data:text/csv;charset=utf-8,";
+        
+    //     WIP: converting retdata to true array
+    //     for(var i in retdata) {
+    //         var temparr = [];
+    //         temparr.push(JSON.ConvertToCSV(retdata[i]));
+    //         let temp = temparr.join(",");
+    //         csvContent += temp + "\r\n";
+    //     }
+    //     console.log(csvContent);
+    //     io.emit('csvexport', csvContent);
+    // });
 });
 
 // Starting the server and listening to the port
