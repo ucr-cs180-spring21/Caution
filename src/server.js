@@ -12,12 +12,13 @@ var data = []
 var obj = []
 var stream
 let match
+var datadir = 'data/book.csv';
 
 // serves stuff
 app.use(express.static(path.join(__dirname, 'styling')));
 
 const lineReader = require('readline').createInterface({
-    input: fs.createReadStream('data/book.csv')
+    input: fs.createReadStream(datadir)
 })
 
 lineReader.on('line', function (line) {
@@ -415,7 +416,7 @@ io.on('connection', function(client) {
         io.emit('empty', retdata);
     });
 
-    client.on('backup', function(client){
+    client.on('backup', function(id){
 
         //let csvContent = "data:text/csv;charset=utf-8,";
         let csvContent;
@@ -428,6 +429,27 @@ io.on('connection', function(client) {
         stream = fs.createWriteStream("data/backup.csv");
         stream.write(csvContent);
         io.emit('backup', []);
+    });
+
+    client.on('updateinput', function(id){
+        datadir = 'data/' + id;
+        console.log(datadir);
+
+        const lineReader = require('readline').createInterface({
+            input: fs.createReadStream(datadir)
+        })
+        
+        lineReader.on('line', function (line) {
+            var splitter = new RegExp(/[^,]+/,'g')
+        
+            while ((match = splitter.exec(line)) !== null) {
+                obj.push(match[0])
+            }
+            data.push(obj)
+            //console.log(data)
+            obj = []
+        });
+        io.emit('senddata', data);
     });
 
 

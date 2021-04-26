@@ -190,6 +190,11 @@
 			<button type="button" onclick="buttonClear()">Clear</button>
 			<button type="button" onclick="buttonBackup()">Backup</button>
 			<!--button type="button" onclick="buttonExport()">Export</button-->
+		</div><br><br>
+		<div>
+			<label for="fileName">Input File Name:</label>
+			<input type="text" id="fileName" name="fileName"><br><br>
+			<button type="button" onclick="updateCSV()">Input New CSV</button>
 		</div>
 
 		<div class="text-area" id="text-area">
@@ -318,7 +323,13 @@
 			
 
 			function buttonBackup() {
+				var fn = document.getElementById('fileName');
 				socket.emit('backup');
+			}
+
+			function updateCSV() {
+				var fn = document.getElementById('fileName');
+				socket.emit('updateinput', fn.value);
 			}
 
 			// Button exports the filtered data to be downloaded on client's comp
