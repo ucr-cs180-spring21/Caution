@@ -16,7 +16,7 @@
 			<input type="text" id="recordID" name="recordID"><br><br>
 			<label for="attributeChange">Attribute to Change:</label>
 			<select id="attributeChange">
-				<option value="bump">Bump</option>
+				<option value="traffic_sig">Traffic Signal</option>
 				<option value="snow">Snow</option>
 				<option value="humid">Humidity</option>
 				<option value="severity">Severity</option>
@@ -133,14 +133,13 @@
 			<select multiple class="multi-select" id="multi-select" onchange="updateFilters()">
 				<option value="" disabled selected>Select filters</option>
 				<option id="trafficsig" value="trafficsig">Traffic Signal</option>
-				<option id="snow" value="snow">snow</option>
+				<option id="snow" value="snow">Snow</option>
 				<option id="humid" value="humid">Humidity</option>
-				<option id="severity" value="severity">severity</option>
-				<option id="timezone" value="timezone">timezone</option>
-				<option id="city" value="city">city</option>
-				<option id="airport" value="airport">airport</option>
-				<option id="pressure" value="pressure">pressure</option>
-				<option id="bump" value="bump">bump</option>
+				<option id="severity" value="severity">Severity</option>
+				<option id="timezone" value="timezone">Timezone</option>
+				<option id="city" value="city">City</option>
+				<option id="airport" value="airport">Airport</option>
+				<option id="pressure" value="pressure">Pressure</option>
 			</select>
 		</div>
 
@@ -237,7 +236,9 @@
 
 			// When button is pressed updates the 
 			function update() {
-				socket.emit('update');
+				var id = document.getElementById('recordID');
+
+				socket.emit('update', id.value);
 			}
 
 
@@ -299,7 +300,7 @@
 
 			socket.on('update_return', function(data) {
 				var id = document.getElementById('recordID');
-				var dd = document.getElementById('select-dd');
+				var dd = document.getElementById('attributeChange');
 				var newval = document.getElementById('newValue');
 				var j_ind = 0;
 				console.log(id.value);
@@ -308,43 +309,43 @@
 					if (data[j][0] == String(id.value)){
 						if(String(dd.value) == 'snow') {
 							data[j][31] = newval.value;
-                            console.log(data[j][31]);
-							socket.emit('update_snow', data);
+                            console.log(data[j]);
+							socket.emit('update_snow', data[j]);
 						}
                         else if(String(dd.value) == 'traffic_sig') {
 							data[j][43] = newval.value;
                             console.log(data[j][43]);
-							socket.emit('update_trafficsig', data);
+							socket.emit('update_trafficsig', data[j]);
 						}
                         else if(String(dd.value) == 'humid') {
 							data[j][25] = newval.value;
                             console.log(data[j][25]);
-							socket.emit('update_humid', data);
+							socket.emit('update_humid', data[j]);
 						}
                         else if(String(dd.value) == 'severity') {
 							data[j][3] = newval.value;
                             console.log(data[j][3]);
-							socket.emit('update_severity', data);
+							socket.emit('update_severity', data[j]);
 						}
                         else if(String(dd.value) == 'timezone') {
 							data[j][20] = newval.value;
                             console.log(data[j][20]);
-							socket.emit('update_timezone', data);
+							socket.emit('update_timezone', data[j]);
 						}
                         else if(String(dd.value) == 'city') {
 							data[j][15] = newval.value;
                             console.log(data[j][15]);
-							socket.emit('update_city', data);
+							socket.emit('update_city', data[j]);
 						}
                         else if(String(dd.value) == 'airport') {
 							data[j][21] = newval.value;
                             console.log(data[j][21]);
-							socket.emit('update_airport', data);
+							socket.emit('update_airport', data[j]);
 						}
                         else if(String(dd.value) == 'pressure') {
 							data[j][26] = newval.value;
                             console.log(data[j][26]);
-							socket.emit('update_pressure', data);
+							socket.emit('update_pressure', data[j]);
 						}
 					}
 				}

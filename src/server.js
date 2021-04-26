@@ -86,13 +86,14 @@ io.on('connection', function(client) {
     });
     client.on('update_snow', function(r_data){
         var re = []
+        re.push(r_data);
 
-        for(var j = 0; j < r_data.length; j++) {
-            if (r_data[j][31] == 'Light Snow'){
-                re.push(r_data[j]);
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][31] = r_data[31];
             }
         }
-        retdata = [];
+        var retdata = [];
 
         for(var i = 0; i < re.length; i++) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
@@ -100,7 +101,7 @@ io.on('connection', function(client) {
             retdata.push(stringToJsonObject);
         }
 
-        data = r_data;
+        // data = r_data;
         io.emit('senddata', retdata);
     });
     client.on('humid', function(client){
@@ -126,13 +127,14 @@ io.on('connection', function(client) {
     });
     client.on('update_humid', function(r_data){
         var re = []
+        re.push(r_data);
 
-        for(var j = 0; j < r_data.length; j++) {
-            if (r_data[j][25] == '100'){
-                re.push(r_data[j]);
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][25] = r_data[25];
             }
         }
-        retdata = [];
+        var retdata = [];
 
         for(var i = 0; i < re.length; i++) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
@@ -140,7 +142,7 @@ io.on('connection', function(client) {
             retdata.push(stringToJsonObject);
         }
 
-        data = r_data;
+        // data = r_data;
         io.emit('senddata', retdata);
     });
     client.on('trafficsig', function(client){
@@ -165,13 +167,14 @@ io.on('connection', function(client) {
     });
     client.on('update_trafficsig', function(r_data){
         var re = []
+        re.push(r_data);
 
-        for(var j = 0; j < r_data.length; j++) {
-            if (r_data[j][43] == 'TRUE'){
-                re.push(r_data[j]);
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][43] = r_data[43];
             }
         }
-        retdata = [];
+        var retdata = [];
 
         for(var i = 0; i < re.length; i++) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
@@ -179,7 +182,7 @@ io.on('connection', function(client) {
             retdata.push(stringToJsonObject);
         }
 
-        data = r_data;
+        // data = r_data;
         io.emit('senddata', retdata);
     });
 
@@ -207,13 +210,14 @@ io.on('connection', function(client) {
 
     client.on('update_severity', function(r_data){
         var re = []
+        re.push(r_data);
 
-        for(var j = 0; j < r_data.length; j++) {
-            if (r_data[j][3] == '3'){
-                re.push(r_data[j]);
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][3] = r_data[3];
             }
         }
-        retdata = [];
+        var retdata = [];
 
         for(var i = 0; i < re.length; i++) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
@@ -221,7 +225,7 @@ io.on('connection', function(client) {
             retdata.push(stringToJsonObject);
         }
 
-        data = r_data;
+        // data = r_data;
         io.emit('senddata', retdata);
     });
 
@@ -249,13 +253,14 @@ io.on('connection', function(client) {
 
     client.on('update_timezone', function(r_data){
         var re = []
+        re.push(r_data);
 
-        for(var j = 0; j < r_data.length; j++) {
-            if (r_data[j][20] == 'US/Eastern'){
-                re.push(r_data[j]);
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][20] = r_data[20];
             }
         }
-        retdata = [];
+        var retdata = [];
 
         for(var i = 0; i < re.length; i++) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
@@ -263,7 +268,7 @@ io.on('connection', function(client) {
             retdata.push(stringToJsonObject);
         }
 
-        data = r_data;
+        // data = r_data;
         io.emit('senddata', retdata);
     });
 
@@ -291,13 +296,14 @@ io.on('connection', function(client) {
 
     client.on('update_city', function(r_data){
         var re = []
+        re.push(r_data);
 
-        for(var j = 0; j < r_data.length; j++) {
-            if (r_data[j][15] == 'Dayton'){
-                re.push(r_data[j]);
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][15] = r_data[15];
             }
         }
-        retdata = [];
+        var retdata = [];
 
         for(var i = 0; i < re.length; i++) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
@@ -305,7 +311,7 @@ io.on('connection', function(client) {
             retdata.push(stringToJsonObject);
         }
 
-        data = r_data;
+        // data = r_data;
         io.emit('senddata', retdata);
     });
 
@@ -333,13 +339,14 @@ io.on('connection', function(client) {
 
     client.on('update_airport', function(r_data){
         var re = []
+        re.push(r_data);
 
-        for(var j = 0; j < r_data.length; j++) {
-            if (r_data[j][21] == 'KDAY'){
-                re.push(r_data[j]);
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][21] = r_data[21];
             }
         }
-        retdata = [];
+        var retdata = [];
 
         for(var i = 0; i < re.length; i++) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
@@ -347,7 +354,7 @@ io.on('connection', function(client) {
             retdata.push(stringToJsonObject);
         }
 
-        data = r_data;
+        // data = r_data;
         io.emit('senddata', retdata);
     });
 
@@ -377,13 +384,14 @@ io.on('connection', function(client) {
 
     client.on('update_pressure', function(r_data){
         var re = []
+        re.push(r_data);
 
-        for(var j = 0; j < r_data.length; j++) {
-            if (r_data[j][26] == '29.61'){
-                re.push(r_data[j]);
+        for(var j = 0; j < data.length; j++) {
+            if (data[j][0] == r_data[0]){
+                data[j][26] = r_data[26];
             }
         }
-        retdata = [];
+        var retdata = [];
 
         for(var i = 0; i < re.length; i++) {
             var arrayToString = JSON.stringify(Object.assign({}, re[i]));
@@ -391,7 +399,7 @@ io.on('connection', function(client) {
             retdata.push(stringToJsonObject);
         }
 
-        data = r_data;
+        // data = r_data;
         io.emit('senddata', retdata);
     });
 
