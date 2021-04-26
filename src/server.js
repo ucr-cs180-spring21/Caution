@@ -12,25 +12,29 @@ var data = []
 var obj = []
 var stream
 let match
-var datadir = 'data/book.csv';
+//let datadir = 'data/book.csv'
 
 // serves stuff
 app.use(express.static(path.join(__dirname, 'styling')));
 
-const lineReader = require('readline').createInterface({
-    input: fs.createReadStream(datadir)
-})
+async function process(datain) {
+    data = [];
+    console.log(datain);
+    const lineReader = require('readline').createInterface({
+        input: fs.createReadStream(datain)
+    })
 
-lineReader.on('line', function (line) {
-    var splitter = new RegExp(/[^,]+/,'g')
+    lineReader.on('line', function (line) {
+        var splitter = new RegExp(/[^,]+/,'g')
 
-    while ((match = splitter.exec(line)) !== null) {
-        obj.push(match[0])
-    }
-    data.push(obj)
-    //console.log(data)
-    obj = []
-});
+        while ((match = splitter.exec(line)) !== null) {
+            obj.push(match[0])
+        }
+        data.push(obj)
+        //console.log(data)
+        obj = []
+    });
+}
 
 // Index.html Redirect
 app.get('/', function(req, res,next) {  
@@ -41,6 +45,7 @@ app.get('/', function(req, res,next) {
 });
 
 io.on('connection', function(client) { 
+    //process('data/book.csv');
 	// Clicked messages
     client.on('hello', function(data) {
         console.log("Request received from client");
@@ -433,23 +438,29 @@ io.on('connection', function(client) {
 
     client.on('updateinput', function(id){
         datadir = 'data/' + id;
-        console.log(datadir);
+        //console.log(datadir);
+        process(datadir);
+        // var idata = [];
+        // obj = [];
+        // var match1;
 
-        const lineReader = require('readline').createInterface({
-            input: fs.createReadStream(datadir)
-        })
+        // const lineReader = require('readline').createInterface({
+        //     input: fs.createReadStream(datadir)
+        // })
         
-        lineReader.on('line', function (line) {
-            var splitter = new RegExp(/[^,]+/,'g')
+        // lineReader.on('line', function (line) {
+        //     var splitter = new RegExp(/[^,]+/,'g')
         
-            while ((match = splitter.exec(line)) !== null) {
-                obj.push(match[0])
-            }
-            data.push(obj)
-            //console.log(data)
-            obj = []
-        });
-        io.emit('senddata', data);
+        //     while ((match1 = splitter.exec(line)) !== null) {
+        //         obj.push(match1[0])
+        //     }
+        //     idata.push(obj)
+        //     //console.log(data)
+        //     obj = []
+        // });
+        // console.log(idata.length);
+        // data = idata;
+        // io.emit('senddata', idata);
     });
 
 
