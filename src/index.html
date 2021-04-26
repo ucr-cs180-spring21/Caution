@@ -9,7 +9,7 @@
 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 	<link type="text/css" href="styling/style.css">
-	<body>
+	<body class="container">
 		<h1>Caution!</h1>	 
 		<div>
 			<label for="recordID">Record ID:</label>
@@ -140,6 +140,7 @@
 				<option id="city" value="city">city</option>
 				<option id="airport" value="airport">airport</option>
 				<option id="pressure" value="pressure">pressure</option>
+				<option id="bump" value="bump">bump</option>
 			</select>
 		</div>
 
@@ -227,17 +228,25 @@
 				else if(selectedFilters[0] == 'pressure') {
 					socket.emit('pressure');
 				}
+				else if(selectedFilters[0] == 'bump') {
+					socket.emit('bump');
+				}
 			}
 
 
+			// When button is pressed updates the 
 			function update() {
 				socket.emit('update');
 			}
+
+
             function del() {
                 var id = document.getElementById('recordID');
 
                 socket.emit('delete', id.value);
             }
+
+
             function newRecord(){
                 var attributeValues = [];
 
@@ -261,14 +270,17 @@
 			}
 
 
-			// Button is pressed clears the table
+			// When the button is pressed, clears the table
 			function buttonClear() {
 				socket.emit('clear');
 			}
+			
 
+			// When the button is pressed, export the csv
 			function buttonExport(){
 			    socket.emit('csvexport');
 			}
+
 
 			// When the server sends, update the HTML
 			socket.on('hello world', function(data){
@@ -366,7 +378,11 @@
 				$(document).ready(function() {
 					$('#infotable').DataTable( {
 						"pagingType": "full_numbers",
-						"bDestroy": true
+						"bDestroy": true,
+						// "columnDefs": [
+						// 	{ "targets": [0], "orderable": false }
+						// ]
+						"ordering": false
 					} );
 				} );
 			});
@@ -409,7 +425,11 @@
 				$(document).ready(function() {
 					$('#infotable').DataTable( {
 						"pagingType": "full_numbers",
-						"bDestroy": true
+						"bDestroy": true,
+						// "columnDefs": [
+						// 	{ "targets": [1], "orderable": false }
+						// ]
+						"ordering": false
 					} );
 				} );
 			});
