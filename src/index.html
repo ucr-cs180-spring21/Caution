@@ -14,16 +14,16 @@
 		<div>
 			<label for="recordID">Record ID:</label>
 			<input type="text" id="recordID" name="recordID"><br><br>
-			<select id='select-dd'>
-				<option value="" disabled selected>Select filters</option>
-				<option id="traffic_sig" value="traffic_sig">Traffic Signal</option>
-				<option id="snow" value="snow">Snow</option>
-				<option id="humid" value="humid">Humidity</option>
-				<option id="severity" value="severity">Severity</option>
-				<option id="timezone" value="timezone">Timezone</option>
-				<option id="city" value="city">City</option>
-				<option id="airport" value="airport">Airport</option>
-				<option id="pressure" value="pressure">Pressure</option>
+			<label for="attributeChange">Attribute to Change:</label>
+			<select id="attributeChange">
+				<option value="bump">Bump</option>
+				<option value="snow">Snow</option>
+				<option value="humid">Humidity</option>
+				<option value="severity">Severity</option>
+				<option value="timezone">Timezone</option>
+				<option value="city">City</option>
+				<option value="airport">Airport</option>
+				<option value="pressure">Pressure</option>
 			</select><br><br>
 			<label for="newValue">New Value:</label>
 			<input type="text" id="newValue" name="newValue"><br><br>
@@ -130,7 +130,7 @@
 			<button onclick="newRecord()">Create New Record</button>
 		</div><br><br>
 		<div>
-			<select multiple="multiple" class="multi-select" id="multi-select" onchange="updateFilters()">
+			<select multiple class="multi-select" id="multi-select" onchange="updateFilters()">
 				<option value="" disabled selected>Select filters</option>
 				<option id="trafficsig" value="trafficsig">Traffic Signal</option>
 				<option id="snow" value="snow">snow</option>
@@ -166,7 +166,7 @@
 			// Function executes immediately and displays which filters are selected
 			window.onload = multiselectFeature(); 
 			function multiselectFeature() {
-				var selectTag = document.querySelector('select');
+				var selectTag = document.getElementById('multi-select');
 				filters = new Array(selectTag.length);
 			
 				selectTag.addEventListener('click', function(e) {
