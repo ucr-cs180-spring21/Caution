@@ -2,7 +2,8 @@
 const { Socket } = require('dgram');
 var express = require('express');  
 var app = express();  
-var server = require('http').createServer(app); 
+var server = require('http').createServer(app);
+var path = require('path');
 var io = require('socket.io')(server); 
 const fs = require('fs')
 
@@ -11,28 +12,40 @@ var data = []
 var obj = []
 var stream
 let match
+//let datadir = 'data/book.csv'
 
-const lineReader = require('readline').createInterface({
-    input: fs.createReadStream('data/backup.csv')
-})
+// serves stuff
+app.use(express.static(path.join(__dirname, 'styling')));
 
-lineReader.on('line', function (line) {
-    var splitter = new RegExp(/[^,]+/,'g')
+async function process(datain) {
+    data = [];
+    console.log(datain);
+    const lineReader = require('readline').createInterface({
+        input: fs.createReadStream(datain)
+    })
 
-    while ((match = splitter.exec(line)) !== null) {
-        obj.push(match[0])
-    }
-    data.push(obj)
-    //console.log(data)
-    obj = []
-});
+    lineReader.on('line', function (line) {
+        var splitter = new RegExp(/[^,]+/,'g')
+
+        while ((match = splitter.exec(line)) !== null) {
+            obj.push(match[0])
+        }
+        data.push(obj)
+        //console.log(data)
+        obj = []
+    });
+}
 
 // Index.html Redirect
 app.get('/', function(req, res,next) {  
     res.sendFile(__dirname + '/index.html');
+    
+    //app.use('/styling/style.css', express.static('public'));
+
 });
 
 io.on('connection', function(client) { 
+    //process('data/book.csv');
 	// Clicked messages
     client.on('hello', function(data) {
         console.log("Request received from client");
@@ -408,7 +421,7 @@ io.on('connection', function(client) {
         io.emit('empty', retdata);
     });
 
-    client.on('backup', function(client){
+    client.on('backup', function(id){
 
         //let csvContent = "data:text/csv;charset=utf-8,";
         let csvContent;
@@ -421,6 +434,33 @@ io.on('connection', function(client) {
         stream = fs.createWriteStream("data/backup.csv");
         stream.write(csvContent);
         io.emit('backup', []);
+    });
+
+    client.on('updateinput', function(id){
+        datadir = 'data/' + id;
+        //console.log(datadir);
+        process(datadir);
+        // var idata = [];
+        // obj = [];
+        // var match1;
+
+        // const lineReader = require('readline').createInterface({
+        //     input: fs.createReadStream(datadir)
+        // })
+        
+        // lineReader.on('line', function (line) {
+        //     var splitter = new RegExp(/[^,]+/,'g')
+        
+        //     while ((match1 = splitter.exec(line)) !== null) {
+        //         obj.push(match1[0])
+        //     }
+        //     idata.push(obj)
+        //     //console.log(data)
+        //     obj = []
+        // });
+        // console.log(idata.length);
+        // data = idata;
+        // io.emit('senddata', idata);
     });
 
 
