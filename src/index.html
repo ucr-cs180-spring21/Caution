@@ -30,7 +30,7 @@
 			<button onclick="update()">Change Value</button>
 			<button onclick="del()">Delete</button>
 		</div><br><br>
-		<div id="newRecordForm">
+		<!--div id="newRecordForm">
 			<label for="source">Source:</label>
 			<input type="text" class="recordForm" name="source"><br>
 			<label for="tmc">TMC:</label>
@@ -128,7 +128,7 @@
 			<label for="astronomical_twilight">Astronomical_Twilight:</label>
 			<input type="text" class="recordForm" name="astronomical_twilight"><br><br>
 			<button onclick="newRecord()">Create New Record</button>
-		</div><br><br>
+		</div--><br><br>
 		<div>
 			<select multiple class="multi-select" id="multi-select" onchange="updateFilters()">
 				<option value="" disabled selected>Select filters</option>
@@ -150,7 +150,8 @@
 		<div class="button">
 			<button type="button" onclick="updateTable()">Update</button>
 			<button type="button" onclick="buttonClear()">Clear</button>
-			<button type="button" onclick="buttonExport()">Export</button>
+			<button type="button" onclick="buttonBackup()">Backup</button>
+			<!--button type="button" onclick="buttonExport()">Export</button-->
 		</div>
 
 		<div class="text-area" id="text-area">
@@ -276,11 +277,14 @@
 			}
 			
 
-			// When the button is pressed, export the csv
-			function buttonExport(){
-			    socket.emit('csvexport');
+			function buttonBackup() {
+				socket.emit('backup');
 			}
 
+			// Button exports the filtered data to be downloaded on client's comp
+			// function buttonExport(){
+			//     socket.emit('csvexport');
+			// }
 
 			// When the server sends, update the HTML
 			socket.on('hello world', function(data){
@@ -432,6 +436,16 @@
 						"ordering": false
 					} );
 				} );
+			});
+			// client side export button
+			// socket.on('csvexport', function(csvContent) {
+			// 	console.log('ehehe');
+			// 	var encodedUri = encodeURI(csvContent);
+			// 	window.open(encodedUri);
+			// });
+			socket.on('backup', function(backup){
+				console.log('backup successful');
+				
 			});
 		</script>
 	</body>

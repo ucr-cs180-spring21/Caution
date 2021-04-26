@@ -6,12 +6,14 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server); 
 const fs = require('fs')
 
+// Globals
 var data = []
 var obj = []
+var stream
 let match
 
 const lineReader = require('readline').createInterface({
-    input: fs.createReadStream('data/uT4KHvJR.csv')
+    input: fs.createReadStream('data/book.csv')
 })
 
 lineReader.on('line', function (line) {
@@ -398,16 +400,34 @@ io.on('connection', function(client) {
         io.emit('empty', retdata);
     });
 
-    client.on('csvexport', function(client){
+    client.on('backup', function(client){
+
         let csvContent = "data:text/csv;charset=utf-8,";
 
         data.forEach(function(rowArray) {
             let row = rowArray.join(",");
             csvContent += row + "\r\n";
         });
-        //console.log(csvContent);
-        io.emit('csvexport', csvContent);
+
+        stream = fs.createWriteStream("data/backup.csv");
+        stream.write(csvContent);
+        io.emit('backup', []);
     });
+
+
+    // client.on('csvexport', function(client){
+    //     let csvContent = "data:text/csv;charset=utf-8,";
+        
+    //     WIP: converting retdata to true array
+    //     for(var i in retdata) {
+    //         var temparr = [];
+    //         temparr.push(JSON.ConvertToCSV(retdata[i]));
+    //         let temp = temparr.join(",");
+    //         csvContent += temp + "\r\n";
+    //     }
+    //     console.log(csvContent);
+    //     io.emit('csvexport', csvContent);
+    // });
 });
 
 // Starting the server and listening to the port
