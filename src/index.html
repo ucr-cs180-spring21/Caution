@@ -1,16 +1,19 @@
 <!DOCTYPE html>
  <html lang = "en">
- <head>
-	 <meta charset = "UTF-8">
-	 <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-	 <title>Caution</title>
- </head>
+	<head>
+		<meta charset = "UTF-8">
+		<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+		<title>Caution</title>
+		
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="/style.css">
+		
+	</head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
-	<link type="text/css" href="styling/style.css">
-	<body class="container">
-		<h1>Caution!</h1>	 
+	
+	<body>
+		<h1>Caution!</h1>
 		<div>
 			<label for="recordID">Record ID:</label>
 			<input type="text" id="recordID" name="recordID"><br><br>
@@ -31,103 +34,139 @@
 			<button onclick="del()">Delete</button>
 		</div><br><br>
 		<div id="newRecordForm">
-			<label for="source">Source:</label>
-			<input type="text" class="recordForm" name="source"><br>
-			<label for="tmc">TMC:</label>
-			<input type="text" class="recordForm" name="tmc"><br>
-			<label for="severity">Severity:</label>
-			<input type="text" class="recordForm" name="severity"><br>
-			<label for="start_time">Start_Time:</label>
-			<input type="text" class="recordForm" name="start_time"><br>
-			<label for="end_time">End_Time:</label>
-			<input type="text" class="recordForm" name="end_time"><br>
-			<label for="start_lat">Start_Lat:</label>
-			<input type="text" class="recordForm" name="start_lat"><br>
-			<label for="start_lng">Start_Lng:</label>
-			<input type="text" class="recordForm" name="start_lng"><br>
-			<label for="start_lat">End_Lat:</label>
-			<input type="text" class="recordForm" name="end_lat"><br>
-			<label for="end_lat">End_Lng:</label>
-			<input type="text" class="recordForm" name="end_lat"><br>
-			<label for="distance">Distance(mi):</label>
-			<input type="text" class="recordForm" name="distance"><br>
-			<label for="description">Description:</label>
-			<input type="text" class="recordForm" name="description"><br>
-			<label for="number">Number:</label>
-			<input type="text" class="recordForm" name="number"><br>
-			<label for="street">Street:</label>
-			<input type="text" class="recordForm" name="street"><br>
-			<label for="side">Side:</label>
-			<input type="text" class="recordForm" name="side"><br>
-			<label for="city">City:</label>
-			<input type="text" class="recordForm" name="city"><br>
-			<label for="county">County:</label>
-			<input type="text" class="recordForm" name="county"><br>
-			<label for="state">State:</label>
-			<input type="text" class="recordForm" name="state"><br>
-			<label for="zipcode">Zipcode:</label>
-			<input type="text" class="recordForm" name="zipcode"><br>
-			<label for="country">Country:</label>
-			<input type="text" class="recordForm" name="country"><br>
-			<label for="timezone">Timezone:</label>
-			<input type="text" class="recordForm" name="timezone"><br>
-			<label for="airport_code">Airport_Code:</label>
-			<input type="text" class="recordForm" name="airport_code"><br>
-			<label for="weather_timestamp">Weather_Timestamp:</label>
-			<input type="text" class="recordForm" name="weather_timestamp"><br>
-			<label for="temperature">Temperature(F):</label>
-			<input type="text" class="recordForm" name="temperature"><br>
-			<label for="wind_chill">Wind_Chill(F):</label>
-			<input type="text" class="recordForm" name="wind_chill"><br>
-			<label for="humidity">Humidity(%):</label>
-			<input type="text" class="recordForm" name="humidity"><br>
-			<label for="pressure">Pressure(in):</label>
-			<input type="text" class="recordForm" name="pressure"><br>
-			<label for="visibility">Visibility(mi):</label>
-			<input type="text" class="recordForm" name="visibility"><br>
-			<label for="wind_direction">Wind_Direction:</label>
-			<input type="text" class="recordForm" name="wind_direction"><br>
-			<label for="wind_speed">Wind_Speed(mph):</label>
-			<input type="text" class="recordForm" name="wind_speed"><br>
-			<label for="precipitation">Precipitation(in):</label>
-			<input type="text" class="recordForm" name="precipitation"><br>
-			<label for="weather_condition">Weather_Condition:</label>
-			<input type="text" class="recordForm" name="weather_condition"><br>
-			<label for="amenity">Amenity:</label>
-			<input type="text" class="recordForm" name="amenity"><br>
-			<label for="sig">Bump:</label>
-			<input type="text" class="recordForm" name="bump"><br>
-			<label for="crossing">Crossing:</label>
-			<input type="text" class="recordForm" name="crossing"><br>
-			<label for="give_way">Give_Way:</label>
-			<input type="text" class="recordForm" name="give_way"><br>
-			<label for="junction">Junction:</label>
-			<input type="text" class="recordForm" name="junction"><br>
-			<label for="no_exit">No_Exit:</label>
-			<input type="text" class="recordForm" name="no_exit"><br>
-			<label for="railway">Railway:</label>
-			<input type="text" class="recordForm" name="railway"><br>
-			<label for="roundabout">Roundabout:</label>
-			<input type="text" class="recordForm" name="roundabout"><br>
-			<label for="station">Station:</label>
-			<input type="text" class="recordForm" name="station"><br>
-			<label for="stop">Stop:</label>
-			<input type="text" class="recordForm" name="stop"><br>
-			<label for="traffic_calming">Traffic_Calming:</label>
-			<input type="text" class="recordForm" name="traffic_calming"><br>
-			<label for="traffic_signal">Traffic_Signal:</label>
-			<input type="text" class="recordForm" name="traffic_signal"><br>
-			<label for="turning_loop">Turning_loop:</label>
-			<input type="text" class="recordForm" name="turning_loop"><br>
-			<label for="sunrise_sunset">Sunrise_Sunset:</label>
-			<input type="text" class="recordForm" name="sunrise_sunset"><br>
-			<label for="civil_twilight">Civil_Twilight:</label>
-			<input type="text" class="recordForm" name="civil_twilight"><br>
-			<label for="nautical_twilight">Nautical_Twilight:</label>
-			<input type="text" class="recordForm" name="nautical_twilight"><br>
-			<label for="astronomical_twilight">Astronomical_Twilight:</label>
-			<input type="text" class="recordForm" name="astronomical_twilight"><br><br>
-			<button onclick="newRecord()">Create New Record</button>
+			<div class="newentryflex">
+				<label for="source">Source:</label>
+				<input type="text" class="recordForm" style="width:150px" name="source"><br>
+				<label for="tmc">TMC:</label>
+				<input type="text" class="recordForm" style="width:150px" name="tmc"><br>
+				<label for="severity">Severity:</label>
+				<input type="text" class="recordForm" style="width:150px" name="severity"><br>
+				<label for="start_time">Start_Time:</label>
+				<input type="text" class="recordForm" style="width:150px" name="start_time"><br>
+				
+			</div>
+			<div class="newentryflex">
+				<label for="end_time">End_Time:</label>
+				<input type="text" class="recordForm" style="width:150px" name="end_time"><br>
+				<label for="start_lat">Start_Lat:</label>
+				<input type="text" class="recordForm" style="width:150px" name="start_lat"><br>
+				<label for="start_lng">Start_Lng:</label>
+				<input type="text" class="recordForm" style="width:150px" name="start_lng"><br>
+				<label for="start_lat">End_Lat:</label>
+				<input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
+				
+			</div>
+			<div class="newentryflex">
+				<label for="end_lat">End_Lng:</label>
+				<input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
+				<label for="distance">Distance(mi):</label>
+				<input type="text" class="recordForm" style="width:150px" name="distance"><br>
+				<label for="description">Description:</label>
+				<input type="text" class="recordForm" style="width:150px" name="description"><br>
+				<label for="number">Number:</label>
+				<input type="text" class="recordForm" style="width:150px" name="number"><br>
+				
+			</div>
+			<div class="newentryflex">
+				<label for="street">Street:</label>
+				<input type="text" class="recordForm" style="width:150px" name="street"><br>
+				<label for="side">Side:</label>
+				<input type="text" class="recordForm" style="width:150px" name="side"><br>
+				<label for="city">City:</label>
+				<input type="text" class="recordForm" style="width:150px" name="city"><br>
+				<label for="county">County:</label>
+				<input type="text" class="recordForm" style="width:150px" name="county"><br>
+				
+			</div>
+			<div class="newentryflex">
+				<label for="state">State:</label>
+				<input type="text" class="recordForm" style="width:150px" name="state"><br>
+				<label for="zipcode">Zipcode:</label>
+				<input type="text" class="recordForm" style="width:150px" name="zipcode"><br>
+				<label for="country">Country:</label>
+				<input type="text" class="recordForm" style="width:150px" name="country"><br>
+				<label for="timezone">Timezone:</label>
+				<input type="text" class="recordForm" style="width:150px" name="timezone"><br>
+				
+			</div>
+			<div class="newentryflex">
+				<label for="airport_code">Airport_Code:</label>
+				<input type="text" class="recordForm" style="width:150px" name="airport_code"><br>
+				<label for="weather_timestamp">Weather_Timestamp:</label>
+				<input type="text" class="recordForm" style="width:150px" name="weather_timestamp"><br>
+				<label for="temperature">Temperature(F):</label>
+				<input type="text" class="recordForm" style="width:150px" name="temperature"><br>
+				<label for="wind_chill">Wind_Chill(F):</label>
+				<input type="text" class="recordForm" style="width:150px" name="wind_chill"><br>
+				
+			</div>
+			<div class="newentryflex">
+				<label for="humidity">Humidity(%):</label>
+				<input type="text" class="recordForm" style="width:150px" name="humidity"><br>
+				<label for="pressure">Pressure(in):</label>
+				<input type="text" class="recordForm" style="width:150px" name="pressure"><br>
+				<label for="visibility">Visibility(mi):</label>
+				<input type="text" class="recordForm" style="width:150px" name="visibility"><br>
+				<label for="wind_direction">Wind_Direction:</label>
+				<input type="text" class="recordForm" style="width:150px" name="wind_direction"><br>
+				
+			</div>	
+			<div class="newentryflex">
+				<label for="wind_speed">Wind_Speed(mph):</label>
+				<input type="text" class="recordForm" style="width:150px" name="wind_speed"><br>
+				<label for="precipitation">Precipitation(in):</label>
+				<input type="text" class="recordForm" style="width:150px" name="precipitation"><br>
+				<label for="weather_condition">Weather_Condition:</label>
+				<input type="text" class="recordForm" style="width:150px" name="weather_condition"><br>
+				<label for="amenity">Amenity:</label>
+				<input type="text" class="recordForm" style="width:150px" name="amenity"><br>
+			</div>	
+			<div class="newentryflex">
+				<label for="sig">Bump:</label>
+				<input type="text" class="recordForm" style="width:150px" name="bump"><br>
+				<label for="crossing">Crossing:</label>
+				<input type="text" class="recordForm" style="width:150px"  name="crossing"><br>
+				<label for="give_way">Give_Way:</label>
+				<input type="text" class="recordForm" style="width:150px" name="give_way"><br>
+				<label for="junction">Junction:</label>
+				<input type="text" class="recordForm" style="width:150px" name="junction"><br>
+			</div>	
+			<div class="newentryflex">
+				<label for="no_exit">No_Exit:</label>
+				<input type="text" class="recordForm" style="width:150px" name="no_exit"><br>
+				<label for="railway">Railway:</label>
+				<input type="text" class="recordForm" style="width:150px" name="railway"><br>
+				<label for="roundabout">Roundabout:</label>
+				<input type="text" class="recordForm" style="width:150px" name="roundabout"><br>
+				<label for="station">Station:</label>
+				<input type="text" class="recordForm" style="width:150px" name="station"><br>
+			</div>
+			<div class="newentryflex">
+				<label for="stop">Stop:</label>
+				<input type="text" class="recordForm" style="width:150px" name="stop"><br>
+				<label for="traffic_calming">Traffic_Calming:</label>
+				<input type="text" class="recordForm" style="width:150px" name="traffic_calming"><br>
+				<label for="traffic_signal">Traffic_Signal:</label>
+				<input type="text" class="recordForm" style="width:150px" name="traffic_signal"><br>
+				<label for="turning_loop">Turning_loop:</label>
+				<input type="text" class="recordForm" style="width:150px" name="turning_loop"><br>
+			</div>
+			<div class="newentryflex">
+				<label for="sunrise_sunset">Sunrise_Sunset:</label>
+				<input type="text" class="recordForm" style="width:150px" name="sunrise_sunset"><br>
+				<label for="civil_twilight">Civil_Twilight:</label>
+				<input type="text" class="recordForm" style="width:150px" name="civil_twilight"><br>
+				<label for="nautical_twilight">Nautical_Twilight:</label>
+				<input type="text" class="recordForm" style="width:150px" name="nautical_twilight"><br>
+				<label for="astronomical_twilight">Astronomical_Twilight:</label>
+				<input type="text" class="recordForm" style="width:150px" name="astronomical_twilight"><br><br>
+			</div>
+				
+				
+				
+				
+			<button style="margin: auto" onclick="newRecord()">Create New Record</button>
+			</div>
 		</div><br><br>
 		<div>
 			<select multiple class="multi-select" id="multi-select" onchange="updateFilters()">

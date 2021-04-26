@@ -73,3 +73,16 @@ th, td {
 .dt-body-center{
   text-align: center;
 }
+
+.test {
+	height: 200px;
+	width:300px;
+	border: 1px solid red;
+}
+
+.newentryflex {
+	height: 30px;
+	margin: 5px 20px 5px 20px;
+	display: flex;
+	justify-content:space-evenly ;
+}

@@ -2,7 +2,8 @@
 const { Socket } = require('dgram');
 var express = require('express');  
 var app = express();  
-var server = require('http').createServer(app); 
+var server = require('http').createServer(app);
+var path = require('path');
 var io = require('socket.io')(server); 
 const fs = require('fs')
 
@@ -11,6 +12,9 @@ var data = []
 var obj = []
 var stream
 let match
+
+// serves stuff
+app.use(express.static(path.join(__dirname, 'styling')));
 
 const lineReader = require('readline').createInterface({
     input: fs.createReadStream('data/book.csv')
@@ -30,6 +34,9 @@ lineReader.on('line', function (line) {
 // Index.html Redirect
 app.get('/', function(req, res,next) {  
     res.sendFile(__dirname + '/index.html');
+    
+    //app.use('/styling/style.css', express.static('public'));
+
 });
 
 io.on('connection', function(client) { 
