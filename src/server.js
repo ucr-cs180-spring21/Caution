@@ -410,7 +410,8 @@ io.on('connection', function(client) {
 
     client.on('backup', function(client){
 
-        let csvContent = "data:text/csv;charset=utf-8,";
+        //let csvContent = "data:text/csv;charset=utf-8,";
+        let csvContent;
 
         data.forEach(function(rowArray) {
             let row = rowArray.join(",");
