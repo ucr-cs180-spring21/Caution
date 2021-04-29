@@ -1,204 +1,238 @@
 <!DOCTYPE html>
- <html lang = "en">
+<html lang="en">
 	<head>
-		<meta charset = "UTF-8">
-		<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Caution</title>
 		
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="css/index.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+		<script src="js/index.js" defer></script>
+		<script src="js/connection.js" defer></script>
 	</head>
 	
-	<body>
-		<h1>Caution!</h1>
-		<div>
-			<label for="recordID">Record ID:</label>
-			<input type="text" id="recordID" name="recordID"><br><br>
-			<label for="attributeChange">Attribute to Change:</label>
-			<select id="attributeChange">
-				<option value="traffic_sig">Traffic Signal</option>
-				<option value="snow">Weather Condition</option>
-				<option value="humid">Humidity</option>
-				<option value="severity">Severity</option>
-				<option value="timezone">Timezone</option>
-				<option value="city">City</option>
-				<option value="airport">Airport</option>
-				<option value="pressure">Pressure</option>
-			</select><br><br>
-			<label for="newValue">New Value:</label>
-			<input type="text" id="newValue" name="newValue"><br><br>
-			<button onclick="update()">Change Value</button>
-			<button onclick="del()">Delete</button>
-		</div><br><br>
-		<div id="newRecordForm">
-			<div class="newentryflex">
-				<label for="source">Source:</label>
-				<input type="text" class="recordForm" style="width:150px" name="source"><br>
-				<label for="tmc">TMC:</label>
-				<input type="text" class="recordForm" style="width:150px" name="tmc"><br>
-				<label for="severity">Severity:</label>
-				<input type="text" class="recordForm" style="width:150px" name="severity"><br>
-				<label for="start_time">Start_Time:</label>
-				<input type="text" class="recordForm" style="width:150px" name="start_time"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="end_time">End_Time:</label>
-				<input type="text" class="recordForm" style="width:150px" name="end_time"><br>
-				<label for="start_lat">Start_Lat:</label>
-				<input type="text" class="recordForm" style="width:150px" name="start_lat"><br>
-				<label for="start_lng">Start_Lng:</label>
-				<input type="text" class="recordForm" style="width:150px" name="start_lng"><br>
-				<label for="start_lat">End_Lat:</label>
-				<input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="end_lat">End_Lng:</label>
-				<input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
-				<label for="distance">Distance(mi):</label>
-				<input type="text" class="recordForm" style="width:150px" name="distance"><br>
-				<label for="description">Description:</label>
-				<input type="text" class="recordForm" style="width:150px" name="description"><br>
-				<label for="number">Number:</label>
-				<input type="text" class="recordForm" style="width:150px" name="number"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="street">Street:</label>
-				<input type="text" class="recordForm" style="width:150px" name="street"><br>
-				<label for="side">Side:</label>
-				<input type="text" class="recordForm" style="width:150px" name="side"><br>
-				<label for="city">City:</label>
-				<input type="text" class="recordForm" style="width:150px" name="city"><br>
-				<label for="county">County:</label>
-				<input type="text" class="recordForm" style="width:150px" name="county"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="state">State:</label>
-				<input type="text" class="recordForm" style="width:150px" name="state"><br>
-				<label for="zipcode">Zipcode:</label>
-				<input type="text" class="recordForm" style="width:150px" name="zipcode"><br>
-				<label for="country">Country:</label>
-				<input type="text" class="recordForm" style="width:150px" name="country"><br>
-				<label for="timezone">Timezone:</label>
-				<input type="text" class="recordForm" style="width:150px" name="timezone"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="airport_code">Airport_Code:</label>
-				<input type="text" class="recordForm" style="width:150px" name="airport_code"><br>
-				<label for="weather_timestamp">Weather_Timestamp:</label>
-				<input type="text" class="recordForm" style="width:150px" name="weather_timestamp"><br>
-				<label for="temperature">Temperature(F):</label>
-				<input type="text" class="recordForm" style="width:150px" name="temperature"><br>
-				<label for="wind_chill">Wind_Chill(F):</label>
-				<input type="text" class="recordForm" style="width:150px" name="wind_chill"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="humidity">Humidity(%):</label>
-				<input type="text" class="recordForm" style="width:150px" name="humidity"><br>
-				<label for="pressure">Pressure(in):</label>
-				<input type="text" class="recordForm" style="width:150px" name="pressure"><br>
-				<label for="visibility">Visibility(mi):</label>
-				<input type="text" class="recordForm" style="width:150px" name="visibility"><br>
-				<label for="wind_direction">Wind_Direction:</label>
-				<input type="text" class="recordForm" style="width:150px" name="wind_direction"><br>
-				
-			</div>	
-			<div class="newentryflex">
-				<label for="wind_speed">Wind_Speed(mph):</label>
-				<input type="text" class="recordForm" style="width:150px" name="wind_speed"><br>
-				<label for="precipitation">Precipitation(in):</label>
-				<input type="text" class="recordForm" style="width:150px" name="precipitation"><br>
-				<label for="weather_condition">Weather_Condition:</label>
-				<input type="text" class="recordForm" style="width:150px" name="weather_condition"><br>
-				<label for="amenity">Amenity:</label>
-				<input type="text" class="recordForm" style="width:150px" name="amenity"><br>
-			</div>	
-			<div class="newentryflex">
-				<label for="sig">Bump:</label>
-				<input type="text" class="recordForm" style="width:150px" name="bump"><br>
-				<label for="crossing">Crossing:</label>
-				<input type="text" class="recordForm" style="width:150px"  name="crossing"><br>
-				<label for="give_way">Give_Way:</label>
-				<input type="text" class="recordForm" style="width:150px" name="give_way"><br>
-				<label for="junction">Junction:</label>
-				<input type="text" class="recordForm" style="width:150px" name="junction"><br>
-			</div>	
-			<div class="newentryflex">
-				<label for="no_exit">No_Exit:</label>
-				<input type="text" class="recordForm" style="width:150px" name="no_exit"><br>
-				<label for="railway">Railway:</label>
-				<input type="text" class="recordForm" style="width:150px" name="railway"><br>
-				<label for="roundabout">Roundabout:</label>
-				<input type="text" class="recordForm" style="width:150px" name="roundabout"><br>
-				<label for="station">Station:</label>
-				<input type="text" class="recordForm" style="width:150px" name="station"><br>
-			</div>
-			<div class="newentryflex">
-				<label for="stop">Stop:</label>
-				<input type="text" class="recordForm" style="width:150px" name="stop"><br>
-				<label for="traffic_calming">Traffic_Calming:</label>
-				<input type="text" class="recordForm" style="width:150px" name="traffic_calming"><br>
-				<label for="traffic_signal">Traffic_Signal:</label>
-				<input type="text" class="recordForm" style="width:150px" name="traffic_signal"><br>
-				<label for="turning_loop">Turning_loop:</label>
-				<input type="text" class="recordForm" style="width:150px" name="turning_loop"><br>
-			</div>
-			<div class="newentryflex">
-				<label for="sunrise_sunset">Sunrise_Sunset:</label>
-				<input type="text" class="recordForm" style="width:150px" name="sunrise_sunset"><br>
-				<label for="civil_twilight">Civil_Twilight:</label>
-				<input type="text" class="recordForm" style="width:150px" name="civil_twilight"><br>
-				<label for="nautical_twilight">Nautical_Twilight:</label>
-				<input type="text" class="recordForm" style="width:150px" name="nautical_twilight"><br>
-				<label for="astronomical_twilight">Astronomical_Twilight:</label>
-				<input type="text" class="recordForm" style="width:150px" name="astronomical_twilight"><br><br>
-			</div>
-				
-				
-				
-				
-			<button style="margin: auto" onclick="newRecord()">Create New Record</button>
-			</div>
-		</div><br><br>
-		<div>
-			<select multiple class="multi-select" id="multi-select" onchange="updateFilters()">
-				<option value="" disabled selected>Select filters</option>
-				<option id="trafficsig" value="trafficsig">Traffic Signal: True</option>
-				<option id="snow" value="snow">Weather Condition: Light Snow</option>
-				<option id="humid" value="humid">Humidity: 100%</option>
-				<option id="severity" value="severity">Severity: 3/3</option>
-				<option id="timezone" value="timezone">Timezone: US/Eastern</option>
-				<option id="city" value="city">City: Dayton</option>
-				<option id="airport" value="airport">Airport: KDAY</option>
-				<option id="pressure" value="pressure">Pressure: 29.61 in</option>
-			</select>
-		</div>
+	<body class="container">
+		<h1 id="page_title">Caution!</h1>
 
-		<p id="hellow"></p>
-		<button onclick="buttonClickedhello()">Hello!</button>
+		<div class="collapsible_container collapsed" id="update_value_container">
+			<div class="grid" id="update_value_grid">
+				<label for="update_value_record_id">Record ID:</label>
+				<input type="text" class="textbox" id="update_value_record_id">
 
-		<div class="button">
-			<button type="button" onclick="updateTable()">Update</button>
-			<button type="button" onclick="buttonClear()">Clear</button>
-			<button type="button" onclick="buttonBackup()">Backup</button>
-			<!--button type="button" onclick="buttonExport()">Export</button-->
-		</div><br><br>
-		<div>
-			<label for="fileName">Input File Name:</label>
-			<input type="text" id="fileName" name="fileName"><br><br>
-			<button type="button" onclick="updateCSV()">Input New CSV</button>
-		</div>
+				<label for="update_value_attribute_select">Attribute to Change:</label>
+				<select class="dropdown_select" id="update_value_attribute_select">
+					<option value="traffic_signal">Traffic Signal</option>
+					<option value="weather_condition">Weather Condition</option>
+					<option value="humidity">Humidity</option>
+					<option value="severity">Severity</option>
+					<option value="timezone">Timezone</option>
+					<option value="city">City</option>
+					<option value="airport">Airport</option>
+					<option value="pressure">Pressure</option>
+				</select>
 
-		<div class="text-area" id="text-area">
-			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
+				<label for="update_value_new_value">New Value:</label>
+				<input type="text" class="textbox" id="update_value_new_value">
+
+				<button type="button" class="button" onclick="update()">Update Record Value</button>
+			</div>
 		</div>
+		<button type="button" class="button collapse_button" id="update_value_collapse_button">Update Value</button>
+
+		<div class="collapsible_container collapsed" id="delete_record_container">
+			<div class="grid" id="delete_record_grid">
+				<label for="delete_record_record_id">Record ID:</label>
+				<input type="text" class="textbox" id="delete_record_record_id">
+
+				<button type="button" class="button" onclick="del()">Delete Record</button>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="delete_record_collapse_button">Delete Record</button>
+
+		<div class="collapsible_container collapsed" id="insert_record_container">
+			<div class="grid" id="insert_record_grid">
+				<label for="insert_record_source">Source:</label>
+				<input type="text" class="textbox" id="insert_record_source">
+
+				<label for="insert_record_tmc">TMC:</label>
+				<input type="text" class="textbox" id="insert_record_tmc">
+
+				<label for="insert_record_severity">Severity:</label>
+				<input type="text" class="textbox" id="insert_record_severity">
+
+				<label for="insert_record_start_time">Start_Time:</label>
+				<input type="text" class="textbox" id="insert_record_start_time">
+				
+				<label for="insert_record_end_time">End_Time:</label>
+				<input type="text" class="textbox" id="insert_record_end_time">
+
+				<label for="insert_record_start_lat">Start_Lat:</label>
+				<input type="text" class="textbox" id="insert_record_start_lat">
+
+				<label for="insert_record_start_lng">Start_Lng:</label>
+				<input type="text" class="textbox" id="insert_record_start_lng">
+
+				<label for="insert_record_end_lat">End_Lat:</label>
+				<input type="text" class="textbox" id="insert_record_end_lat">
+				
+				<label for="insert_record_end_lng">End_Lng:</label>
+				<input type="text" class="textbox" id="insert_record_end_lng">
+
+				<label for="insert_record_distance">Distance(mi):</label>
+				<input type="text" class="textbox" id="insert_record_distance">
+
+				<label for="insert_record_description">Description:</label>
+				<input type="text" class="textbox" id="insert_record_description">
+
+				<label for="insert_record_number">Number:</label>
+				<input type="text" class="textbox" id="insert_record_number">
+
+				<label for="insert_record_street">Street:</label>
+				<input type="text" class="textbox" id="insert_record_street">
+
+				<label for="insert_record_side">Side:</label>
+				<input type="text" class="textbox" id="insert_record_side">
+
+				<label for="insert_record_city">City:</label>
+				<input type="text" class="textbox" id="insert_record_city">
+
+				<label for="insert_record_county">County:</label>
+				<input type="text" class="textbox" id="insert_record_county">
+				
+				<label for="insert_record_state">State:</label>
+				<input type="text" class="textbox" id="insert_record_state">
+
+				<label for="insert_record_zipcode">Zipcode:</label>
+				<input type="text" class="textbox" id="insert_record_zipcode">
+
+				<label for="insert_record_country">Country:</label>
+				<input type="text" class="textbox" id="insert_record_country">
+
+				<label for="insert_record_timezone">Timezone:</label>
+				<input type="text" class="textbox" id="insert_record_timezone">
+				
+				<label for="insert_record_airport_code">Airport_Code:</label>
+				<input type="text" class="textbox" id="insert_record_airport_code">
+
+				<label for="insert_record_weather_timestamp">Weather_Timestamp:</label>
+				<input type="text" class="textbox" id="insert_record_weather_timestamp">
+
+				<label for="insert_record_temperature">Temperature(F):</label>
+				<input type="text" class="textbox" id="insert_record_temperature">
+
+				<label for="insert_record_wind_chill">Wind_Chill(F):</label>
+				<input type="text" class="textbox" id="insert_record_wind_chill">
+
+				<label for="insert_record_humidity">Humidity(%):</label>
+				<input type="text" class="textbox" id="insert_record_humidity">
+				
+				<label for="insert_record_pressure">Pressure(in):</label>
+				<input type="text" class="textbox" id="insert_record_pressure">
+
+				<label for="insert_record_visibility">Visibility(mi):</label>
+				<input type="text" class="textbox" id="insert_record_visibility">
+
+				<label for="insert_record_wind_direction">Wind_Direction:</label>
+				<input type="text" class="textbox" id="insert_record_wind_direction">
+				
+				<label for="insert_record_wind_speed">Wind_Speed(mph):</label>
+				<input type="text" class="textbox" id="insert_record_wind_speed">
+
+				<label for="insert_record_precipitation">Precipitation(in):</label>
+				<input type="text" class="textbox" id="insert_record_precipitation">
+
+				<label for="insert_record_weather_condition">Weather_Condition:</label>
+				<input type="text" class="textbox" id="insert_record_weather_condition">
+
+				<label for="insert_record_amenity">Amenity:</label>
+				<input type="text" class="textbox" id="insert_record_amenity">
+
+				<label for="insert_record_bump">Bump:</label>
+				<input type="text" class="textbox" id="insert_record_bump">
+
+				<label for="insert_record_crossing">Crossing:</label>
+				<input type="text" class="textbox" id="insert_record_crossing">
+
+				<label for="insert_record_give_way">Give_Way:</label>
+				<input type="text" class="textbox" id="insert_record_give_way">
+
+				<label for="insert_record_junction">Junction:</label>
+				<input type="text" class="textbox" id="insert_record_junction">
+
+				<label for="insert_record_no_exit">No_Exit:</label>
+				<input type="text" class="textbox" id="insert_record_no_exit">
+
+				<label for="insert_record_railway">Railway:</label>
+				<input type="text" class="textbox" id="insert_record_railway">
+
+				<label for="insert_record_roundabout">Roundabout:</label>
+				<input type="text" class="textbox" id="insert_record_roundabout">
+
+				<label for="insert_record_station">Station:</label>
+				<input type="text" class="textbox" id="insert_record_station">
+
+				<label for="insert_record_stop">Stop:</label>
+				<input type="text" class="textbox" id="insert_record_stop">
+
+				<label for="insert_record_traffic_calming">Traffic_Calming:</label>
+				<input type="text" class="textbox" id="insert_record_traffic_calming">
+
+				<label for="insert_record_traffic_signal">Traffic_Signal:</label>
+				<input type="text" class="textbox" id="insert_record_traffic_signal">
+
+				<label for="insert_record_turning_loop">Turning_loop:</label>
+				<input type="text" class="textbox" id="insert_record_turning_loop">
+
+				<label for="insert_record_sunrise_sunset">Sunrise_Sunset:</label>
+				<input type="text" class="textbox" id="insert_record_sunrise_sunset">
+
+				<label for="insert_record_civil_twilight">Civil_Twilight:</label>
+				<input type="text" class="textbox" id="insert_record_civil_twilight">
+
+				<label for="insert_record_nautical_twilight">Nautical_Twilight:</label>
+				<input type="text" class="textbox" id="insert_record_nautical_twilight">
+
+				<label for="insert_record_astronomical_twilight">Astronomical_Twilight:</label>
+				<input type="text" class="textbox" id="insert_record_astronomical_twilight">
+					
+				<button type="button" class="button" onclick="newRecord()">Insert New Record</button>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="insert_record_collapse_button">Insert Record</button>
+
+		<div class="collapsible_container collapsed" id="table_options_container">
+			<div class="grid" id="table_options_grid">
+				<label for="table_options_query_select">Query:</label>
+				<select class="multiple_select" id="table_options_query_select">
+					<option value="traffic_signal_true">Traffic Signal: True</option>
+					<option value="weather_condition_light_snow">Weather Condition: Light Snow</option>
+					<option value="humidity_100%">Humidity: 100%</option>
+					<option value="severity_3/3">Severity: 3/3</option>
+					<option value="timezone_us/eastern">Timezone: US/Eastern</option>
+					<option value="city_dayton">City: Dayton</option>
+					<option value="airport_kday">Airport: KDAY</option>
+					<option value="pressure_29.61_in">Pressure: 29.61 in</option>
+				</select>
+
+				<button type="button" class="button" onclick="updateTable()">Update Table</button>
+				<button type="button" class="button" onclick="buttonClear()">Clear Table</button>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="table_options_collapse_button">View Table</button>
+
+		<div class="collapsible_container collapsed" id="import_export_container">
+			<div class="grid" id="import_export_grid">
+				<button type="button" class="button" onclick="buttonBackup()">Backup Data</button>
+
+				<button type="button" class="button" onclick="updateCSV()">Import New CSV</button>
+				<div class="textarea" id="import_export_csv_filename"></div>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="import_export_collapse_button">Import/Export</button>
+
+		<table id="record_table"></table>
 		
 		<script src="/socket.io/socket.io.js"></script>
 	</body>

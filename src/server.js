@@ -15,7 +15,7 @@ let match
 //let datadir = 'data/book.csv'
 
 // serves stuff
-app.use(express.static(path.join(__dirname, 'styling')));
+app.use(express.static(path.join(__dirname, 'front_end')));
 
 async function process(datain) {
     data = [];
@@ -34,18 +34,11 @@ async function process(datain) {
         //console.log(data)
         obj = []
     });
+    console.log(data);
 }
 
-// Index.html Redirect
-app.get('/', function(req, res,next) {  
-    res.sendFile(__dirname + '/index.html');
-    
-    //app.use('/styling/style.css', express.static('public'));
-
-});
-
 io.on('connection', function(client) { 
-    //process('data/book.csv');
+    process('data/book.csv');
 	// Clicked messages
     client.on('hello', function(data) {
         console.log("Request received from client");
@@ -174,7 +167,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        //console.log(retdata);
+        console.log(retdata);
 
         io.emit('senddata', retdata);
     });
