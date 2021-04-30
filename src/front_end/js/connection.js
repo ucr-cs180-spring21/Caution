@@ -269,7 +269,7 @@ socket.on('empty', function(data){
 socket.on('senddata', function(data){
     console.log("Received Data");
     //method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
-    var table = '<table>';
+    var table = "";
     table += '<thead>';
     table += '<tr>';
     testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
@@ -298,7 +298,6 @@ socket.on('senddata', function(data){
         table += '</tr>';
     }
     table += '</tbody>';
-    table += '</table>';
     
     document.getElementById('record_table').innerHTML = table;
     $(document).ready(function() {

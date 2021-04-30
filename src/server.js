@@ -167,8 +167,7 @@ io.on('connection', function(client) {
             var stringToJsonObject = JSON.parse(arrayToString);
             retdata.push(stringToJsonObject);
         }
-        console.log(retdata);
-
+        
         io.emit('senddata', retdata);
     });
     client.on('update_trafficsig', function(r_data){

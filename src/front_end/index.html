@@ -10,7 +10,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 		<script src="js/index.js" defer></script>
-		<script src="js/connection.js" defer></script>
+		<script src="js/update_value.js" defer></script>
+		<script src="js/delete_record.js" defer></script>
+		<script src="js/insert_record.js" defer></script>
+		<script src="js/view_table.js" defer></script>
+		<script src="js/import_export.js" defer></script>
 	</head>
 	
 	<body class="container">
@@ -36,7 +40,7 @@
 				<label for="update_value_new_value">New Value:</label>
 				<input type="text" class="textbox" id="update_value_new_value">
 
-				<button type="button" class="button" onclick="update()">Update Record Value</button>
+				<button type="button" class="button" onclick="updateValue()">Update Record Value</button>
 			</div>
 		</div>
 		<button type="button" class="button collapse_button" id="update_value_collapse_button">Update Value</button>
@@ -232,8 +236,13 @@
 		</div>
 		<button type="button" class="button collapse_button" id="import_export_collapse_button">Import/Export</button>
 
-		<table id="record_table"></table>
+		<div id="record_table_container">
+			<table id="record_table" class="display" style="width:100%"></table>
+		</div>
 		
 		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io();
+		</script>
 	</body>
 </html>
