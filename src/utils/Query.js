@@ -162,3 +162,12 @@ function queryPressure(data) {
 
     return retdata;
 }
+
+exports.querySnow = querySnow;
+exports.queryHumid = queryHumid;
+exports.queryTrafficSig = queryTrafficSig;
+exports.querySeverity = querySeverity;
+exports.queryTimezone = queryTimezone;
+exports.queryCity = queryCity;
+exports.queryAirport = queryAirport;
+exports.queryPressure = queryPressure;

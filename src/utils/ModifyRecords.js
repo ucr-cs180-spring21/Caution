@@ -1,6 +1,3 @@
-function updateValue() {
-}
-
 function updateSnow(data, r_data) {
     var re = []
     re.push(r_data);
@@ -177,3 +174,14 @@ function insertRecord(data, field) {
 
     return retdata;
 }
+
+exports.updateSnow = updateSnow;
+exports.updateHumid = updateHumid;
+exports.updateTrafficSig = updateTrafficSig;
+exports.updateSeverity = updateSeverity;
+exports.updateTimezone = updateTimezone;
+exports.updateCity = updateCity;
+exports.updateAirport = updateAirport;
+exports.updatePressure = updatePressure;
+exports.deleteRecord = deleteRecord;
+exports.insertRecord = insertRecord;

@@ -31,3 +31,4 @@ function backup(data) {
 }
 
 exports.process = process;
+exports.backup = backup;

@@ -103,5 +103,6 @@
 
 #record_table_container {
 	display: block;
-	align-self: flex-start;
+	width: 100%;
+	overflow: auto;
 }

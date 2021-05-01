@@ -5,11 +5,12 @@ var io = require('socket.io')(server);
 var path = require('path');
 var fs = require('fs')
 
+var { querySnow, queryHumid, queryTrafficSig, querySeverity, queryTimezone, queryCity, queryAirport, queryPressure } = require('./utils/Query');
+var { updateSnow, updateHumid, updateTrafficSig, updateSeverity, updateTimezone, updateCity, updateAirport, updatePressure, deleteRecord, insertRecord } = require('./utils/ModifyRecords');
+var { process, backup } = require('./utils/CSVReadWrite');
 
 var data = []
-//let datadir = 'data/book.csv'
 
-// serves stuff
 app.use(express.static(path.join(__dirname, 'front_end')));
 
 io.on('connection', function(client) { 
@@ -20,92 +21,92 @@ io.on('connection', function(client) {
     });
 
     client.on('delete', function(id) {
-        // deleteRecord(data);
+        deleteRecord(data);
         io.emit('senddata', data);
     });
     
     client.on('new', function(field) {
-        // let retdata = insertRecord(data, field);
+        let retdata = insertRecord(data, field);
         io.emit('senddata', retdata);
     });
 
     client.on('snow', function(client){
-        // let retdata = querySnow(data);
+        let retdata = querySnow(data);
         io.emit('senddata', retdata);
     });
 
     client.on('update_snow', function(r_data){
-        // let retdata = updateSnow(data, r_data);
+        let retdata = updateSnow(data, r_data);
         io.emit('senddata', retdata);
     });
 
     client.on('humid', function(client){
-        // let retdata = queryHumid(data);
+        let retdata = queryHumid(data);
         io.emit('senddata', retdata);
     });
 
     client.on('update_humid', function(r_data){
-        // let retdata = updateHumid(data, r_data);
+        let retdata = updateHumid(data, r_data);
         io.emit('senddata', retdata);
     });
 
     client.on('trafficsig', function(client){
-        // let retdata = queryTrafficSig(data);
+        let retdata = queryTrafficSig(data);
         io.emit('senddata', retdata);
     });
 
     client.on('update_trafficsig', function(r_data){
-        // let retdata = updateTrafficSig(data, r_data);
+        let retdata = updateTrafficSig(data, r_data);
         io.emit('senddata', retdata);
     });
 
     client.on('severity', function(client){
-        // let retdata = querySeverity(data);
+        let retdata = querySeverity(data);
         io.emit('senddata', retdata);
     });
 
     client.on('update_severity', function(r_data){
-        // let retdata = updateSeverity(data);
+        let retdata = updateSeverity(data);
         io.emit('senddata', retdata);
     });
 
     client.on('timezone', function(client){
-        // let retdata = queryTimezone(data);
+        let retdata = queryTimezone(data);
         io.emit('senddata', retdata);
     });
 
     client.on('update_timezone', function(r_data){
-        // let retdata = updateTimezone(data, r_data);
+        let retdata = updateTimezone(data, r_data);
         io.emit('senddata', retdata);
     });
 
     client.on('city', function(client){
-        // let retdata = queryCity(data);
+        let retdata = queryCity(data);
         io.emit('senddata', retdata);
     });
 
     client.on('update_city', function(r_data){
-        // let retdata = updateCity(data, r_data);
+        let retdata = updateCity(data, r_data);
         io.emit('senddata', retdata);
     });
 
     client.on('airport', function(client){
-        // let retdata = queryAirport(data);
+        let retdata = queryAirport(data);
         io.emit('senddata', retdata);
     });
 
     client.on('update_airport', function(r_data){
-        // let retdata = updateAirport(data, r_data);
+        let retdata = updateAirport(data, r_data);
         io.emit('senddata', retdata);
     });
 
     client.on('pressure', function(client){
-        // let retdata = queryPressure(data);
+        let retdata = queryPressure(data);
         io.emit('senddata', retdata);
     });
 
     client.on('update_pressure', function(r_data){
-        // let retdata = updatePressure(data, r_data);
+        let retdata = updatePressure(data, r_data);
         io.emit('senddata', retdata);
     });
 
@@ -115,7 +116,7 @@ io.on('connection', function(client) {
     });
 
     client.on('backup', function(id){
-        // backup(data);
+        backup(data);
         io.emit('backup', []);
     });
 
@@ -163,5 +164,4 @@ io.on('connection', function(client) {
 });
 
 // Starting the server and listening to the port
-server.listen(3000, function(){
-}); 
+server.listen(3000, function() {}); 
