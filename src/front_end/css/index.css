@@ -102,7 +102,11 @@
 }
 
 #record_table_container {
-	display: block;
 	width: 100%;
 	overflow: auto;
+	margin-bottom: 50px;
+}
+
+#analytics_graph_container {
+	width: 100%;
 }

@@ -12,7 +12,10 @@ function process(data, path) {
         while ((match = splitter.exec(line)) !== null) {
             obj.push(match[0])
         }
+
         data.push(obj)
+    }).on('close', function() {
+        data.splice(0, 1);
     });
 }
 

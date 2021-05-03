@@ -9,12 +9,14 @@
 		<link rel="stylesheet" href="css/index.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script src="js/index.js" defer></script>
 		<script src="js/update_value.js" defer></script>
 		<script src="js/delete_record.js" defer></script>
 		<script src="js/insert_record.js" defer></script>
 		<script src="js/view_table.js" defer></script>
 		<script src="js/import_export.js" defer></script>
+		<script src="js/analytics.js" defer></script>
 	</head>
 	
 	<body class="container">
@@ -231,6 +233,7 @@
 				<button type="button" class="button" onclick="buttonBackup()">Backup Data</button>
 
 				<button type="button" class="button" onclick="updateCSV()">Import New CSV</button>
+				<button type="button" class="button" onclick="updateGraph('weather')">Update Graph</button>
 				<div class="textarea" id="import_export_csv_filename"></div>
 			</div>
 		</div>
@@ -238,6 +241,10 @@
 
 		<div id="record_table_container">
 			<table id="record_table" class="display" style="width:100%"></table>
+		</div>
+
+		<div id="analytics_graph_container">
+			<canvas id="analytics_graph"></canvas>
 		</div>
 		
 		<script src="/socket.io/socket.io.js"></script>

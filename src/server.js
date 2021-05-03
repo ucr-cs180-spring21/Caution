@@ -7,6 +7,7 @@ var path = require('path');
 var { querySnow, queryHumid, queryTrafficSig, querySeverity, queryTimezone, queryCity, queryAirport, queryPressure } = require('./utils/Query');
 var { updateValue, deleteRecord, insertRecord } = require('./utils/ModifyRecords');
 var { process, backup } = require('./utils/CSVReadWrite');
+var { getGraphData } = require('./utils/Analytics');
 
 var data = []
 process(data, 'data/book.csv');
@@ -112,6 +113,11 @@ io.on('connection', function(client) {
     //     console.log(csvContent);
     //     io.emit('csvexport', csvContent);
     // });
+
+    client.on('getGraphData', function(query) {
+        let { graphX, graphY } = getGraphData(data, query); 
+        io.emit('renderGraph', graphX, graphY);
+    });
 });
 
 // Starting the server and listening to the port
