@@ -14,6 +14,7 @@
 	</head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 	
 	<body>
 		<h1>Caution!</h1>
@@ -188,7 +189,11 @@
 		<br>
 		<br>
 
-		<button onclick="buttonfrequencyOfFilter()">Frequency of accidents due to weather conditions!</button>
+		<button onclick="buttonfrequencyWeather()">Frequency due to weather</button>
+		<button onclick="buttonfrequencyHumidity()">Frequency due to humidity</button>
+		<button onclick="buttonfrequencyDist()">Frequency due to distance</button>
+		<button onclick="buttonfrequencyBump()">Frequency due to bumps</button>
+		<button onclick="buttonfrequencyStop()">Frequency due to stop sign</button>
 
 		<br>
 		<br>
@@ -206,6 +211,13 @@
 			<label for="fileName">Input File Name:</label>
 			<input type="text" id="fileName" name="fileName"><br><br>
 			<button type="button" onclick="updateCSV()">Input New CSV</button>
+		</div>
+
+		<br>
+		<br>
+
+		<div style="position: relative; height:40vh; width:40vw">
+			<canvas id="myChart"></canvas>
 		</div>
 
 		<br>
@@ -353,10 +365,29 @@
 
 
 			// Hard coded at the moment, but sends a request to get number of accidents by weather condition 
-			function buttonfrequencyOfFilter() {
+			function buttonfrequencyWeather() {
 				console.log("Goes to server");
 				socket.emit('frequency_of_filter', "Weather_Condition");
-				
+			}
+
+			function buttonfrequencyHumidity() {
+				console.log("Goes to server");
+				socket.emit('frequency_of_filter', "Humidity(%)");
+			}
+
+			function buttonfrequencyDist() {
+				console.log("Goes to server");
+				socket.emit('frequency_of_filter', "Distance(mi)");
+			}
+
+			function buttonfrequencyBump() {
+				console.log("Goes to server");
+				socket.emit('frequency_of_filter', "Bump");
+			}
+
+			function buttonfrequencyStop() {
+				console.log("Goes to server");
+				socket.emit('frequency_of_filter', "Stop");
 			}
 
 			// Button exports the filtered data to be downloaded on client's comp
@@ -373,6 +404,42 @@
 			socket.on('filterFrequency', function(arrayOfFrequencies){
 				console.log("Comes back to client")
 				console.log(arrayOfFrequencies);
+
+				/*Bar Chart JavaScript
+				Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart
+				Biggest issue I had is the table doesn't work well when the let data is changed to another variable name that 
+				may have been just a stupid issue though */
+				var ctx = document.getElementById('myChart').getContext('2d');
+
+				let Xvals = [];
+				let Yvals = [];
+				var sz = arrayOfFrequencies.length-1;
+				//data = arrayOfFrequencies.slice(1, sz);
+				data = arrayOfFrequencies.slice(1, arrayOfFrequencies.length);
+
+				try {
+					data.map((item) => {
+						console.log(item.Value);
+						Yvals.push(item.Count);
+						Xvals.push(item.Value);
+				});
+
+
+				var myChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+					labels: [...Xvals],
+					datasets: [{
+						label: 'Accidents',
+						data: [...Yvals],
+						borderWidth: 1
+					}]
+					},
+				});
+
+				} catch (error) {
+					console.log(error);
+				}
 
 				//var table = document.getElementById('infotable');
 				//table.style.display = 'none';
@@ -404,6 +471,7 @@
 						"ordering": false
 					} );
 				});
+
 			});
 
 			socket.on('csvexport', function(csvContent) {

@@ -440,29 +440,7 @@ io.on('connection', function(client) {
 
     client.on('updateinput', function(id){
         datadir = 'data/' + id;
-        //console.log(datadir);
         process(datadir);
-        // var idata = [];
-        // obj = [];
-        // var match1;
-
-        // const lineReader = require('readline').createInterface({
-        //     input: fs.createReadStream(datadir)
-        // })
-        
-        // lineReader.on('line', function (line) {
-        //     var splitter = new RegExp(/[^,]+/,'g')
-        
-        //     while ((match1 = splitter.exec(line)) !== null) {
-        //         obj.push(match1[0])
-        //     }
-        //     idata.push(obj)
-        //     //console.log(data)
-        //     obj = []
-        // });
-        // console.log(idata.length);
-        // data = idata;
-        // io.emit('senddata', idata);
     });
 
        // Returns the frequency of each data field in a filter
@@ -493,20 +471,6 @@ io.on('connection', function(client) {
         console.log(frequency_result)
         io.emit('filterFrequency', frequency_result);
     });
-
-    // client.on('csvexport', function(client){
-    //     let csvContent = "data:text/csv;charset=utf-8,";
-        
-    //     WIP: converting retdata to true array
-    //     for(var i in retdata) {
-    //         var temparr = [];
-    //         temparr.push(JSON.ConvertToCSV(retdata[i]));
-    //         let temp = temparr.join(",");
-    //         csvContent += temp + "\r\n";
-    //     }
-    //     console.log(csvContent);
-    //     io.emit('csvexport', csvContent);
-    // });
 });
 
 // Starting the server and listening to the port
