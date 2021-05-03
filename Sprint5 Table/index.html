@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <title>Tester</title>
+</head>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<body>
+    <table id="example" class="display" width="100%" cellspacing="0">
+    </table>
+
+    <table id="example2" class="display" width="100%" cellspacing="0">
+    </table>
+
+    <!-- Barchart Implementation The Div is required the scale the chartsize -->
+    <div style="position: relative; height:40vh; width:40vw">
+      <canvas id="myChart"></canvas>
+  </div>
+
+</body>
+
+<script>
+    var data1 = [
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+];
+//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
+    var table = '<table>';
+    table += '<thead>'
+    table += '<tr>';
+    for(var i in data1[0]) {
+        table += '<th>' + i + '</th>';
+    }
+    table += '</tr>';
+
+    
+    table += '<tbody>';
+    for(var j = 0; j < data1.length; j++){
+        table += '<tr>';
+        for(var k in data1[j]){
+        table += '<td>' + data1[j][k] + '</td>';
+        }
+        table += '</tr>';
+    }
+    table += '</tbody>'
+
+    table += '</table>';
+    document.getElementById('example').innerHTML = table;
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            "pagingType": "full_numbers",
+        } );
+    } );
+</script>
+
+<script>
+    var data2 = [
+    {"City": "Dayton", "Count": 25},
+    {"City": "SF", "Count": 25},
+    {"City": "A", "Count": 1},
+    {"City": "B", "Count": 2},
+    {"City": "C", "Count": 3},
+    {"City": "D", "Count": 4},
+    {"City": "E", "Count": 5},
+    {"City": "F", "Count": 6},
+    {"City": "G", "Count": 7},
+    {"City": "H", "Count": 8},
+    {"City": "I", "Count": 9},
+    {"City": "J", "Count": 10},
+    {"City": "K", "Count": 11},
+];
+//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
+    var table = '<table>';
+    table += '<thead>'
+    table += '<tr>';
+    for(var i in data2[0]) {
+        table += '<th>' + i + '</th>';
+    }
+    table += '</tr>';
+
+    
+    table += '<tbody>';
+    for(var j = 0; j < data2.length; j++){
+        table += '<tr>';
+        for(var k in data2[j]){
+        table += '<td>' + data2[j][k] + '</td>';
+        }
+        table += '</tr>';
+    }
+    table += '</tbody>'
+
+    table += '</table>';
+    document.getElementById('example2').innerHTML = table;
+    $(document).ready(function() {
+        $('#example2').DataTable( {
+            "pagingType": "full_numbers",
+        } );
+    } );
+</script>
+
+
+<!-- Bar Chart JavaScript -->
+<!-- Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart -->
+<!-- Biggest issue I had is the table doesn't work well when the let data is changed to another variable name that may have been just a stupid issue tho -->
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+let data = [
+    {"X": "Dayton", "Y": "1320"},
+    {"X": "Pog City", "Y": "400"},
+    {"X": "Dunkerz", "Y": "520"},
+    {"X": "Dog Town", "Y": "623"},
+    {"X": "Crazyville", "Y": "200"},
+    {"X": "CS180", "Y": "50"},
+    {"X": "CS180", "Y": "50"}
+];
+
+let Xvals = [];
+let Yvals = [];
+
+try {
+  data.map((item) => {
+    Yvals.push(item.Y);
+    Xvals.push(item.X);
+  });
+
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [...Xvals],
+      datasets: [{
+        label: 'Accidents',
+        data: [...Yvals],
+        borderWidth: 1
+      }]
+    },
+  });
+
+} catch (error) {
+  console.log(error);
+}
+</script>
+
+
+</html>
