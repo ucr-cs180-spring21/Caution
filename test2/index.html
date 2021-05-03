@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <title>Tester</title>
+    <link rel = "stylesheet" href = "style.css">
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<body>
+    <table class="table" id="infotable"></table>
+</body>
+
+
+<script>
+    var data = [
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2"},
+        {"ID":"A-2","Source":"apQuest","TMC":"204","Severity":"3"},
+        {"ID":"A-3","Source":"Mapuest","TMC":"207","Severity":"2"},
+        {"ID":"A-4","Source":"MapQest","TMC":"208","Severity":"2"},
+        {"ID":"A-5","Source":"MapQuet","TMC":"214","Severity":"2"},
+        {"ID":"A-6","Source":"MapQues","TMC":"220","Severity":"2"},
+        {"ID":"A-7","Source":"MapQust","TMC":"247","Severity":"2"},
+];
+//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
+    var table = '<table>';
+    table += '<tr>';
+    for(var i in data[0]) {
+        table += '<th>' + i + '</th>';
+    }
+    table += '</tr>';
+    for(var j = 0; j < data.length; j++){
+        table += '<tr>';
+        for(var k in data[j]){
+        table += '<td>' + data[j][k] + '</td>';
+        }
+        table += '</tr>';
+    }
+    table += '</table>';
+    document.getElementById('infotable').innerHTML = table;
+</script>
+</html>
