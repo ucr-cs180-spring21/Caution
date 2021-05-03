@@ -484,6 +484,7 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             re.push(data[j][indexOfPassedInFilter]);
         }
+        console.log('Re ' + indexOfPassedInFilter);
 
         // Gets only the unique values in a filter and its frequency
         const map = re.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());

@@ -7,6 +7,9 @@
 		
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="/style.css">
+		<style>
+			
+		</style>
 		
 	</head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -182,10 +185,16 @@
 			</select>
 		</div>
 
+		<br>
+		<br>
+
+		<button onclick="buttonfrequencyOfFilter()">Frequency of accidents due to weather conditions!</button>
+
+		<br>
+		<br>
+
 		<p id="hellow"></p>
 		<button onclick="buttonClickedhello()">Hello!</button>
-		
-		<button onclick="buttonfrequencyOfFilter()">Frequency of accidents due to weather conditions!</button>
 
 		<div class="button">
 			<button type="button" onclick="updateTable()">Update</button>
@@ -199,10 +208,17 @@
 			<button type="button" onclick="updateCSV()">Input New CSV</button>
 		</div>
 
+		<br>
+		<br>
+
 		<div class="text-area" id="text-area">
 			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
 		</div>
-		
+
+		<div class="text-area">
+			<table id="analytics" style="text-align: center;" class="display" width="100%" cellspacing="0"></table>
+		</div>
+
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			// Global variables
@@ -357,6 +373,37 @@
 			socket.on('filterFrequency', function(arrayOfFrequencies){
 				console.log("Comes back to client")
 				console.log(arrayOfFrequencies);
+
+				//var table = document.getElementById('infotable');
+				//table.style.display = 'none';
+
+				var table = '<table>';
+				table += '<thead>'
+				table += '<tr>';
+				var labels = ['Analytic', 'Count'];
+				for(var i in labels) {
+					table += '<th>' + labels[i] + '</th>';
+				}
+
+				table += '</tr>';
+				table += '<tbody>';
+				for(var j = 1; j < arrayOfFrequencies.length; j++){
+					table += '<tr>';
+					for(var k in arrayOfFrequencies[j]){
+					table += '<td>' + arrayOfFrequencies[j][k] + '</td>';
+					}
+					table += '</tr>';
+				}
+				table += '</tbody>';
+				table += '</table>';
+				document.getElementById('analytics').innerHTML = table;
+				$(document).ready(function() {
+					$('#analytics').DataTable( {
+						"pagingType": "full_numbers",
+						"bDestroy": true,
+						"ordering": false
+					} );
+				});
 			});
 
 			socket.on('csvexport', function(csvContent) {
