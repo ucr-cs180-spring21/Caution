@@ -101,6 +101,15 @@
   	grid-column-end: 3;
 }
 
+#analytics_grid {
+	grid-template-columns: auto auto;
+}
+
+#analytics_grid button {
+	grid-column-start: 1;
+  	grid-column-end: 3;
+}
+
 #record_table_container {
 	width: 100%;
 	overflow: auto;
