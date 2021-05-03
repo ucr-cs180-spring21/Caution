@@ -1,319 +1,333 @@
 <!DOCTYPE html>
  <html lang = "en">
-	<head>
-		<meta charset = "UTF-8">
-		<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-		<title>Caution</title>
-		
-		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
-		<link rel="stylesheet" href="/style.css">
-		<style>
-			
-		</style>
-		
-	</head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-	
-	<body>
-		<h1>Caution!</h1>
-		<div>
-			<label for="recordID">Record ID:</label>
-			<input type="text" id="recordID" name="recordID"><br><br>
-			<label for="attributeChange">Attribute to Change:</label>
-			<select id="attributeChange">
-				<option value="traffic_sig">Traffic Signal</option>
-				<option value="snow">Weather Condition</option>
-				<option value="humid">Humidity</option>
-				<option value="severity">Severity</option>
-				<option value="timezone">Timezone</option>
-				<option value="city">City</option>
-				<option value="airport">Airport</option>
-				<option value="pressure">Pressure</option>
-			</select><br><br>
-			<label for="newValue">New Value:</label>
-			<input type="text" id="newValue" name="newValue"><br><br>
-			<button onclick="update()">Change Value</button>
-			<button onclick="del()">Delete</button>
-		</div><br><br>
-		<div id="newRecordForm">
-			<div class="newentryflex">
-				<label for="source">Source:</label>
-				<input type="text" class="recordForm" style="width:150px" name="source"><br>
-				<label for="tmc">TMC:</label>
-				<input type="text" class="recordForm" style="width:150px" name="tmc"><br>
-				<label for="severity">Severity:</label>
-				<input type="text" class="recordForm" style="width:150px" name="severity"><br>
-				<label for="start_time">Start_Time:</label>
-				<input type="text" class="recordForm" style="width:150px" name="start_time"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="end_time">End_Time:</label>
-				<input type="text" class="recordForm" style="width:150px" name="end_time"><br>
-				<label for="start_lat">Start_Lat:</label>
-				<input type="text" class="recordForm" style="width:150px" name="start_lat"><br>
-				<label for="start_lng">Start_Lng:</label>
-				<input type="text" class="recordForm" style="width:150px" name="start_lng"><br>
-				<label for="start_lat">End_Lat:</label>
-				<input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="end_lat">End_Lng:</label>
-				<input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
-				<label for="distance">Distance(mi):</label>
-				<input type="text" class="recordForm" style="width:150px" name="distance"><br>
-				<label for="description">Description:</label>
-				<input type="text" class="recordForm" style="width:150px" name="description"><br>
-				<label for="number">Number:</label>
-				<input type="text" class="recordForm" style="width:150px" name="number"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="street">Street:</label>
-				<input type="text" class="recordForm" style="width:150px" name="street"><br>
-				<label for="side">Side:</label>
-				<input type="text" class="recordForm" style="width:150px" name="side"><br>
-				<label for="city">City:</label>
-				<input type="text" class="recordForm" style="width:150px" name="city"><br>
-				<label for="county">County:</label>
-				<input type="text" class="recordForm" style="width:150px" name="county"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="state">State:</label>
-				<input type="text" class="recordForm" style="width:150px" name="state"><br>
-				<label for="zipcode">Zipcode:</label>
-				<input type="text" class="recordForm" style="width:150px" name="zipcode"><br>
-				<label for="country">Country:</label>
-				<input type="text" class="recordForm" style="width:150px" name="country"><br>
-				<label for="timezone">Timezone:</label>
-				<input type="text" class="recordForm" style="width:150px" name="timezone"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="airport_code">Airport_Code:</label>
-				<input type="text" class="recordForm" style="width:150px" name="airport_code"><br>
-				<label for="weather_timestamp">Weather_Timestamp:</label>
-				<input type="text" class="recordForm" style="width:150px" name="weather_timestamp"><br>
-				<label for="temperature">Temperature(F):</label>
-				<input type="text" class="recordForm" style="width:150px" name="temperature"><br>
-				<label for="wind_chill">Wind_Chill(F):</label>
-				<input type="text" class="recordForm" style="width:150px" name="wind_chill"><br>
-				
-			</div>
-			<div class="newentryflex">
-				<label for="humidity">Humidity(%):</label>
-				<input type="text" class="recordForm" style="width:150px" name="humidity"><br>
-				<label for="pressure">Pressure(in):</label>
-				<input type="text" class="recordForm" style="width:150px" name="pressure"><br>
-				<label for="visibility">Visibility(mi):</label>
-				<input type="text" class="recordForm" style="width:150px" name="visibility"><br>
-				<label for="wind_direction">Wind_Direction:</label>
-				<input type="text" class="recordForm" style="width:150px" name="wind_direction"><br>
-				
-			</div>	
-			<div class="newentryflex">
-				<label for="wind_speed">Wind_Speed(mph):</label>
-				<input type="text" class="recordForm" style="width:150px" name="wind_speed"><br>
-				<label for="precipitation">Precipitation(in):</label>
-				<input type="text" class="recordForm" style="width:150px" name="precipitation"><br>
-				<label for="weather_condition">Weather_Condition:</label>
-				<input type="text" class="recordForm" style="width:150px" name="weather_condition"><br>
-				<label for="amenity">Amenity:</label>
-				<input type="text" class="recordForm" style="width:150px" name="amenity"><br>
-			</div>	
-			<div class="newentryflex">
-				<label for="sig">Bump:</label>
-				<input type="text" class="recordForm" style="width:150px" name="bump"><br>
-				<label for="crossing">Crossing:</label>
-				<input type="text" class="recordForm" style="width:150px"  name="crossing"><br>
-				<label for="give_way">Give_Way:</label>
-				<input type="text" class="recordForm" style="width:150px" name="give_way"><br>
-				<label for="junction">Junction:</label>
-				<input type="text" class="recordForm" style="width:150px" name="junction"><br>
-			</div>	
-			<div class="newentryflex">
-				<label for="no_exit">No_Exit:</label>
-				<input type="text" class="recordForm" style="width:150px" name="no_exit"><br>
-				<label for="railway">Railway:</label>
-				<input type="text" class="recordForm" style="width:150px" name="railway"><br>
-				<label for="roundabout">Roundabout:</label>
-				<input type="text" class="recordForm" style="width:150px" name="roundabout"><br>
-				<label for="station">Station:</label>
-				<input type="text" class="recordForm" style="width:150px" name="station"><br>
-			</div>
-			<div class="newentryflex">
-				<label for="stop">Stop:</label>
-				<input type="text" class="recordForm" style="width:150px" name="stop"><br>
-				<label for="traffic_calming">Traffic_Calming:</label>
-				<input type="text" class="recordForm" style="width:150px" name="traffic_calming"><br>
-				<label for="traffic_signal">Traffic_Signal:</label>
-				<input type="text" class="recordForm" style="width:150px" name="traffic_signal"><br>
-				<label for="turning_loop">Turning_loop:</label>
-				<input type="text" class="recordForm" style="width:150px" name="turning_loop"><br>
-			</div>
-			<div class="newentryflex">
-				<label for="sunrise_sunset">Sunrise_Sunset:</label>
-				<input type="text" class="recordForm" style="width:150px" name="sunrise_sunset"><br>
-				<label for="civil_twilight">Civil_Twilight:</label>
-				<input type="text" class="recordForm" style="width:150px" name="civil_twilight"><br>
-				<label for="nautical_twilight">Nautical_Twilight:</label>
-				<input type="text" class="recordForm" style="width:150px" name="nautical_twilight"><br>
-				<label for="astronomical_twilight">Astronomical_Twilight:</label>
-				<input type="text" class="recordForm" style="width:150px" name="astronomical_twilight"><br><br>
-			</div>
-				
-				
-				
-				
-			<button style="margin: auto" onclick="newRecord()">Create New Record</button>
-			</div>
-		</div><br><br>
-		<div>
-			<select multiple class="multi-select" id="multi-select" onchange="updateFilters()">
-				<option value="" disabled selected>Select filters</option>
-				<option id="trafficsig" value="trafficsig">Traffic Signal: True</option>
-				<option id="snow" value="snow">Weather Condition: Light Snow</option>
-				<option id="humid" value="humid">Humidity: 100%</option>
-				<option id="severity" value="severity">Severity: 3/3</option>
-				<option id="timezone" value="timezone">Timezone: US/Eastern</option>
-				<option id="city" value="city">City: Dayton</option>
-				<option id="airport" value="airport">Airport: KDAY</option>
-				<option id="pressure" value="pressure">Pressure: 29.61 in</option>
-			</select>
-		</div>
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+        <title>Caution</title>
+        
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="/style.css">
+        <style>
+            
+        </style>
+        
+    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    
+    <body>
+        <h1>Caution!</h1>
+        <div class="tab">
+            <button id="defaultOpen" class="tablink" onclick="openTab(event, 'MainPage')">Main</button>
+            <button class="tablink" onclick="openTab(event, 'SearchPage')">Search</button>
+            <button class="tablink" onclick="openTab(event, 'UpdatePage')">Update</button>
+            <button class="tablink" onclick="openTab(event, 'ImportPage')">Import</button>
+        </div>
 
-		<br>
-		<br>
+        <!--This is for the Search tab-->
+        <div id="MainPage" class="tabcontent">
+            <p id="hellow"></p>
+            <div class="button">
+                <button onclick="buttonClickedhello()">Hello!</button>
+                <button onclick="buttonfrequencyOfFilter()">Frequency of accidents due to weather conditions!</button>
+                <button onclick="buttonfrequencyWeather()">Frequency due to weather</button>
+                <button onclick="buttonfrequencyHumidity()">Frequency due to humidity</button>
+                <button onclick="buttonfrequencyDist()">Frequency due to distance</button>
+                <button onclick="buttonfrequencyBump()">Frequency due to bumps</button>
+                <button onclick="buttonfrequencyStop()">Frequency due to stop sign</button>     
+            </div>
+            <div style="position: relative; height:40vh; width:40vw">
+                <canvas id="myChart"></canvas>
+            </div>
 
-		<button onclick="buttonfrequencyWeather()">Frequency due to weather</button>
-		<button onclick="buttonfrequencyHumidity()">Frequency due to humidity</button>
-		<button onclick="buttonfrequencyDist()">Frequency due to distance</button>
-		<button onclick="buttonfrequencyBump()">Frequency due to bumps</button>
-		<button onclick="buttonfrequencyStop()">Frequency due to stop sign</button>
+            <br><br>
 
-		<br>
-		<br>
-
-		<p id="hellow"></p>
-		<button onclick="buttonClickedhello()">Hello!</button>
-
-		<div class="button">
-			<button type="button" onclick="updateTable()">Update</button>
-			<button type="button" onclick="buttonClear()">Clear</button>
-			<button type="button" onclick="buttonBackup()">Backup</button>
-			<!--button type="button" onclick="buttonExport()">Export</button-->
-		</div><br><br>
-		<div>
-			<label for="fileName">Input File Name:</label>
-			<input type="text" id="fileName" name="fileName"><br><br>
-			<button type="button" onclick="updateCSV()">Input New CSV</button>
-		</div>
-
-		<br>
-		<br>
-
-		<div style="position: relative; height:40vh; width:40vw">
-			<canvas id="myChart"></canvas>
-		</div>
-
-		<br>
-		<br>
-
-		<div class="text-area" id="text-area">
-			<table id="infotable" class="display" width="100%" cellspacing="0"></table>
-		</div>
-
-		<div class="text-area">
-			<table id="analytics" style="text-align: center;" class="display" width="100%" cellspacing="0"></table>
-		</div>
-
-		<script src="/socket.io/socket.io.js"></script>
-		<script>
-			// Global variables
-			var socket = io.connect();
-			var selectedFilters = [];
-			var count = 0;
-
-			// Function executes immediately and displays which filters are selected
-			window.onload = multiselectFeature(); 
-			function multiselectFeature() {
-				var selectTag = document.getElementById('multi-select');
-				filters = new Array(selectTag.length);
-			
-				selectTag.addEventListener('click', function(e) {
-					// Initialize all the filters to be unselected 
-					filters[e.target.index] = !filters[e.target.index];
-					
-					// If filter is selected, mark it
-					for(var i = 0; i < filters.length; ++i) {
-						selectTag.options[i].selected = filters[i];
-					}
-				})
-			}
+            <div class="text-area">
+                <table id="analytics" style="text-align: center;" class="display" width="100%" cellspacing="0"></table>
+            </div>
+        </div>
+        
+        <!--This is for the Search tab-->
+        <div id="SearchPage" class="tabcontent">
+            <div>
+                <select multiple class="multi-select" id="multi-select" onchange="updateFilters()">
+                    <option value="" disabled selected>Select filters</option>
+                    <option id="trafficsig" value="trafficsig">Traffic Signal: True</option>
+                    <option id="snow" value="snow">Weather Condition: Light Snow</option>
+                    <option id="humid" value="humid">Humidity: 100%</option>
+                    <option id="severity" value="severity">Severity: 3/3</option>
+                    <option id="timezone" value="timezone">Timezone: US/Eastern</option>
+                    <option id="city" value="city">City: Dayton</option>
+                    <option id="airport" value="airport">Airport: KDAY</option>
+                    <option id="pressure" value="pressure">Pressure: 29.61 in</option>
+                </select>
+            </div>
+            <div class="button">
+                <button type="button" onclick="updateTable()">Update</button>
+                <button type="button" onclick="buttonClear()">Clear</button>
+            </div>  
+            <div class="text-area" id="text-area">
+                <table id="infotable" class="display" width="100%" cellspacing="0"></table>
+            </div>
+        </div>
 
 
-			// This function gets the filters that are selected
-			function updateFilters() {
-				// Convert all of the options to an array
-				// Then, get an array of only the options that are selected
-				// Then, get an array of the selected option values
-				selectedFilters = Array.from(document.getElementById("multi-select").options).filter(function (option) {
-					return option.selected;
-				}).map(function (option) {
-					return option.value;
-				});
-				console.log(selectedFilters)
-			}
+        <!--This is for the Update tab-->
+        <div id="UpdatePage" class="tabcontent">
+            <div>
+                <label for="recordID">Record ID:</label>
+                <input type="text" id="recordID" name="recordID"><br><br>
+                <label for="attributeChange">Attribute to Change:</label>
+                <select id="attributeChange">
+                    <option value="traffic_sig">Traffic Signal</option>
+                    <option value="snow">Weather Condition</option>
+                    <option value="humid">Humidity</option>
+                    <option value="severity">Severity</option>
+                    <option value="timezone">Timezone</option>
+                    <option value="city">City</option>
+                    <option value="airport">Airport</option>
+                    <option value="pressure">Pressure</option>
+                </select><br><br>
+                <label for="newValue">New Value:</label>
+                <input type="text" id="newValue" name="newValue"><br><br>
+                <button onclick="update()">Change Value</button>
+                <button onclick="del()">Delete</button>
+            </div>
+            
+            <br><br>
+            
+            <div id="newRecordForm">
+                <div class="newentryflex">
+                    <label for="source">Source:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="source"><br>
+                    <label for="tmc">TMC:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="tmc"><br>
+                    <label for="severity">Severity:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="severity"><br>
+                    <label for="start_time">Start_Time:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="start_time"><br>
+                    
+                </div>
+                <div class="newentryflex">
+                    <label for="end_time">End_Time:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="end_time"><br>
+                    <label for="start_lat">Start_Lat:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="start_lat"><br>
+                    <label for="start_lng">Start_Lng:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="start_lng"><br>
+                    <label for="start_lat">End_Lat:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
+                    
+                </div>
+                <div class="newentryflex">
+                    <label for="end_lat">End_Lng:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
+                    <label for="distance">Distance(mi):</label>
+                    <input type="text" class="recordForm" style="width:150px" name="distance"><br>
+                    <label for="description">Description:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="description"><br>
+                    <label for="number">Number:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="number"><br>
+                    
+                </div>
+                <div class="newentryflex">
+                    <label for="street">Street:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="street"><br>
+                    <label for="side">Side:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="side"><br>
+                    <label for="city">City:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="city"><br>
+                    <label for="county">County:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="county"><br>
+                    
+                </div>
+                <div class="newentryflex">
+                    <label for="state">State:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="state"><br>
+                    <label for="zipcode">Zipcode:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="zipcode"><br>
+                    <label for="country">Country:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="country"><br>
+                    <label for="timezone">Timezone:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="timezone"><br>
+                    
+                </div>
+                <div class="newentryflex">
+                    <label for="airport_code">Airport_Code:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="airport_code"><br>
+                    <label for="weather_timestamp">Weather_Timestamp:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="weather_timestamp"><br>
+                    <label for="temperature">Temperature(F):</label>
+                    <input type="text" class="recordForm" style="width:150px" name="temperature"><br>
+                    <label for="wind_chill">Wind_Chill(F):</label>
+                    <input type="text" class="recordForm" style="width:150px" name="wind_chill"><br>
+                    
+                </div>
+                <div class="newentryflex">
+                    <label for="humidity">Humidity(%):</label>
+                    <input type="text" class="recordForm" style="width:150px" name="humidity"><br>
+                    <label for="pressure">Pressure(in):</label>
+                    <input type="text" class="recordForm" style="width:150px" name="pressure"><br>
+                    <label for="visibility">Visibility(mi):</label>
+                    <input type="text" class="recordForm" style="width:150px" name="visibility"><br>
+                    <label for="wind_direction">Wind_Direction:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="wind_direction"><br>
+                    
+                </div>  
+                <div class="newentryflex">
+                    <label for="wind_speed">Wind_Speed(mph):</label>
+                    <input type="text" class="recordForm" style="width:150px" name="wind_speed"><br>
+                    <label for="precipitation">Precipitation(in):</label>
+                    <input type="text" class="recordForm" style="width:150px" name="precipitation"><br>
+                    <label for="weather_condition">Weather_Condition:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="weather_condition"><br>
+                    <label for="amenity">Amenity:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="amenity"><br>
+                </div>  
+                <div class="newentryflex">
+                    <label for="sig">Bump:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="bump"><br>
+                    <label for="crossing">Crossing:</label>
+                    <input type="text" class="recordForm" style="width:150px"  name="crossing"><br>
+                    <label for="give_way">Give_Way:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="give_way"><br>
+                    <label for="junction">Junction:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="junction"><br>
+                </div>  
+                <div class="newentryflex">
+                    <label for="no_exit">No_Exit:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="no_exit"><br>
+                    <label for="railway">Railway:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="railway"><br>
+                    <label for="roundabout">Roundabout:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="roundabout"><br>
+                    <label for="station">Station:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="station"><br>
+                </div>
+                <div class="newentryflex">
+                    <label for="stop">Stop:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="stop"><br>
+                    <label for="traffic_calming">Traffic_Calming:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="traffic_calming"><br>
+                    <label for="traffic_signal">Traffic_Signal:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="traffic_signal"><br>
+                    <label for="turning_loop">Turning_loop:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="turning_loop"><br>
+                </div>
+                <div class="newentryflex">
+                    <label for="sunrise_sunset">Sunrise_Sunset:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="sunrise_sunset"><br>
+                    <label for="civil_twilight">Civil_Twilight:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="civil_twilight"><br>
+                    <label for="nautical_twilight">Nautical_Twilight:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="nautical_twilight"><br>
+                    <label for="astronomical_twilight">Astronomical_Twilight:</label>
+                    <input type="text" class="recordForm" style="width:150px" name="astronomical_twilight"><br><br>
+                </div>
+            
+                <button style="margin: auto" onclick="newRecord()">Create New Record</button>
+            </div>
+        </div>      
+        
+        
+        <!--This is for the Import tab-->
+        <div id="ImportPage" class="tabcontent">
+            <div class="button">
+                <button type="button" onclick="buttonBackup()">Backup</button>
+                <!--button type="button" onclick="buttonExport()">Export</button-->
+            </div>
+            <div>
+                <label for="fileName">Input File Name:</label>
+                <input type="text" id="fileName" name="fileName"><br><br>
+                <button type="button" onclick="updateCSV()">Input New CSV</button>
+            </div>
+        </div>
+    
+        
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            // Global variables
+            var socket = io.connect();
+            var selectedFilters = [];
+            var count = 0;
+
+            // Function executes immediately and displays which filters are selected
+            window.onload = multiselectFeature(); 
+            function multiselectFeature() {
+                var selectTag = document.getElementById('multi-select');
+                filters = new Array(selectTag.length);
+            
+                selectTag.addEventListener('click', function(e) {
+                    // Initialize all the filters to be unselected 
+                    filters[e.target.index] = !filters[e.target.index];
+                    
+                    // If filter is selected, mark it
+                    for(var i = 0; i < filters.length; ++i) {
+                        selectTag.options[i].selected = filters[i];
+                    }
+                })
+            }
 
 
-			// This function returns the names of the filters that were selected
-			function getFilters() {
-				return selectedFilters;
-			}
+            // This function gets the filters that are selected
+            function updateFilters() {
+                // Convert all of the options to an array
+                // Then, get an array of only the options that are selected
+                // Then, get an array of the selected option values
+                selectedFilters = Array.from(document.getElementById("multi-select").options).filter(function (option) {
+                    return option.selected;
+                }).map(function (option) {
+                    return option.value;
+                });
+                console.log(selectedFilters)
+            }
 
 
-			// When the update button is pressed, update the table
-			function updateTable() {
-				if(selectedFilters[0] == 'trafficsig') {
-					socket.emit('trafficsig');
-				}
-				else if(selectedFilters[0] == 'snow') {
-					socket.emit('snow');
-				}
-				else if(selectedFilters[0] == 'humid') {
-					socket.emit('humid');
-				}
-				else if(selectedFilters[0] == 'severity') {
-					socket.emit('severity');
-				}
-				else if(selectedFilters[0] == 'timezone') {
-					socket.emit('timezone');
-				}
-				else if(selectedFilters[0] == 'city') {
-					socket.emit('city');
-				}
-				else if(selectedFilters[0] == 'airport') {
-					socket.emit('airport');
-				}
-				else if(selectedFilters[0] == 'pressure') {
-					socket.emit('pressure');
-				}
-				else if(selectedFilters[0] == 'bump') {
-					socket.emit('bump');
-				}
-			}
+            // This function returns the names of the filters that were selected
+            function getFilters() {
+                return selectedFilters;
+            }
 
 
-			// When button is pressed updates the 
-			function update() {
-				var id = document.getElementById('recordID');
+            // When the update button is pressed, update the table
+            function updateTable() {
+                if(selectedFilters[0] == 'trafficsig') {
+                    socket.emit('trafficsig');
+                }
+                else if(selectedFilters[0] == 'snow') {
+                    socket.emit('snow');
+                }
+                else if(selectedFilters[0] == 'humid') {
+                    socket.emit('humid');
+                }
+                else if(selectedFilters[0] == 'severity') {
+                    socket.emit('severity');
+                }
+                else if(selectedFilters[0] == 'timezone') {
+                    socket.emit('timezone');
+                }
+                else if(selectedFilters[0] == 'city') {
+                    socket.emit('city');
+                }
+                else if(selectedFilters[0] == 'airport') {
+                    socket.emit('airport');
+                }
+                else if(selectedFilters[0] == 'pressure') {
+                    socket.emit('pressure');
+                }
+                else if(selectedFilters[0] == 'bump') {
+                    socket.emit('bump');
+                }
+            }
 
-				socket.emit('update', id.value);
-			}
+
+            // When button is pressed updates the 
+            function update() {
+                var id = document.getElementById('recordID');
+
+                socket.emit('update', id.value);
+            }
 
 
             function del() {
@@ -338,297 +352,324 @@
                 //console.log(attributeValues);
                 socket.emit('new', attributeValues);
             }
-			
+            
 
-			// Emits to the server
-			function buttonClickedhello() {
-				socket.emit('hello');
-			}
-
-
-			// When the button is pressed, clears the table
-			function buttonClear() {
-				socket.emit('clear');
-			}
-			
-
-			function buttonBackup() {
-				var fn = document.getElementById('fileName');
-				socket.emit('backup');
-			}
+            // Emits to the server
+            function buttonClickedhello() {
+                socket.emit('hello');
+            }
 
 
-			function updateCSV() {
-				var fn = document.getElementById('fileName');
-				socket.emit('updateinput', fn.value);
-			}
+            // When the button is pressed, clears the table
+            function buttonClear() {
+                socket.emit('clear');
+            }
+            
+
+            function buttonBackup() {
+                var fn = document.getElementById('fileName');
+                socket.emit('backup');
+            }
 
 
-			// Hard coded at the moment, but sends a request to get number of accidents by weather condition 
-			function buttonfrequencyWeather() {
-				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Weather_Condition");
-			}
-
-			function buttonfrequencyHumidity() {
-				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Humidity(%)");
-			}
-
-			function buttonfrequencyDist() {
-				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Distance(mi)");
-			}
-
-			function buttonfrequencyBump() {
-				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Bump");
-			}
-
-			function buttonfrequencyStop() {
-				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Stop");
-			}
-
-			// Button exports the filtered data to be downloaded on client's comp
-			// function buttonExport(){
-			//     socket.emit('csvexport');
-			// }
-
-			// When the server sends, update the HTML
-			socket.on('hello world', function(data){
-				console.log("Hello World!");
-				document.getElementById("hellow").innerHTML = 'Hello World!';
-			});
-
-			socket.on('filterFrequency', function(arrayOfFrequencies){
-				console.log("Comes back to client")
-				console.log(arrayOfFrequencies);
-
-				/*Bar Chart JavaScript
-				Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart
-				Biggest issue I had is the table doesn't work well when the let data is changed to another variable name that 
-				may have been just a stupid issue though */
-				var ctx = document.getElementById('myChart').getContext('2d');
-
-				let Xvals = [];
-				let Yvals = [];
-				var sz = arrayOfFrequencies.length-1;
-				//data = arrayOfFrequencies.slice(1, sz);
-				data = arrayOfFrequencies.slice(1, arrayOfFrequencies.length);
-
-				try {
-					data.map((item) => {
-						console.log(item.Value);
-						Yvals.push(item.Count);
-						Xvals.push(item.Value);
-				});
+            function updateCSV() {
+                var fn = document.getElementById('fileName');
+                socket.emit('updateinput', fn.value);
+            }
 
 
-				var myChart = new Chart(ctx, {
-					type: 'bar',
-					data: {
-					labels: [...Xvals],
-					datasets: [{
-						label: 'Accidents',
-						data: [...Yvals],
-						borderWidth: 1
-					}]
-					},
-				});
+            // Hard coded at the moment, but sends a request to get number of accidents by weather condition 
+            function buttonfrequencyWeather() {
+                console.log("Goes to server");
+                socket.emit('frequency_of_filter', "Weather_Condition");
+            }
 
-				} catch (error) {
-					console.log(error);
-				}
+            function buttonfrequencyHumidity() {
+                console.log("Goes to server");
+                socket.emit('frequency_of_filter', "Humidity(%)");
+            }
 
-				//var table = document.getElementById('infotable');
-				//table.style.display = 'none';
+            function buttonfrequencyDist() {
+                console.log("Goes to server");
+                socket.emit('frequency_of_filter', "Distance(mi)");
+            }
 
-				var table = '<table>';
-				table += '<thead>'
-				table += '<tr>';
-				var labels = ['Analytic', 'Count'];
-				for(var i in labels) {
-					table += '<th>' + labels[i] + '</th>';
-				}
+            function buttonfrequencyBump() {
+                console.log("Goes to server");
+                socket.emit('frequency_of_filter', "Bump");
+            }
 
-				table += '</tr>';
-				table += '<tbody>';
-				for(var j = 1; j < arrayOfFrequencies.length; j++){
-					table += '<tr>';
-					for(var k in arrayOfFrequencies[j]){
-					table += '<td>' + arrayOfFrequencies[j][k] + '</td>';
-					}
-					table += '</tr>';
-				}
-				table += '</tbody>';
-				table += '</table>';
-				document.getElementById('analytics').innerHTML = table;
-				$(document).ready(function() {
-					$('#analytics').DataTable( {
-						"pagingType": "full_numbers",
-						"bDestroy": true,
-						"ordering": false
-					} );
-				});
+            function buttonfrequencyStop() {
+                console.log("Goes to server");
+                socket.emit('frequency_of_filter', "Stop");
+            }
 
-			});
+            // Button exports the filtered data to be downloaded on client's comp
+            // function buttonExport(){
+            //     socket.emit('csvexport');
+            // }
 
-			socket.on('csvexport', function(csvContent) {
-				var encodedUri = encodeURI(csvContent);
-				window.open(encodedUri);
-			});
+            // When the server sends, update the HTML
+            socket.on('hello world', function(data){
+                console.log("Hello World!");
+                document.getElementById("hellow").innerHTML = 'Hello World!';
+            });
 
-			socket.on('update_return', function(data) {
-				var id = document.getElementById('recordID');
-				var dd = document.getElementById('attributeChange');
-				var newval = document.getElementById('newValue');
-				var j_ind = 0;
-				console.log(id.value);
+            socket.on('filterFrequency', function(arrayOfFrequencies){
+                console.log("Comes back to client")
+                console.log(arrayOfFrequencies);
 
-				for(var j = 0; j < data.length; j++) {
-					if (data[j][0] == String(id.value)){
-						if(String(dd.value) == 'snow') {
-							data[j][31] = newval.value;
+                /*Bar Chart JavaScript
+                Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart
+                Biggest issue I had is the table doesn't work well when the let data is changed to another variable name that 
+                may have been just a stupid issue though */
+                var ctx = document.getElementById('myChart').getContext('2d');
+
+                let Xvals = [];
+                let Yvals = [];
+                var sz = arrayOfFrequencies.length-1;
+                //data = arrayOfFrequencies.slice(1, sz);
+                data = arrayOfFrequencies.slice(1, arrayOfFrequencies.length);
+
+                try {
+                    data.map((item) => {
+                        console.log(item.Value);
+                        Yvals.push(item.Count);
+                        Xvals.push(item.Value);
+                });
+
+
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                    labels: [...Xvals],
+                    datasets: [{
+                        label: 'Accidents',
+                        data: [...Yvals],
+                        borderWidth: 1
+                    }]
+                    },
+                });
+
+                } catch (error) {
+                    console.log(error);
+                }
+
+                //var table = document.getElementById('infotable');
+                //table.style.display = 'none';
+
+                var table = '<table>';
+                table += '<thead>'
+                table += '<tr>';
+                var labels = ['Analytic', 'Count'];
+                for(var i in labels) {
+                    table += '<th>' + labels[i] + '</th>';
+                }
+
+                table += '</tr>';
+                table += '<tbody>';
+                for(var j = 1; j < arrayOfFrequencies.length; j++){
+                    table += '<tr>';
+                    for(var k in arrayOfFrequencies[j]){
+                    table += '<td>' + arrayOfFrequencies[j][k] + '</td>';
+                    }
+                    table += '</tr>';
+                }
+                table += '</tbody>';
+                table += '</table>';
+                document.getElementById('analytics').innerHTML = table;
+                $(document).ready(function() {
+                    $('#analytics').DataTable( {
+                        "pagingType": "full_numbers",
+                        "bDestroy": true,
+                        "ordering": false
+                    } );
+                });
+
+            });
+
+            socket.on('csvexport', function(csvContent) {
+                var encodedUri = encodeURI(csvContent);
+                window.open(encodedUri);
+            });
+
+            socket.on('update_return', function(data) {
+                var id = document.getElementById('recordID');
+                var dd = document.getElementById('attributeChange');
+                var newval = document.getElementById('newValue');
+                var j_ind = 0;
+                console.log(id.value);
+
+                for(var j = 0; j < data.length; j++) {
+                    if (data[j][0] == String(id.value)){
+                        if(String(dd.value) == 'snow') {
+                            data[j][31] = newval.value;
                             console.log(data[j]);
-							socket.emit('update_snow', data[j]);
-						}
+                            socket.emit('update_snow', data[j]);
+                        }
                         else if(String(dd.value) == 'traffic_sig') {
-							data[j][43] = newval.value;
+                            data[j][43] = newval.value;
                             console.log(data[j][43]);
-							socket.emit('update_trafficsig', data[j]);
-						}
+                            socket.emit('update_trafficsig', data[j]);
+                        }
                         else if(String(dd.value) == 'humid') {
-							data[j][25] = newval.value;
+                            data[j][25] = newval.value;
                             console.log(data[j][25]);
-							socket.emit('update_humid', data[j]);
-						}
+                            socket.emit('update_humid', data[j]);
+                        }
                         else if(String(dd.value) == 'severity') {
-							data[j][3] = newval.value;
+                            data[j][3] = newval.value;
                             console.log(data[j][3]);
-							socket.emit('update_severity', data[j]);
-						}
+                            socket.emit('update_severity', data[j]);
+                        }
                         else if(String(dd.value) == 'timezone') {
-							data[j][20] = newval.value;
+                            data[j][20] = newval.value;
                             console.log(data[j][20]);
-							socket.emit('update_timezone', data[j]);
-						}
+                            socket.emit('update_timezone', data[j]);
+                        }
                         else if(String(dd.value) == 'city') {
-							data[j][15] = newval.value;
+                            data[j][15] = newval.value;
                             console.log(data[j][15]);
-							socket.emit('update_city', data[j]);
-						}
+                            socket.emit('update_city', data[j]);
+                        }
                         else if(String(dd.value) == 'airport') {
-							data[j][21] = newval.value;
+                            data[j][21] = newval.value;
                             console.log(data[j][21]);
-							socket.emit('update_airport', data[j]);
-						}
+                            socket.emit('update_airport', data[j]);
+                        }
                         else if(String(dd.value) == 'pressure') {
-							data[j][26] = newval.value;
+                            data[j][26] = newval.value;
                             console.log(data[j][26]);
-							socket.emit('update_pressure', data[j]);
-						}
-					}
-				}
-			});
+                            socket.emit('update_pressure', data[j]);
+                        }
+                    }
+                }
+            });
 
 
-			socket.on('empty', function(data){
-				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
-				var table = '<table>';
-				table += '<thead>';
-				table += '<tr>';
-				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
-				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
-				'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 'Visibility(mi)',
-				'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 'Crossing', 'Give_Way', 'Junction',
-				'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight',
-				'Nautical_Twilight', 'Astronomical_Twilight']
-				
-				for(var i in data[0]) {
-					table += '<th>' + i + '</th>';
-				}
+            socket.on('empty', function(data){
+                //method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
+                var table = '<table>';
+                table += '<thead>';
+                table += '<tr>';
+                testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
+                'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
+                'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 'Visibility(mi)',
+                'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 'Crossing', 'Give_Way', 'Junction',
+                'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight',
+                'Nautical_Twilight', 'Astronomical_Twilight']
+                
+                for(var i in data[0]) {
+                    table += '<th>' + i + '</th>';
+                }
 
-				table += '</tr>';
-				table += '<tbody>';
-				for(var j = 0; j < data.length; j++){
-					table += '<tr>';
-					for(var k in data[j]){
-					table += '<td>' + data[j][k] + '</td>';
-					}
-					table += '</tr>';
-				}
-				table += '</tbody>';
-				table += '</table>';
-				document.getElementById('infotable').innerHTML = table;
-				$(document).ready(function() {
-					$('#infotable').DataTable( {
-						"pagingType": "full_numbers",
-						"bDestroy": true,
-						// "columnDefs": [
-						// 	{ "targets": [0], "orderable": false }
-						// ]
-						"ordering": false
-					} );
-				} );
-			});
+                table += '</tr>';
+                table += '<tbody>';
+                for(var j = 0; j < data.length; j++){
+                    table += '<tr>';
+                    for(var k in data[j]){
+                    table += '<td>' + data[j][k] + '</td>';
+                    }
+                    table += '</tr>';
+                }
+                table += '</tbody>';
+                table += '</table>';
+                document.getElementById('infotable').innerHTML = table;
+                $(document).ready(function() {
+                    $('#infotable').DataTable( {
+                        "pagingType": "full_numbers",
+                        "bDestroy": true,
+                        // "columnDefs": [
+                        //  { "targets": [0], "orderable": false }
+                        // ]
+                        "ordering": false
+                    } );
+                } );
+            });
 
 
-			socket.on('senddata', function(data){
-				console.log("Received Data");
-				//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
-				var table = '<table>';
-				table += '<thead>';
-				table += '<tr>';
-				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
-				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
-				'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 'Visibility(mi)',
-				'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 'Crossing', 'Give_Way', 'Junction',
-				'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight',
-				'Nautical_Twilight', 'Astronomical_Twilight']
-				
-				// for(var i in data[0]) {
-				// 	table += '<th>' + i + '</th>';
-				// 	console.log(i);
-				// }
+            socket.on('senddata', function(data){
+                console.log("Received Data");
+                //method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
+                var table = '<table>';
+                table += '<thead>';
+                table += '<tr>';
+                testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
+                'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
+                'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 'Visibility(mi)',
+                'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 'Crossing', 'Give_Way', 'Junction',
+                'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight',
+                'Nautical_Twilight', 'Astronomical_Twilight']
+                
+                // for(var i in data[0]) {
+                //  table += '<th>' + i + '</th>';
+                //  console.log(i);
+                // }
 
-				for(var i in testarr) {
-					table += '<th>' + testarr[i] + '</th>';
-				}
+                for(var i in testarr) {
+                    table += '<th>' + testarr[i] + '</th>';
+                }
 
-				table += '</tr>';
-				table += '<tbody>';
-				for(var j = 0; j < data.length; j++){
-					table += '<tr>';
-					for(var k in data[j]){
-					table += '<td>' + data[j][k] + '</td>';
-					}
-					table += '</tr>';
-				}
-				table += '</tbody>';
-				table += '</table>';
-				document.getElementById('infotable').innerHTML = table;
-				$(document).ready(function() {
-					$('#infotable').DataTable( {
-						"pagingType": "full_numbers",
-						"bDestroy": true,
-						// "columnDefs": [
-						// 	{ "targets": [1], "orderable": false }
-						// ]
-						"ordering": false
-					} );
-				} );
-			});
-			// client side export button
-			// socket.on('csvexport', function(csvContent) {
-			// 	console.log('ehehe');
-			// 	var encodedUri = encodeURI(csvContent);
-			// 	window.open(encodedUri);
-			// });
-			socket.on('backup', function(backup){
-				console.log('backup successful');
-				
-			});
-		</script>
-	</body>
+                table += '</tr>';
+                table += '<tbody>';
+                for(var j = 0; j < data.length; j++){
+                    table += '<tr>';
+                    for(var k in data[j]){
+                    table += '<td>' + data[j][k] + '</td>';
+                    }
+                    table += '</tr>';
+                }
+                table += '</tbody>';
+                table += '</table>';
+                document.getElementById('infotable').innerHTML = table;
+                $(document).ready(function() {
+                    $('#infotable').DataTable( {
+                        "pagingType": "full_numbers",
+                        "bDestroy": true,
+                        // "columnDefs": [
+                        //  { "targets": [1], "orderable": false }
+                        // ]
+                        "ordering": false
+                    } );
+                } );
+            });
+            // client side export button
+            // socket.on('csvexport', function(csvContent) {
+            //  console.log('ehehe');
+            //  var encodedUri = encodeURI(csvContent);
+            //  window.open(encodedUri);
+            // });
+            socket.on('backup', function(backup){
+                console.log('backup successful');
+                
+            });
+            
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+            
+            // All of the tab code
+            function openTab(evt, tabName) {
+                var i;
+                var tabcontent; 
+                var tablinks;
+
+                // Get all elements with class="tabcontent" and hide them
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+
+                // Get all elements with class="tablinks" and remove the class "active"
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+
+                // Show the current tab, and add an "active" class to the button that opened the tab
+                document.getElementById(tabName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        </script>
+    </body>
 </html>
+
