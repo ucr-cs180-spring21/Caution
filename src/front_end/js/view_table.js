@@ -86,7 +86,6 @@ socket.on('senddata', function(data){
     
     for(let i of attributes) {
         table += '<th>' + i + '</th>';
-        console.log(i);
     }
 
     table += '</tr>';

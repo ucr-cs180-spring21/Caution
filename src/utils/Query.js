@@ -63,7 +63,6 @@ function querySeverity(data) {
     for(var j = 0; j < data.length; j++) {
         if (data[j][3] == '3'){
             re.push(data[j]);
-            //console.log(data[j]);
         }
     }
 
@@ -75,7 +74,7 @@ function querySeverity(data) {
         retdata.push(stringToJsonObject);
     }
 
-    return retdata;
+    return re;
 }
 
 function queryTimezone(data) {

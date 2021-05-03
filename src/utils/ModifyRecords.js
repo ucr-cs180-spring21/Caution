@@ -47,13 +47,9 @@ function deleteRecord(data, id) {
     }
 }
 
-function insertRecord(data, field) {
-    var retdata = []
-    console.log(data[data.length-1]);
-    retdata.push(field);
-    data.push(field);
-
-    return retdata;
+function insertRecord(data, newRecord) {
+    newRecord.splice(0, 0, 'A-' + data.length);
+    data.push(newRecord);
 }
 
 exports.updateValue = updateValue;

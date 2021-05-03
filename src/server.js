@@ -22,9 +22,8 @@ io.on('connection', function(client) {
         deleteRecord(data, id);
     });
     
-    client.on('new', function(field) {
-        let retdata = insertRecord(data, field);
-        io.emit('senddata', retdata);
+    client.on('new', function(newRecord) {
+        insertRecord(data, newRecord);
     });
 
     client.on('snow', function(client){
@@ -65,11 +64,6 @@ io.on('connection', function(client) {
     client.on('pressure', function(client){
         let retdata = queryPressure(data);
         io.emit('senddata', retdata);
-    });
-
-    client.on('clear', function(client){
-        retdata = [];
-        io.emit('empty', retdata);
     });
 
     client.on('backup', function(id){
