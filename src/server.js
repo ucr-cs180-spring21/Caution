@@ -114,9 +114,9 @@ io.on('connection', function(client) {
     //     io.emit('csvexport', csvContent);
     // });
 
-    client.on('getGraphData', function(query) {
-        let { graphX, graphY } = getGraphData(data, query); 
-        io.emit('renderGraph', graphX, graphY);
+    client.on('getGraphData', function(query, fn) {
+        let { graphX, graphY, title, titleX, titleY } = getGraphData(data, query); 
+        fn(graphX, graphY, title, titleX, titleY);
     });
 });
 

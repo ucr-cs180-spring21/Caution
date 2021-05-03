@@ -32,7 +32,10 @@ function getWeatherGraphData(data) {
 
     return { 
         graphX: Array.from(weatherMap.keys()), 
-        graphY: Array.from(weatherMap.values())
+        graphY: Array.from(weatherMap.values()),
+        title: "Weather VS Number of Accidents",
+        titleX: "Weather",
+        titleY: "Number of Accidents"
     };
 }
 
@@ -57,7 +60,10 @@ function getWeatherSeverityGraphData(data) {
 
     return { 
         graphX: Array.from(weatherSeverityMap.keys()), 
-        graphY: Array.from(weatherSeverityMap.values())
+        graphY: Array.from(weatherSeverityMap.values()),
+        title: "Weather VS Average Severity",
+        titleX: "Weather",
+        titleY: "Average Severity"
     };
 }
 
@@ -74,7 +80,10 @@ function getCityGraphData(data) {
 
     return { 
         graphX: Array.from(cityMap.keys()), 
-        graphY: Array.from(cityMap.values())
+        graphY: Array.from(cityMap.values()),
+        title: "City VS Number of Accidents",
+        titleX: "City",
+        titleY: "Number of Accidents"
     };
 }
 
@@ -119,7 +128,10 @@ function getHumidityGraphData(data) {
 
     return { 
         graphX: Object.keys(humidityValues), 
-        graphY: Object.values(humidityValues)
+        graphY: Object.values(humidityValues),
+        title: "Humidity VS Number of Accidents",
+        titleX: "Humidity",
+        titleY: "Number of Accidents"
     };
 }
 
