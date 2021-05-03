@@ -487,7 +487,7 @@ io.on('connection', function(client) {
 
         // Gets only the unique values in a filter and its frequency
         const map = re.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-        frequency_result = Array.from(map, ([name, value]) => ({ name, value }));
+        frequency_result = Array.from(map, ([Value, Count]) => ({ Value, Count }));
       
         console.log(frequency_result)
         io.emit('filterFrequency', frequency_result);
