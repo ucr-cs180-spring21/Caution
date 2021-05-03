@@ -1,0 +1,15 @@
+HTML, body {    
+}    
+    
+#chart    
+{    
+    width:100%;    
+    border:0px solid;    
+}    
+    
+#json    
+{    
+    width: 560;    
+    height: 86;    
+    overflow:hidden;    
+}   

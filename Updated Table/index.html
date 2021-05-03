@@ -1,0 +1,74 @@
+ <!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <title>Tester</title>
+</head>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<body>
+    <table id="example" class="display" width="100%" cellspacing="0">
+    </table>
+</body>
+
+
+<script>
+    var data = [
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+        {"ID":"A-1","Source":"MaQuest","TMC":"201","Severity":"2", "PIE":"2", "PIE1":"2",},
+];
+//method learned from: https://stackoverflow.com/questions/44127872/convert-array-of-objects-into-html-table-with-jquery-or-javascript
+    var table = '<table>';
+    table += '<thead>'
+    table += '<tr>';
+    for(var i in data[0]) {
+        table += '<th>' + i + '</th>';
+    }
+    table += '</tr>';
+
+    
+    table += '<tbody>';
+    for(var j = 0; j < data.length; j++){
+        table += '<tr>';
+        for(var k in data[j]){
+        table += '<td>' + data[j][k] + '</td>';
+        }
+        table += '</tr>';
+    }
+    table += '</tbody>'
+
+    table += '</table>';
+    document.getElementById('example').innerHTML = table;
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            "pagingType": "full_numbers",
+        } );
+    } );
+</script>
+</html>
