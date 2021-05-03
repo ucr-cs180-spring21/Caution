@@ -184,6 +184,8 @@
 
 		<p id="hellow"></p>
 		<button onclick="buttonClickedhello()">Hello!</button>
+		
+		<button onclick="buttonfrequencyOfFilter()">Frequency of accidents due to weather conditions!</button>
 
 		<div class="button">
 			<button type="button" onclick="updateTable()">Update</button>
@@ -327,9 +329,18 @@
 				socket.emit('backup');
 			}
 
+
 			function updateCSV() {
 				var fn = document.getElementById('fileName');
 				socket.emit('updateinput', fn.value);
+			}
+
+
+			// Hard coded at the moment, but sends a request to get number of accidents by weather condition 
+			function buttonfrequencyOfFilter() {
+				console.log("Goes to server");
+				socket.emit('frequency_of_filter', "Weather_Condition");
+				
 			}
 
 			// Button exports the filtered data to be downloaded on client's comp
@@ -341,6 +352,11 @@
 			socket.on('hello world', function(data){
 				console.log("Hello World!");
 				document.getElementById("hellow").innerHTML = 'Hello World!';
+			});
+
+			socket.on('filterFrequency', function(arrayOfFrequencies){
+				console.log("Comes back to client")
+				console.log(arrayOfFrequencies);
 			});
 
 			socket.on('csvexport', function(csvContent) {

@@ -5,7 +5,8 @@ var app = express();
 var server = require('http').createServer(app);
 var path = require('path');
 var io = require('socket.io')(server); 
-const fs = require('fs')
+const fs = require('fs');
+const { title } = require('process');
 
 // Globals
 var data = []
@@ -46,7 +47,8 @@ app.get('/', function(req, res,next) {
 
 io.on('connection', function(client) { 
     //process('data/book.csv');
-	// Clicked messages
+	// Clicked messages 
+    
     client.on('hello', function(data) {
         console.log("Request received from client");
 		io.emit('hello world');
@@ -463,6 +465,33 @@ io.on('connection', function(client) {
         // io.emit('senddata', idata);
     });
 
+       // Returns the frequency of each data field in a filter
+    client.on('frequency_of_filter', function(id){
+        var re = []
+        let indexOfPassedInFilter = 0;
+
+        // Finds the specific filter in the data to get its contents
+        for(var i = 0; i < data.length; ++i) {
+            if(id === data[0][i]) {
+                break;
+            }
+            else {
+                indexOfPassedInFilter += 1;
+            }
+        }
+
+        // Push all of the filter's fields to an array(HARDCODED RN JUST FOR WEATHER_CONDITION)
+        for(var j = 0; j < data.length; j++) {
+            re.push(data[j][indexOfPassedInFilter]);
+        }
+
+        // Gets only the unique values in a filter and its frequency
+        const map = re.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+        frequency_result = Array.from(map, ([name, value]) => ({ name, value }));
+      
+        console.log(frequency_result)
+        io.emit('filterFrequency', frequency_result);
+    });
 
     // client.on('csvexport', function(client){
     //     let csvContent = "data:text/csv;charset=utf-8,";
