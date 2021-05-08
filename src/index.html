@@ -4,18 +4,18 @@
 		<meta charset = "UTF-8">
 		<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
 		<title>Caution</title>
-		
+
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="/style.css">
 		<style>
-			
+
 		</style>
-		
+
 	</head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-	
+
 	<body>
 		<h1>Caution!</h1>
 		<div>
@@ -47,7 +47,7 @@
 				<input type="text" class="recordForm" style="width:150px" name="severity"><br>
 				<label for="start_time">Start_Time:</label>
 				<input type="text" class="recordForm" style="width:150px" name="start_time"><br>
-				
+
 			</div>
 			<div class="newentryflex">
 				<label for="end_time">End_Time:</label>
@@ -58,7 +58,7 @@
 				<input type="text" class="recordForm" style="width:150px" name="start_lng"><br>
 				<label for="start_lat">End_Lat:</label>
 				<input type="text" class="recordForm" style="width:150px" name="end_lat"><br>
-				
+
 			</div>
 			<div class="newentryflex">
 				<label for="end_lat">End_Lng:</label>
@@ -69,7 +69,7 @@
 				<input type="text" class="recordForm" style="width:150px" name="description"><br>
 				<label for="number">Number:</label>
 				<input type="text" class="recordForm" style="width:150px" name="number"><br>
-				
+
 			</div>
 			<div class="newentryflex">
 				<label for="street">Street:</label>
@@ -80,7 +80,7 @@
 				<input type="text" class="recordForm" style="width:150px" name="city"><br>
 				<label for="county">County:</label>
 				<input type="text" class="recordForm" style="width:150px" name="county"><br>
-				
+
 			</div>
 			<div class="newentryflex">
 				<label for="state">State:</label>
@@ -91,7 +91,7 @@
 				<input type="text" class="recordForm" style="width:150px" name="country"><br>
 				<label for="timezone">Timezone:</label>
 				<input type="text" class="recordForm" style="width:150px" name="timezone"><br>
-				
+
 			</div>
 			<div class="newentryflex">
 				<label for="airport_code">Airport_Code:</label>
@@ -102,7 +102,7 @@
 				<input type="text" class="recordForm" style="width:150px" name="temperature"><br>
 				<label for="wind_chill">Wind_Chill(F):</label>
 				<input type="text" class="recordForm" style="width:150px" name="wind_chill"><br>
-				
+
 			</div>
 			<div class="newentryflex">
 				<label for="humidity">Humidity(%):</label>
@@ -113,8 +113,8 @@
 				<input type="text" class="recordForm" style="width:150px" name="visibility"><br>
 				<label for="wind_direction">Wind_Direction:</label>
 				<input type="text" class="recordForm" style="width:150px" name="wind_direction"><br>
-				
-			</div>	
+
+			</div>
 			<div class="newentryflex">
 				<label for="wind_speed">Wind_Speed(mph):</label>
 				<input type="text" class="recordForm" style="width:150px" name="wind_speed"><br>
@@ -124,7 +124,7 @@
 				<input type="text" class="recordForm" style="width:150px" name="weather_condition"><br>
 				<label for="amenity">Amenity:</label>
 				<input type="text" class="recordForm" style="width:150px" name="amenity"><br>
-			</div>	
+			</div>
 			<div class="newentryflex">
 				<label for="sig">Bump:</label>
 				<input type="text" class="recordForm" style="width:150px" name="bump"><br>
@@ -134,7 +134,7 @@
 				<input type="text" class="recordForm" style="width:150px" name="give_way"><br>
 				<label for="junction">Junction:</label>
 				<input type="text" class="recordForm" style="width:150px" name="junction"><br>
-			</div>	
+			</div>
 			<div class="newentryflex">
 				<label for="no_exit">No_Exit:</label>
 				<input type="text" class="recordForm" style="width:150px" name="no_exit"><br>
@@ -165,10 +165,10 @@
 				<label for="astronomical_twilight">Astronomical_Twilight:</label>
 				<input type="text" class="recordForm" style="width:150px" name="astronomical_twilight"><br><br>
 			</div>
-				
-				
-				
-				
+
+
+
+
 			<button style="margin: auto" onclick="newRecord()">Create New Record</button>
 			</div>
 		</div><br><br>
@@ -239,15 +239,15 @@
 			var count = 0;
 
 			// Function executes immediately and displays which filters are selected
-			window.onload = multiselectFeature(); 
+			window.onload = multiselectFeature();
 			function multiselectFeature() {
 				var selectTag = document.getElementById('multi-select');
 				filters = new Array(selectTag.length);
-			
+
 				selectTag.addEventListener('click', function(e) {
-					// Initialize all the filters to be unselected 
+					// Initialize all the filters to be unselected
 					filters[e.target.index] = !filters[e.target.index];
-					
+
 					// If filter is selected, mark it
 					for(var i = 0; i < filters.length; ++i) {
 						selectTag.options[i].selected = filters[i];
@@ -308,7 +308,7 @@
 			}
 
 
-			// When button is pressed updates the 
+			// When button is pressed updates the
 			function update() {
 				var id = document.getElementById('recordID');
 
@@ -338,7 +338,7 @@
                 //console.log(attributeValues);
                 socket.emit('new', attributeValues);
             }
-			
+
 
 			// Emits to the server
 			function buttonClickedhello() {
@@ -350,7 +350,7 @@
 			function buttonClear() {
 				socket.emit('clear');
 			}
-			
+
 
 			function buttonBackup() {
 				var fn = document.getElementById('fileName');
@@ -364,7 +364,7 @@
 			}
 
 
-			// Hard coded at the moment, but sends a request to get number of accidents by weather condition 
+			// Hard coded at the moment, but sends a request to get number of accidents by weather condition
 			function buttonfrequencyWeather() {
 				console.log("Goes to server");
 				socket.emit('frequency_of_filter', "Weather_Condition");
@@ -407,7 +407,7 @@
 
 				/*Bar Chart JavaScript
 				Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart
-				Biggest issue I had is the table doesn't work well when the let data is changed to another variable name that 
+				Biggest issue I had is the table doesn't work well when the let data is changed to another variable name that
 				may have been just a stupid issue though */
 				var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -432,6 +432,106 @@
 					datasets: [{
 						label: 'Accidents',
 						data: [...Yvals],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
 						borderWidth: 1
 					}]
 					},
@@ -538,13 +638,13 @@
 				var table = '<table>';
 				table += '<thead>';
 				table += '<tr>';
-				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
-				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
+				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat',
+				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country',
 				'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 'Visibility(mi)',
 				'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 'Crossing', 'Give_Way', 'Junction',
 				'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight',
 				'Nautical_Twilight', 'Astronomical_Twilight']
-				
+
 				for(var i in data[0]) {
 					table += '<th>' + i + '</th>';
 				}
@@ -580,13 +680,13 @@
 				var table = '<table>';
 				table += '<thead>';
 				table += '<tr>';
-				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
-				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
+				testarr = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat',
+				'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country',
 				'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 'Visibility(mi)',
 				'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 'Crossing', 'Give_Way', 'Junction',
 				'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight',
 				'Nautical_Twilight', 'Astronomical_Twilight']
-				
+
 				// for(var i in data[0]) {
 				// 	table += '<th>' + i + '</th>';
 				// 	console.log(i);
@@ -627,7 +727,7 @@
 			// });
 			socket.on('backup', function(backup){
 				console.log('backup successful');
-				
+
 			});
 		</script>
 	</body>
