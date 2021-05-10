@@ -80,16 +80,16 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
     may have been just a stupid issue though */
     var myChart;
     var ctx = document.getElementById('myChart').getContext('2d');
-    
+
     let Xvals = [];
     let Yvals = [];
     var zip_d = [];
     var dict = {};
     var sz = arrayOfFrequencies.length-1;
-    
+
     //data = arrayOfFrequencies.slice(1, sz);
     data = arrayOfFrequencies.slice(1, arrayOfFrequencies.length);
-    
+
     try {
         data.map((item) => {
             console.log(item.Value);
@@ -97,7 +97,7 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
             Xvals.push(item.Value);
             dict[item.Count] = item.Value;
         });
-        
+
         if(id === 'Zipcode'){
             Yvals.sort().reverse();
             Yvals = Yvals.slice(0, 10);
@@ -111,8 +111,9 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
             console.log('Zipcode data');
             console.log(zip_d);
         }
-
-        var myChart = new Chart(ctx, {
+        var myChart
+        if (this.myChart) this.myChart.destroy();
+        this.myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: [...Xvals],
@@ -228,11 +229,11 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
         console.log(error);
     }
 
-    
+
     //var table = document.getElementById('infotable');
     //table.style.display = 'none';
     data = arrayOfFrequencies.slice(0, arrayOfFrequencies.length);
-    
+
     var table = '<table>';
     table += '<thead>'
     table += '<tr>';
@@ -263,4 +264,3 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
     });
 
 });
-
