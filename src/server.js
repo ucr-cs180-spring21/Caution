@@ -469,8 +469,8 @@ io.on('connection', function(client) {
         const map = re.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
         frequency_result = Array.from(map, ([Value, Count]) => ({ Value, Count }));
       
-        console.log(frequency_result)
-        io.emit('filterFrequency', frequency_result);
+        console.log(frequency_result);
+        io.emit('filterFrequency', frequency_result, id);
     });
 
     // Returns the frequency of each data field in a filter
