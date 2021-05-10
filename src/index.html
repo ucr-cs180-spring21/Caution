@@ -35,7 +35,8 @@
                 <button onclick="buttonfrequencyHumidity()">Frequency due to humidity</button>
                 <button onclick="buttonfrequencyDist()">Frequency due to distance</button>
                 <button onclick="buttonfrequencyBump()">Frequency due to bumps</button>
-                <button onclick="buttonfrequencyStop()">Frequency due to stop sign</button>     
+                <button onclick="buttonfrequencyStop()">Frequency due to stop sign</button>
+                <button onclick="buttonfrequencySeverityHumidity()">Average severity of accident based on humidity</button>     
             </div>
             <div style="position: relative; height:40vh; width:40vw">
                 <canvas id="myChart"></canvas>
@@ -402,6 +403,11 @@
             function buttonfrequencyStop() {
                 console.log("Goes to server");
                 socket.emit('frequency_of_filter', "Stop");
+            }
+
+            function buttonfrequencySeverityHumidity() {
+                console.log("Goes to server");
+                socket.emit('average_severity_of_filter', "Humidity(%)", 'Severity');
             }
 
             // Button exports the filtered data to be downloaded on client's comp
