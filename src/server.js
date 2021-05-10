@@ -108,6 +108,68 @@ io.on('connection', function(client) {
         console.log(frequency_result)
         io.emit('sfilterFrequency', frequency_result);
     });
+
+    // Returns the frequency of each data field in a filter
+    client.on('average_severity_of_filter', function(id, id2){
+        var re = []
+        var re2 = []
+        let indexOfPassedInFilter = 0;
+        let indexOfPassedInFilter2 = 0;
+
+        // Finds the specific filter in the data to get its contents
+        for(var i = 0; i < data.length; ++i) {
+            if(id === data[0][i]) {
+                break;
+            }
+            else {
+                indexOfPassedInFilter += 1;
+            }
+        }
+
+        for(var i = 0; i < data.length; ++i) {
+            if(id2 === data[0][i]) {
+                break;
+            }
+            else {
+                indexOfPassedInFilter2 += 1;
+            }
+        }
+
+        // Push all of the filter's fields to an array
+        for(var j = 0; j < data.length; j++) {
+            re.push(data[j][indexOfPassedInFilter]); // Humidity
+            re2.push(data[j][indexOfPassedInFilter2]); // Severity
+        }
+
+        // Holds each unique value of humidity
+        var analyticsArr = re.filter((value, index, self) => {return self.indexOf(value) === index;});
+
+        // Will hold the average severity of each humidity percent
+        var avgSeverity = Array(analyticsArr.length).fill(0);
+
+        // Counts the amount of times severity 
+        var counter = Array(analyticsArr.length).fill(0);
+
+        // Now get the average severity(id2) of each humidity percent(id)  
+        for(let i = 1; i < data.length; i++) {
+            for(let j = 1; j < analyticsArr.length; j++) {
+                if(re[i] == analyticsArr[j]) {
+                    counter[j] += 1; 
+                    avgSeverity[j] = avgSeverity[j] + parseFloat(re2[j]);
+                }
+            }
+        }
+
+        // Have to make a separate loop to calculate correct average cause didn't when did embedded for loop
+        for(let j = 1; j < avgSeverity.length; j++) {
+                avgSeverity[j] = avgSeverity[j] / counter[j];
+
+        }
+
+        re = [analyticsArr, avgSeverity]
+        console.log(frequency_result);
+        io.emit('filterFrequency', frequency_result, id);
+    });
     // Returns the frequency of each data field in a filter
     
     // client.on('frequency_of_filter', function(id){
@@ -144,10 +206,10 @@ io.on('connection', function(client) {
     //     io.emit('csvexport', csvContent);
     // });
 
-    client.on('getGraphData', function(query, fn) {
-        let { graphX, graphY, title, titleX, titleY } = getGraphData(data, query); 
-        fn(graphX, graphY, title, titleX, titleY);
-    });
+    // client.on('getGraphData', function(query, fn) {
+    //     let { graphX, graphY, title, titleX, titleY } = getGraphData(data, query); 
+    //     fn(graphX, graphY, title, titleX, titleY);
+    // });
 });
 
 // Starting the server and listening to the port

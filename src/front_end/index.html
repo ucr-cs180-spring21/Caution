@@ -250,34 +250,35 @@
 			<div class="grid" id="analytics_grid">
 				<label for="analytics_query_select">Query:</label>
 				<select class="dropdown_select" id="analytics_query_select">
-					<option value="Weather_Condition">Weather Condition</option>
-					<option value="Humidity(%)">Humidity(%)</option>
-					<option value="Distance(mi)">Distance(mi)</option>
-					<option value="Bump">Bump</option>
-					<option value="Stop">Stop</option>
-					<option value="State">State</option>
+					<option value="Weather_Condition">Frequency due to weather</option>
+					<option value="Humidity(%)">Frequency due to humidity</option>
+					<option value="Distance(mi)">Frequency due to distance</option>
+					<option value="Bump">Frequency due to bumps</option>
+					<option value="Stop">Frequency due to stop sign</option>
+					<option value="State">Accident based off state</option>
+					<option value="Humidity(%),Severity">Average severity of accident based on humidity</option>
+					<option value="Zipcode">Accident based off zipcode</option>
+					<option value="Side">Accident based on side of the road</option>
 				</select>
 
 				<button type="button" class="button" onclick="updateGraph()">Update Graph</button>
-				<button onclick="buttonfrequencyState()">Accident based off state</button>
 			</div>
 		</div>
 		<button type="button" class="button collapse_button" id="analytics_collapse_button">Analytics</button>
 		
-		<div id="record_table_container">
-			<table id="record_table" class="display" style="width:100%"></table>
-		</div>
-
-
+		<!--Chart Graph-->
 		<div id="myChartContainer" style="position: relative; height:40vh; width:40vw">
 			<canvas id="myChart"></canvas>
 		</div>
-
 		
-
+		<!--Chart Table-->
 		<div class="text-area">
 			<table id="analytics_table" style="text-align: center;" class="display" width="100%" cellspacing="0"></table>
-			
+		</div>
+
+		<!--Full Table-->
+		<div id="record_table_container">
+			<table id="record_table" class="display" style="width:100%"></table>
 		</div>
 
 		<script src="/socket.io/socket.io.js"></script>
