@@ -36,6 +36,7 @@
                 <button onclick="buttonfrequencyDist()">Frequency due to distance</button>
                 <button onclick="buttonfrequencyBump()">Frequency due to bumps</button>
                 <button onclick="buttonfrequencyStop()">Frequency due to stop sign</button>
+                <button onclick="buttonfrequencyState()">Accident based off state</button>
                 <button onclick="buttonfrequencySeverityHumidity()">Average severity of accident based on humidity</button>     
             </div>
             <div style="position: relative; height:40vh; width:40vw">
@@ -378,8 +379,6 @@
                 socket.emit('updateinput', fn.value);
             }
 
-
-            // Hard coded at the moment, but sends a request to get number of accidents by weather condition 
             function buttonfrequencyWeather() {
                 console.log("Goes to server");
                 socket.emit('frequency_of_filter', "Weather_Condition");
@@ -403,6 +402,11 @@
             function buttonfrequencyStop() {
                 console.log("Goes to server");
                 socket.emit('frequency_of_filter', "Stop");
+            }
+            
+            function buttonfrequencyState() {
+                console.log("Goes to server");
+                socket.emit('frequency_of_filter', 'State');
             }
 
             function buttonfrequencySeverityHumidity() {
