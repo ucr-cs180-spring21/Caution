@@ -250,25 +250,36 @@
 			<div class="grid" id="analytics_grid">
 				<label for="analytics_query_select">Query:</label>
 				<select class="dropdown_select" id="analytics_query_select">
-					<option value="weather">Weather/Count</option>
-					<option value="weather-severity">Weather/Avg Severity</option>
-					<option value="city">City/Count</option>
-					<option value="humidity">Humidity/Count</option>
+					<option value="Weather_Condition">Weather Condition</option>
+					<option value="Humidity(%)">Humidity(%)</option>
+					<option value="Distance(mi)">Distance(mi)</option>
+					<option value="Bump">Bump</option>
+					<option value="Stop">Stop</option>
+					<option value="State">State</option>
 				</select>
 
 				<button type="button" class="button" onclick="updateGraph()">Update Graph</button>
+				<button onclick="buttonfrequencyState()">Accident based off state</button>
 			</div>
 		</div>
 		<button type="button" class="button collapse_button" id="analytics_collapse_button">Analytics</button>
-
+		
 		<div id="record_table_container">
 			<table id="record_table" class="display" style="width:100%"></table>
 		</div>
 
-		<div id="analytics_graph_container">
-			<canvas id="analytics_graph"></canvas>
+
+		<div id="myChartContainer" style="position: relative; height:40vh; width:40vw">
+			<canvas id="myChart"></canvas>
 		</div>
+
 		
+
+		<div class="text-area">
+			<table id="analytics_table" style="text-align: center;" class="display" width="100%" cellspacing="0"></table>
+			
+		</div>
+
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			var socket = io();

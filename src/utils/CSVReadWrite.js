@@ -1,6 +1,6 @@
 var fs = require('fs')
 
-function process(data, path) {
+async function process(data, path) {
     const lineReader = require('readline').createInterface({
         input: fs.createReadStream(String(path))
     });
@@ -14,10 +14,8 @@ function process(data, path) {
         }
 
         data.push(obj)
-    }).on('close', function() {
-        data.splice(0, 1);
     });
-    console.log(data);
+    
 }
 
 function backup(data) {

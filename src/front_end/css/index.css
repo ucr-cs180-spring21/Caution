@@ -126,5 +126,7 @@
 }
 
 #analytics_graph_container {
-	width: 100%;
+	position: relative; 
+	height:40vh; 
+	width:40vw;
 }

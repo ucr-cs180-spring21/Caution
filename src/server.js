@@ -73,14 +73,43 @@ io.on('connection', function(client) {
     });
 
     client.on('updateinput', function(fn){
+        data = [];
         datadir = 'data/' + fn;
         process(data, datadir);
-        console.log(data);
     });
     client.on('getFullTable', function() {
         io.emit('senddata', data);
     });
-       // Returns the frequency of each data field in a filter
+
+    client.on('cfilterFrequency', function(id){
+        var re = []
+        let indexOfPassedInFilter = 0;
+        
+        // Finds the specific filter in the data to get its contents
+        for(var i = 0; i < data.length; ++i) {
+            if(id == data[0][i]) {
+                break;
+            }
+            else {
+                indexOfPassedInFilter += 1;
+            }
+        }
+        
+        // Push all of the filter's fields to an array(HARDCODED RN JUST FOR WEATHER_CONDITION)
+        for(var j = 0; j < data.length; j++) {
+            re.push(data[j][indexOfPassedInFilter]);
+        }
+        console.log('Re ' + indexOfPassedInFilter);
+
+        // Gets only the unique values in a filter and its frequency
+        const map = re.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+        frequency_result = Array.from(map, ([Value, Count]) => ({ Value, Count }));
+      
+        console.log(frequency_result)
+        io.emit('sfilterFrequency', frequency_result);
+    });
+    // Returns the frequency of each data field in a filter
+    
     // client.on('frequency_of_filter', function(id){
     //     var re = []
     //     let indexOfPassedInFilter = 0;
