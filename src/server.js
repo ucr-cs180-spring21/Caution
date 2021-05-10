@@ -2,29 +2,7 @@ var express = require('express');
 var app = express();  
 var server = require('http').createServer(app);
 var io = require('socket.io')(server); 
-<<<<<<< HEAD
-const fs = require('fs');
-const { title } = require('process');
-
-// Globals
-var data = []
-var obj = []
-var stream
-let match
-//let datadir = 'data/book.csv'
-
-// serves stuff
-app.use(express.static(path.join(__dirname, 'styling')));
-
-async function process(datain) {
-    data = [];
-    console.log(datain);
-    const lineReader = require('readline').createInterface({
-        input: fs.createReadStream(datain)
-    })
-=======
 var path = require('path');
->>>>>>> 6b7f42b44dff1e06210b06c3c16a05802aec1087
 
 var { querySnow, queryHumid, queryTrafficSig, querySeverity, queryTimezone, queryCity, queryAirport, queryPressure } = require('./utils/Query');
 var { updateValue, deleteRecord, insertRecord } = require('./utils/ModifyRecords');
@@ -37,21 +15,8 @@ process(data, 'data/book.csv');
 app.use(express.static(path.join(__dirname, 'front_end')));
 
 io.on('connection', function(client) { 
-<<<<<<< HEAD
-    //process('data/book.csv');
-	// Clicked messages 
-    
-    client.on('hello', function(data) {
-        console.log("Request received from client");
-		io.emit('hello world');
-    });
-
-    client.on('update', function(field) {
-        io.emit('update_return', data);
-=======
     client.on('update', function(updateInfo) {
         updateValue(data, updateInfo);
->>>>>>> 6b7f42b44dff1e06210b06c3c16a05802aec1087
     });
 
     client.on('delete', function(id) {
@@ -107,40 +72,35 @@ io.on('connection', function(client) {
         io.emit('backup', []);
     });
 
-    client.on('updateinput', function(id){
-        datadir = 'data/' + id;
-        process(datadir);
+    client.on('updateinput', function(fn){
+        datadir = 'data/' + fn;
+        process(data, datadir);
+        console.log(data);
     });
-
+    client.on('getFullTable', function() {
+        io.emit('senddata', data);
+    });
        // Returns the frequency of each data field in a filter
-    client.on('frequency_of_filter', function(id){
-        var re = []
-        let indexOfPassedInFilter = 0;
+    // client.on('frequency_of_filter', function(id){
+    //     var re = []
+    //     let indexOfPassedInFilter = 0;
 
-        // Finds the specific filter in the data to get its contents
-        for(var i = 0; i < data.length; ++i) {
-            if(id === data[0][i]) {
-                break;
-            }
-            else {
-                indexOfPassedInFilter += 1;
-            }
-        }
+    //     // Finds the specific filter in the data to get its contents
+    //     for(var i = 0; i < data.length; ++i) {
+    //         if(id === data[0][i]) {
+    //             break;
+    //         }
+    //         else {
+    //             indexOfPassedInFilter += 1;
+    //         }
+    //     }
 
-        // Push all of the filter's fields to an array(HARDCODED RN JUST FOR WEATHER_CONDITION)
-        for(var j = 0; j < data.length; j++) {
-            re.push(data[j][indexOfPassedInFilter]);
-        }
-        console.log('Re ' + indexOfPassedInFilter);
+    //     // Push all of the filter's fields to an array(HARDCODED RN JUST FOR WEATHER_CONDITION)
+    //     for(var j = 0; j < data.length; j++) {
+    //         re.push(data[j][indexOfPassedInFilter]);
+    //     }
+    //     console.log('Re ' + indexOfPassedInFilter);
 
-<<<<<<< HEAD
-        // Gets only the unique values in a filter and its frequency
-        const map = re.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-        frequency_result = Array.from(map, ([Value, Count]) => ({ Value, Count }));
-      
-        console.log(frequency_result)
-        io.emit('filterFrequency', frequency_result);
-=======
     // client.on('csvexport', function(client){
     //     let csvContent = "data:text/csv;charset=utf-8,";
         
@@ -158,7 +118,6 @@ io.on('connection', function(client) {
     client.on('getGraphData', function(query, fn) {
         let { graphX, graphY, title, titleX, titleY } = getGraphData(data, query); 
         fn(graphX, graphY, title, titleX, titleY);
->>>>>>> 6b7f42b44dff1e06210b06c3c16a05802aec1087
     });
 });
 

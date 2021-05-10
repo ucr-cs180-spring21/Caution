@@ -2,11 +2,11 @@ var fs = require('fs')
 
 function process(data, path) {
     const lineReader = require('readline').createInterface({
-        input: fs.createReadStream(path)
-    })
+        input: fs.createReadStream(String(path))
+    });
 
     lineReader.on('line', function (line) {
-        var splitter = new RegExp(/[^,]+/,'g')
+        var splitter = new RegExp(/[^,]+/,'g');
         let match;
         let obj = [];
         while ((match = splitter.exec(line)) !== null) {
@@ -17,6 +17,7 @@ function process(data, path) {
     }).on('close', function() {
         data.splice(0, 1);
     });
+    console.log(data);
 }
 
 function backup(data) {

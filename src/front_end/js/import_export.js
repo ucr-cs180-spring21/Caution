@@ -1,10 +1,9 @@
 function buttonBackup() {
-    var fn = document.getElementById('fileName');
     socket.emit('backup');
 }
 
 function updateCSV() {
-    var fn = document.getElementById('fileName');
+    var fn = document.getElementById('import_csv_file_id');
     socket.emit('updateinput', fn.value);
 }
 

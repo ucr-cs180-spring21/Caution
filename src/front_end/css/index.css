@@ -101,6 +101,15 @@
   	grid-column-end: 3;
 }
 
+#import_export_grid {
+	grid-template-columns: auto auto;
+}
+
+#import_export_grid button {
+	grid-column-start: 1;
+  	grid-column-end: 3;
+}
+
 #analytics_grid {
 	grid-template-columns: auto auto;
 }

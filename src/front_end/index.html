@@ -21,7 +21,8 @@
 	
 	<body class="container">
 		<h1 id="page_title">Caution!</h1>
-
+		<button type="button" class="button" onclick="fullTable()">View Full</button>
+		<!--Update Value-->
 		<div class="collapsible_container collapsed" id="update_value_container">
 			<div class="grid" id="update_value_grid">
 				<label for="update_value_record_id">Record ID:</label>
@@ -47,6 +48,7 @@
 		</div>
 		<button type="button" class="button collapse_button" id="update_value_collapse_button">Update Value</button>
 
+		<!--Delete Record-->
 		<div class="collapsible_container collapsed" id="delete_record_container">
 			<div class="grid" id="delete_record_grid">
 				<label for="delete_record_record_id">Record ID:</label>
@@ -57,6 +59,7 @@
 		</div>
 		<button type="button" class="button collapse_button" id="delete_record_collapse_button">Delete Record</button>
 
+		<!--Insert Record-->
 		<div class="collapsible_container collapsed" id="insert_record_container">
 			<div class="grid" id="insert_record_grid">
 				<label for="insert_record_source">Source:</label>
@@ -208,6 +211,7 @@
 		</div>
 		<button type="button" class="button collapse_button" id="insert_record_collapse_button">Insert Record</button>
 
+		<!--View Table-->
 		<div class="collapsible_container collapsed" id="table_options_container">
 			<div class="grid" id="table_options_grid">
 				<label for="table_options_query_select">Query:</label>
@@ -228,16 +232,20 @@
 		</div>
 		<button type="button" class="button collapse_button" id="table_options_collapse_button">View Table</button>
 
+		<!--Import/Export-->
 		<div class="collapsible_container collapsed" id="import_export_container">
 			<div class="grid" id="import_export_grid">
 				<button type="button" class="button" onclick="buttonBackup()">Backup Data</button>
 
 				<button type="button" class="button" onclick="updateCSV()">Import New CSV</button>
-				<div class="textarea" id="import_export_csv_filename"></div>
+				<label for="import_csv_file_id">CSV Name:</label>
+				<input type="text" class="textbox" id="import_csv_file_id">
+				<!--div class="textarea" id="import_export_csv_filename"></div-->
 			</div>
 		</div>
 		<button type="button" class="button collapse_button" id="import_export_collapse_button">Import/Export</button>
 
+		<!--Analytics-->
 		<div class="collapsible_container collapsed" id="analytics_container">
 			<div class="grid" id="analytics_grid">
 				<label for="analytics_query_select">Query:</label>

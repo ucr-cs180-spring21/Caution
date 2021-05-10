@@ -9,6 +9,10 @@ function renderTable() {
     });   
 }
 
+function fullTable() {
+    socket.emit('getFullTable');
+}
+
 // When the update button is pressed, update the table
 function updateTable() {
     let query = document.getElementById("table_options_query_select").value;
