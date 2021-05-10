@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Caution</title>
+		
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="css/index.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="js/index.js" defer></script>
+		<script src="js/update_value.js" defer></script>
+		<script src="js/delete_record.js" defer></script>
+		<script src="js/insert_record.js" defer></script>
+		<script src="js/view_table.js" defer></script>
+		<script src="js/import_export.js" defer></script>
+		<script src="js/analytics.js" defer></script>
+	</head>
+	
+	<body class="container">
+		<h1 id="page_title">Caution!</h1>
+		<button type="button" class="button" onclick="fullTable()">View Full</button>
+		<!--Update Value-->
+		<div class="collapsible_container collapsed" id="update_value_container">
+			<div class="grid" id="update_value_grid">
+				<label for="update_value_record_id">Record ID:</label>
+				<input type="text" class="textbox" id="update_value_record_id">
+
+				<label for="update_value_attribute_select">Attribute to Change:</label>
+				<select class="dropdown_select" id="update_value_attribute_select">
+					<option value="traffic_signal">Traffic Signal</option>
+					<option value="weather_condition">Weather Condition</option>
+					<option value="humidity">Humidity</option>
+					<option value="severity">Severity</option>
+					<option value="timezone">Timezone</option>
+					<option value="city">City</option>
+					<option value="airport">Airport</option>
+					<option value="pressure">Pressure</option>
+				</select>
+
+				<label for="update_value_new_value">New Value:</label>
+				<input type="text" class="textbox" id="update_value_new_value">
+
+				<button type="button" class="button" onclick="updateValue()">Update Record Value</button>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="update_value_collapse_button">Update Value</button>
+
+		<!--Delete Record-->
+		<div class="collapsible_container collapsed" id="delete_record_container">
+			<div class="grid" id="delete_record_grid">
+				<label for="delete_record_record_id">Record ID:</label>
+				<input type="text" class="textbox" id="delete_record_record_id">
+
+				<button type="button" class="button" onclick="del()">Delete Record</button>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="delete_record_collapse_button">Delete Record</button>
+
+		<!--Insert Record-->
+		<div class="collapsible_container collapsed" id="insert_record_container">
+			<div class="grid" id="insert_record_grid">
+				<label for="insert_record_source">Source:</label>
+				<input type="text" class="textbox" id="insert_record_source">
+
+				<label for="insert_record_tmc">TMC:</label>
+				<input type="text" class="textbox" id="insert_record_tmc">
+
+				<label for="insert_record_severity">Severity:</label>
+				<input type="text" class="textbox" id="insert_record_severity">
+
+				<label for="insert_record_start_time">Start_Time:</label>
+				<input type="text" class="textbox" id="insert_record_start_time">
+				
+				<label for="insert_record_end_time">End_Time:</label>
+				<input type="text" class="textbox" id="insert_record_end_time">
+
+				<label for="insert_record_start_lat">Start_Lat:</label>
+				<input type="text" class="textbox" id="insert_record_start_lat">
+
+				<label for="insert_record_start_lng">Start_Lng:</label>
+				<input type="text" class="textbox" id="insert_record_start_lng">
+
+				<label for="insert_record_end_lat">End_Lat:</label>
+				<input type="text" class="textbox" id="insert_record_end_lat">
+				
+				<label for="insert_record_end_lng">End_Lng:</label>
+				<input type="text" class="textbox" id="insert_record_end_lng">
+
+				<label for="insert_record_distance">Distance(mi):</label>
+				<input type="text" class="textbox" id="insert_record_distance">
+
+				<label for="insert_record_description">Description:</label>
+				<input type="text" class="textbox" id="insert_record_description">
+
+				<label for="insert_record_number">Number:</label>
+				<input type="text" class="textbox" id="insert_record_number">
+
+				<label for="insert_record_street">Street:</label>
+				<input type="text" class="textbox" id="insert_record_street">
+
+				<label for="insert_record_side">Side:</label>
+				<input type="text" class="textbox" id="insert_record_side">
+
+				<label for="insert_record_city">City:</label>
+				<input type="text" class="textbox" id="insert_record_city">
+
+				<label for="insert_record_county">County:</label>
+				<input type="text" class="textbox" id="insert_record_county">
+				
+				<label for="insert_record_state">State:</label>
+				<input type="text" class="textbox" id="insert_record_state">
+
+				<label for="insert_record_zipcode">Zipcode:</label>
+				<input type="text" class="textbox" id="insert_record_zipcode">
+
+				<label for="insert_record_country">Country:</label>
+				<input type="text" class="textbox" id="insert_record_country">
+
+				<label for="insert_record_timezone">Timezone:</label>
+				<input type="text" class="textbox" id="insert_record_timezone">
+				
+				<label for="insert_record_airport_code">Airport_Code:</label>
+				<input type="text" class="textbox" id="insert_record_airport_code">
+
+				<label for="insert_record_weather_timestamp">Weather_Timestamp:</label>
+				<input type="text" class="textbox" id="insert_record_weather_timestamp">
+
+				<label for="insert_record_temperature">Temperature(F):</label>
+				<input type="text" class="textbox" id="insert_record_temperature">
+
+				<label for="insert_record_wind_chill">Wind_Chill(F):</label>
+				<input type="text" class="textbox" id="insert_record_wind_chill">
+
+				<label for="insert_record_humidity">Humidity(%):</label>
+				<input type="text" class="textbox" id="insert_record_humidity">
+				
+				<label for="insert_record_pressure">Pressure(in):</label>
+				<input type="text" class="textbox" id="insert_record_pressure">
+
+				<label for="insert_record_visibility">Visibility(mi):</label>
+				<input type="text" class="textbox" id="insert_record_visibility">
+
+				<label for="insert_record_wind_direction">Wind_Direction:</label>
+				<input type="text" class="textbox" id="insert_record_wind_direction">
+				
+				<label for="insert_record_wind_speed">Wind_Speed(mph):</label>
+				<input type="text" class="textbox" id="insert_record_wind_speed">
+
+				<label for="insert_record_precipitation">Precipitation(in):</label>
+				<input type="text" class="textbox" id="insert_record_precipitation">
+
+				<label for="insert_record_weather_condition">Weather_Condition:</label>
+				<input type="text" class="textbox" id="insert_record_weather_condition">
+
+				<label for="insert_record_amenity">Amenity:</label>
+				<input type="text" class="textbox" id="insert_record_amenity">
+
+				<label for="insert_record_bump">Bump:</label>
+				<input type="text" class="textbox" id="insert_record_bump">
+
+				<label for="insert_record_crossing">Crossing:</label>
+				<input type="text" class="textbox" id="insert_record_crossing">
+
+				<label for="insert_record_give_way">Give_Way:</label>
+				<input type="text" class="textbox" id="insert_record_give_way">
+
+				<label for="insert_record_junction">Junction:</label>
+				<input type="text" class="textbox" id="insert_record_junction">
+
+				<label for="insert_record_no_exit">No_Exit:</label>
+				<input type="text" class="textbox" id="insert_record_no_exit">
+
+				<label for="insert_record_railway">Railway:</label>
+				<input type="text" class="textbox" id="insert_record_railway">
+
+				<label for="insert_record_roundabout">Roundabout:</label>
+				<input type="text" class="textbox" id="insert_record_roundabout">
+
+				<label for="insert_record_station">Station:</label>
+				<input type="text" class="textbox" id="insert_record_station">
+
+				<label for="insert_record_stop">Stop:</label>
+				<input type="text" class="textbox" id="insert_record_stop">
+
+				<label for="insert_record_traffic_calming">Traffic_Calming:</label>
+				<input type="text" class="textbox" id="insert_record_traffic_calming">
+
+				<label for="insert_record_traffic_signal">Traffic_Signal:</label>
+				<input type="text" class="textbox" id="insert_record_traffic_signal">
+
+				<label for="insert_record_turning_loop">Turning_loop:</label>
+				<input type="text" class="textbox" id="insert_record_turning_loop">
+
+				<label for="insert_record_sunrise_sunset">Sunrise_Sunset:</label>
+				<input type="text" class="textbox" id="insert_record_sunrise_sunset">
+
+				<label for="insert_record_civil_twilight">Civil_Twilight:</label>
+				<input type="text" class="textbox" id="insert_record_civil_twilight">
+
+				<label for="insert_record_nautical_twilight">Nautical_Twilight:</label>
+				<input type="text" class="textbox" id="insert_record_nautical_twilight">
+
+				<label for="insert_record_astronomical_twilight">Astronomical_Twilight:</label>
+				<input type="text" class="textbox" id="insert_record_astronomical_twilight">
+					
+				<button type="button" class="button" onclick="insertRecord()">Insert New Record</button>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="insert_record_collapse_button">Insert Record</button>
+
+		<!--View Table-->
+		<div class="collapsible_container collapsed" id="table_options_container">
+			<div class="grid" id="table_options_grid">
+				<label for="table_options_query_select">Query:</label>
+				<select class="multiple_select" id="table_options_query_select">
+					<option value="traffic_signal_true">Traffic Signal: True</option>
+					<option value="weather_condition_light_snow">Weather Condition: Light Snow</option>
+					<option value="humidity_100%">Humidity: 100%</option>
+					<option value="severity_3/3">Severity: 3/3</option>
+					<option value="timezone_us/eastern">Timezone: US/Eastern</option>
+					<option value="city_dayton">City: Dayton</option>
+					<option value="airport_kday">Airport: KDAY</option>
+					<option value="pressure_29.61_in">Pressure: 29.61 in</option>
+				</select>
+
+				<button type="button" class="button" onclick="updateTable()">Update Table</button>
+				<button type="button" class="button" onclick="clearTable()">Clear Table</button>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="table_options_collapse_button">View Table</button>
+
+		<!--Import/Export-->
+		<div class="collapsible_container collapsed" id="import_export_container">
+			<div class="grid" id="import_export_grid">
+				<button type="button" class="button" onclick="buttonBackup()">Backup Data</button>
+
+				<button type="button" class="button" onclick="updateCSV()">Import New CSV</button>
+				<label for="import_csv_file_id">CSV Name:</label>
+				<input type="text" class="textbox" id="import_csv_file_id">
+				<!--div class="textarea" id="import_export_csv_filename"></div-->
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="import_export_collapse_button">Import/Export</button>
+
+		<!--Analytics-->
+		<div class="collapsible_container collapsed" id="analytics_container">
+			<div class="grid" id="analytics_grid">
+				<label for="analytics_query_select">Query:</label>
+				<select class="dropdown_select" id="analytics_query_select">
+					<option value="Weather_Condition">Frequency due to weather</option>
+					<option value="Humidity(%)">Frequency due to humidity</option>
+					<option value="Distance(mi)">Frequency due to distance</option>
+					<option value="Bump">Frequency due to bumps</option>
+					<option value="Stop">Frequency due to stop sign</option>
+					<option value="State">Accident based off state</option>
+					<option value="Humidity(%),Severity">Average severity of accident based on humidity</option>
+					<option value="Zipcode">Accident based off zipcode</option>
+					<option value="Side">Accident based on side of the road</option>
+				</select>
+
+				<button type="button" class="button" onclick="updateGraph()">Update Graph</button>
+			</div>
+		</div>
+		<button type="button" class="button collapse_button" id="analytics_collapse_button">Analytics</button>
+		
+		<!--Chart Graph-->
+		<div id="myChartContainer" style="position: relative; height:40vh; width:40vw">
+			<canvas id="myChart"></canvas>
+		</div>
+		
+		<!--Chart Table-->
+		<div class="text-area">
+			<table id="analytics_table" style="text-align: center;" class="display" width="100%" cellspacing="0"></table>
+		</div>
+
+		<!--Full Table-->
+		<div id="record_table_container">
+			<table id="record_table" class="display" style="width:100%"></table>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io();
+		</script>
+	</body>
+</html>
