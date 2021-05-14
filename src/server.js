@@ -110,7 +110,7 @@ io.on('connection', function(client) {
     });
 
     // Returns the frequency of each data field in a filter
-    client.on('average_severity_of_filter', function(id, id2){
+    client.on('increment', function(id, id2){
         var re = []
         var re2 = []
         let indexOfPassedInFilter = 0;
@@ -133,39 +133,59 @@ io.on('connection', function(client) {
                 indexOfPassedInFilter2 += 1;
             }
         }
+        console.log(id, id2);
+        console.log(indexOfPassedInFilter, indexOfPassedInFilter2);
 
         // Push all of the filter's fields to an array
-        for(var j = 0; j < data.length; j++) {
-            re.push(data[j][indexOfPassedInFilter]); // Humidity
-            re2.push(data[j][indexOfPassedInFilter2]); // Severity
-        }
-        // Holds each unique value of humidity
-        var analyticsArr = re.filter((value, index, self) => {return self.indexOf(value) === index;});
-
-        // Will hold the average severity of each humidity percent
-        var avgSeverity = Array(analyticsArr.length).fill(0);
-        // Counts the amount of times severity 
-        var counter = Array(analyticsArr.length).fill(0);
-
-        // Now get the average severity(id2) of each humidity percent(id)  
-        for(let i = 1; i < data.length; i++) {
-            for(let j = 1; j < analyticsArr.length; j++) {
-                if(re[i] == analyticsArr[j]) {
-                    counter[j] += 1; 
-                    avgSeverity[j] = avgSeverity[j] + parseFloat(re2[j]);
-                }
+        var tags = [];
+        var map_vals = {};
+        var map_cnt = {};
+        for(var j = 1; j < data.length; j++) {
+            if(!tags.includes(data[j][indexOfPassedInFilter])){
+                tags.push(data[j][indexOfPassedInFilter]);
+                map_vals[data[j][indexOfPassedInFilter]] = parseInt(data[j][indexOfPassedInFilter2]);
+                map_cnt[data[j][indexOfPassedInFilter]] = 1;
+            }
+            else{
+                map_vals[data[j][indexOfPassedInFilter]] += parseInt(data[j][indexOfPassedInFilter2]);
+                map_cnt[data[j][indexOfPassedInFilter]] += 1;
             }
         }
 
-        // Have to make a separate loop to calculate correct average cause didn't when did embedded for loop
-        for(let j = 1; j < avgSeverity.length; j++) {
-                avgSeverity[j] = avgSeverity[j] / counter[j];
-
+        // console.log(map_cnt);
+        // console.log(map_vals);
+        for(var k = 0; k<tags.length; k++){
+            map_vals[tags[k]] = (map_vals[tags[k]])/(map_cnt[tags[k]]);
         }
+        console.log(map_vals);
 
-        re = [analyticsArr, avgSeverity]
-        console.log(frequency_result);
-        io.emit('filterFrequency', frequency_result, id);
+        // // Holds each unique value of humidity
+        // var analyticsArr = re.filter((value, index, self) => {return self.indexOf(value) === index;});
+
+        // // Will hold the average severity of each humidity percent
+        // var avgSeverity = Array(analyticsArr.length).fill(0);
+        // // Counts the amount of times severity 
+        // var counter = Array(analyticsArr.length).fill(0);
+
+        // // Now get the average severity(id2) of each humidity percent(id)  
+        // for(let i = 1; i < data.length; i++) {
+        //     for(let j = 1; j < analyticsArr.length; j++) {
+        //         if(re[i] == analyticsArr[j]) {
+        //             counter[j] += 1; 
+        //             avgSeverity[j] = avgSeverity[j] + parseFloat(re2[j]);
+        //         }
+        //     }
+        // }
+
+        // // Have to make a separate loop to calculate correct average cause didn't when did embedded for loop
+        // for(let j = 1; j < avgSeverity.length; j++) {
+        //         avgSeverity[j] = avgSeverity[j] / counter[j];
+
+        // }
+
+        // re = [analyticsArr, avgSeverity]
+        // console.log(frequency_result);
+        // io.emit('filterFrequency', frequency_result, id);
     });
     // Returns the frequency of each data field in a filter
     

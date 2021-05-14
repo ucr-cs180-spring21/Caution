@@ -54,7 +54,12 @@ let chart;
 function updateGraph() {
     let query = document.getElementById('analytics_query_select').value;
     console.log(query);
-    socket.emit('cfilterFrequency', query);
+    if(query === 'Weather_Condition,Severity'){
+        socket.emit('increment', 'Weather_Condition', 'Severity');
+    }
+    else{
+        socket.emit('cfilterFrequency', query);
+    }
 }
 
 // function renderGraph(graphX, graphY, title, titleX, titleY) {
