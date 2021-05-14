@@ -111,12 +111,8 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
             console.log('Zipcode data');
             console.log(zip_d);
         }
-<<<<<<< HEAD
 
         var myChart;
-=======
-        var myChart
->>>>>>> 08229ab193913479f17017cec9c7bf97f8cabad0
         if (this.myChart) this.myChart.destroy();
         this.myChart = new Chart(ctx, {
             type: 'bar',
