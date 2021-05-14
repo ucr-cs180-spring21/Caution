@@ -112,7 +112,9 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
             console.log(zip_d);
         }
 
-        var myChart = new Chart(ctx, {
+        var myChart;
+        if (this.myChart) this.myChart.destroy();
+        this.myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: [...Xvals],
