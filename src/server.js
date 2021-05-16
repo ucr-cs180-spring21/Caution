@@ -99,10 +99,11 @@ io.on('connection', function(client) {
         for(var j = 0; j < data.length; j++) {
             re.push(data[j][indexOfPassedInFilter]);
         }
-        console.log('Re ' + indexOfPassedInFilter);
+        //console.log(re);
 
         // Gets only the unique values in a filter and its frequency
         const map = re.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+        console.log(map);
         frequency_result = Array.from(map, ([Value, Count]) => ({ Value, Count }));
       
         console.log(frequency_result)
@@ -133,8 +134,6 @@ io.on('connection', function(client) {
                 indexOfPassedInFilter2 += 1;
             }
         }
-        console.log(id, id2);
-        console.log(indexOfPassedInFilter, indexOfPassedInFilter2);
 
         // Push all of the filter's fields to an array
         var tags = [];
@@ -152,62 +151,17 @@ io.on('connection', function(client) {
             }
         }
 
-        // console.log(map_cnt);
-        // console.log(map_vals);
+        var frequency_result = [];
+
         for(var k = 0; k<tags.length; k++){
             map_vals[tags[k]] = (map_vals[tags[k]])/(map_cnt[tags[k]]);
+            frequency_result.push({Value: tags[k], Count: map_vals[tags[k]]});
         }
-        console.log(map_vals);
 
-        // // Holds each unique value of humidity
-        // var analyticsArr = re.filter((value, index, self) => {return self.indexOf(value) === index;});
+        console.log(frequency_result);
 
-        // // Will hold the average severity of each humidity percent
-        // var avgSeverity = Array(analyticsArr.length).fill(0);
-        // // Counts the amount of times severity 
-        // var counter = Array(analyticsArr.length).fill(0);
-
-        // // Now get the average severity(id2) of each humidity percent(id)  
-        // for(let i = 1; i < data.length; i++) {
-        //     for(let j = 1; j < analyticsArr.length; j++) {
-        //         if(re[i] == analyticsArr[j]) {
-        //             counter[j] += 1; 
-        //             avgSeverity[j] = avgSeverity[j] + parseFloat(re2[j]);
-        //         }
-        //     }
-        // }
-
-        // // Have to make a separate loop to calculate correct average cause didn't when did embedded for loop
-        // for(let j = 1; j < avgSeverity.length; j++) {
-        //         avgSeverity[j] = avgSeverity[j] / counter[j];
-
-        // }
-
-        // re = [analyticsArr, avgSeverity]
-        // console.log(frequency_result);
-        // io.emit('filterFrequency', frequency_result, id);
+        io.emit('sfilterFrequency', frequency_result);
     });
-    // Returns the frequency of each data field in a filter
-    
-    // client.on('frequency_of_filter', function(id){
-    //     var re = []
-    //     let indexOfPassedInFilter = 0;
-
-    //     // Finds the specific filter in the data to get its contents
-    //     for(var i = 0; i < data.length; ++i) {
-    //         if(id === data[0][i]) {
-    //             break;
-    //         }
-    //         else {
-    //             indexOfPassedInFilter += 1;
-    //         }
-    //     }
-
-    //     // Push all of the filter's fields to an array(HARDCODED RN JUST FOR WEATHER_CONDITION)
-    //     for(var j = 0; j < data.length; j++) {
-    //         re.push(data[j][indexOfPassedInFilter]);
-    //     }
-    //     console.log('Re ' + indexOfPassedInFilter);
 
     // client.on('csvexport', function(client){
     //     let csvContent = "data:text/csv;charset=utf-8,";
