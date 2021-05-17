@@ -19,9 +19,10 @@ function updateGraph() {
         socket.emit('cfilterFrequency', query);   
     }
     else { 
+        t0 = performance.now();
         displayExistingAnalytics(query);
-        t1 = performance.now()
-        console.log("Took " + (t1 - t0) + " milliseconds.")
+        t1 = performance.now();
+        console.log("Took " + (t1 - t0) + " milliseconds.");
     }
 }
 
@@ -255,7 +256,6 @@ function displayExistingAnalytics(nameOfAnalytic) {
             "ordering": false
         } );
     });
-
 };
 
 
