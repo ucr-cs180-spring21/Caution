@@ -9,8 +9,7 @@ var { updateValue, deleteRecord, insertRecord } = require('./utils/ModifyRecords
 var { process, backup } = require('./utils/CSVReadWrite');
 var { getGraphData } = require('./utils/Analytics');
 
-var data = []
-process(data, 'data/book.csv');
+var data = [];
 
 app.use(express.static(path.join(__dirname, 'front_end')));
 
@@ -154,7 +153,7 @@ io.on('connection', function(client) {
         var frequency_result = [];
 
         for(var k = 0; k<tags.length; k++){
-            map_vals[tags[k]] = (map_vals[tags[k]]/(map_cnt[tags[k]])).toFixed(2);
+            map_vals[tags[k]] = (map_vals[tags[k]]/(map_cnt[tags[k]])).toFixed(4);
             //map_vals[tags[k]] = map_vals[tags[k]].toFixed(2);
             frequency_result.push({Value: tags[k], Count: map_vals[tags[k]]});
         }

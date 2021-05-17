@@ -25,6 +25,37 @@ function updateGraph() {
     }
 }
 
+function updateGraph_Avg() {
+    let query = document.getElementById('analytics_query_select_incremental').value;
+    console.log(query);
+
+    t0 = performance.now();
+
+    if(tableCache.has(query) == false) { // If the table has not been created before call the backend else just display 
+        if(query.includes('Weather_Condition,Severity')){
+            socket.emit('average', 'Weather_Condition', 'Severity');
+        }
+        else if(query.includes('Airport_Code')){
+            socket.emit('average', 'Airport_Code', 'Severity');
+        }
+        else if(query.includes('Humidity(%)')){
+            socket.emit('average', 'Humidity(%)', 'Severity');
+        }
+        else if(query.includes('Wind_Speed(mph)')){
+            socket.emit('average', 'Wind_Direction', 'Wind_Speed(mph)');
+        }
+        else if(query.includes('Visibility(mi)')){
+            socket.emit('average', 'Weather_Condition', 'Visibility(mi)');
+        }
+        //socket.emit('average', query);   
+    }
+    else { 
+        displayExistingAnalytics(query);
+        t1 = performance.now()
+        console.log("Took " + (t1 - t0) + " milliseconds.")
+    }
+}
+
 // If the table already exists just redisplay that so it doesn't show 
 function displayExistingAnalytics(nameOfAnalytic) {
     arrayOfFrequencies = tableCache.get(nameOfAnalytic);
