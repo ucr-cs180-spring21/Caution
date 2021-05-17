@@ -255,6 +255,8 @@
             var socket = io.connect();
             var selectedFilters = [];
             var count = 0;
+            var tableCache = map(); // This is for improving performance
+            var newValueAdded = false;
 
             // Function executes immediately and displays which filters are selected
             window.onload = multiselectFeature(); 
@@ -385,43 +387,283 @@
 			// Hard coded at the moment, but sends a request to get number of accidents by weather condition
 			function buttonfrequencyWeather() {
 				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Weather_Condition");
+                if(tableCache.has("Weather_Condition") == false) {
+				    console.log("WEATHER CONDITION DOESN'T EXIST")
+                    socket.emit('frequency_of_filter', "Weather_Condition");
+                }
+                else {
+                    console.log("WEATHER CONDITION DOES EXIST")
+                    displayExistingAnalytics("Weather_Condition");
+                }
 			}
 
 			function buttonfrequencyHumidity() {
 				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Humidity(%)");
+                if(tableCache.has("Humidity(%)") == false) {
+				    socket.emit('frequency_of_filter', "Humidity(%)");
+                }
+                else {
+                    displayExistingAnalytics("Humidity(%)");
+                }
 			}
 
 			function buttonfrequencyDist() {
 				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Distance(mi)");
+                if(tableCache.has("Distance(mi)") == false) {
+				    socket.emit('frequency_of_filter', "Distance(mi)");
+                }
+                else {
+                    displayExistingAnalytics("Distance(mi)"); 
+                }
 			}
 
 			function buttonfrequencyBump() {
 				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Bump");
+                if(tableCache.has("Bump") == false) {
+				    socket.emit('frequency_of_filter', "Bump");
+                }
+                else {
+                    displayExistingAnalytics("Bump");
+                }
 			}
 
 			function buttonfrequencyStop() {
 				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Stop");
+                if(tableCache.has("Stop") == false) {
+				    socket.emit('frequency_of_filter', "Stop");
+                }
+                else {
+                    displayExistingAnalytics("Stop");
+                }
 			}
 			
 			function buttonfrequencyZipcode() {
 				console.log("Goes to server");
-				socket.emit('frequency_of_filter', "Zipcode");
+                if(tableCache.has("Zipcode") == false) {
+				    socket.emit('frequency_of_filter', "Zipcode");
+                }
+                else {
+                    displayExistingAnalytics("Zipcode"); 
+                }
 			}
 
 			function buttonfrequencyState() {
                 console.log("Goes to server");
-                socket.emit('frequency_of_filter', 'State');
+                if(tableCache.has("State") == false) {
+                    socket.emit('frequency_of_filter', 'State');
+                }
+                else {
+                    displayExistingAnalytics("State"); 
+                }
             }
 
 			function buttonfrequencySide(){
 				console.log("Goes to server");
-                socket.emit('frequency_of_filter', 'Side');
+                if(tableCache.has("Side") == false) {
+                    socket.emit('frequency_of_filter', 'Side');
+                }
+                else {
+                    displayExistingAnalytics("Side");
+                }
 			}
+
+            // If the table already exists just redisplay that so it doesn't show 
+            function displayExistingAnalytics(nameOfAnalytic) {
+                arrayOfFrequencies = tableCache.nameOfAnalytic;
+                console.log("HERE IS THE EXISTING ANALYTICS:")
+                console.log(arrayOfFrequencies)
+                
+                /*Bar Chart JavaScript
+				Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart
+				Biggest issue I had is the table doesn't work well when the let data is changed to another variable name that
+				may have been just a stupid issue though */
+				var ctx = document.getElementById('myChart').getContext('2d');
+
+                let Xvals = [];
+                let Yvals = [];
+                var zip_d = [];
+                var dict = {};
+                var sz = arrayOfFrequencies.length-1;
+                //data = arrayOfFrequencies.slice(1, sz);
+                // if(id == 'Zipcode'){
+                // 	data = arrayOfFrequencies.slice(1, 11);
+                // 	console.log()
+                // }
+                // else{
+                // 	data = arrayOfFrequencies.slice(1, arrayOfFrequencies.length);
+                // }
+                data = arrayOfFrequencies.slice(1, arrayOfFrequencies.length)
+
+                try {
+                    data.map((item) => {
+                        console.log(item.Value);
+                        Yvals.push(item.Count);
+                        Xvals.push(item.Value);
+                        dict[item.Count] = item.Value;
+                });
+
+                if(id === 'Zipcode'){
+                    Yvals.sort().reverse();
+                    Yvals = Yvals.slice(0, 10);
+                    zip_d = Yvals;
+                    Xvals = [];
+
+                    for(var i = 0; i<Yvals.length; i++){
+                        Xvals.push(dict[Yvals[i]]);
+                    }
+
+                    console.log('Zipcode data');
+                    console.log(zip_d);
+                }
+
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                    labels: [...Xvals],
+                    datasets: [{
+                        label: 'Accidents',
+                        data: [...Yvals],
+                        backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                    },
+                });
+
+                } catch (error) {
+                    console.log(error);
+                }
+
+                //var table = document.getElementById('infotable');
+                //table.style.display = 'none';
+                data = arrayOfFrequencies.slice(0, arrayOfFrequencies.length);
+
+                var table = '<table>';
+                table += '<thead>'
+                table += '<tr>';
+                var labels = ['Analytic', 'Count'];
+                for(var i in labels) {
+                    table += '<th>' + labels[i] + '</th>';
+                }
+
+                table += '</tr>';
+                table += '<tbody>';
+                for(var j = 1; j < data.length; j++){
+                    table += '<tr>';
+                    for(var k in data[j]){
+                    table += '<td>' + data[j][k] + '</td>';
+                    }
+                    table += '</tr>';
+                }
+                table += '</tbody>';
+                table += '</table>';
+                document.getElementById('analytics').innerHTML = table;
+                $(document).ready(function() {
+                    $('#analytics').DataTable( {
+                        "pagingType": "full_numbers",
+                        "bDestroy": true,
+                        "ordering": false
+                    } );
+                });
+            }
 
             function buttonfrequencySeverityHumidity() {
                 console.log("Goes to server");
@@ -439,8 +681,11 @@
 			});
 
 			socket.on('filterFrequency', function(arrayOfFrequencies, id){
-				console.log("Comes back to client")
-				console.log(arrayOfFrequencies);
+				console.log("Comes back to client TESTING")
+
+                // Add to table since it doesn't exist
+                tableCache.set(id, arrayOfFrequencies)
+                console.log(tableCache)
 
 				/*Bar Chart JavaScript
 				Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart
@@ -811,6 +1056,10 @@
                 document.getElementById(tabName).style.display = "block";
                 evt.currentTarget.className += " active";
             }
+
+            // This is for testing
+            //var time1 = performance.now()
+            //console.log("Call to doSomething took " + (time1 - t0) + " milliseconds.")
         </script>
     </body>
 </html>
