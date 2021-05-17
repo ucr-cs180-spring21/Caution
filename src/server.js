@@ -107,11 +107,11 @@ io.on('connection', function(client) {
         frequency_result = Array.from(map, ([Value, Count]) => ({ Value, Count }));
       
         console.log(frequency_result)
-        io.emit('sfilterFrequency', frequency_result);
+        io.emit('sfilterFrequency', frequency_result, id);
     });
 
     // Returns the frequency of each data field in a filter
-    client.on('increment', function(id, id2){
+    client.on('average', function(id, id2){
         var re = []
         var re2 = []
         let indexOfPassedInFilter = 0;
@@ -154,7 +154,8 @@ io.on('connection', function(client) {
         var frequency_result = [];
 
         for(var k = 0; k<tags.length; k++){
-            map_vals[tags[k]] = (map_vals[tags[k]])/(map_cnt[tags[k]]);
+            map_vals[tags[k]] = (map_vals[tags[k]]/(map_cnt[tags[k]])).toFixed(2);
+            //map_vals[tags[k]] = map_vals[tags[k]].toFixed(2);
             frequency_result.push({Value: tags[k], Count: map_vals[tags[k]]});
         }
 
