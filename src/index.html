@@ -38,6 +38,7 @@
                 <button onclick="buttonfrequencyState()">Accident based off state</button>
 				<button onclick="buttonfrequencyZipcode()">Accident based off zipcode</button>
 				<button onclick="buttonfrequencySide()">Accident based on side of the road</button>
+				<button onclick="increment()">Average severity based on weather</button>
                 <!--button onclick="buttonfrequencySeverityHumidity()">Average severity of accident based on humidity</button-->     
             </div>
             <div style="position: relative; height:40vh; width:40vw">
@@ -427,10 +428,9 @@
                 socket.emit('average_severity_of_filter', "Humidity(%)", 'Severity');
             }
 
-			// Button exports the filtered data to be downloaded on client's comp
-			// function buttonExport(){
-			//     socket.emit('csvexport');
-			// }
+			function increment() {
+				socket.emit('increment', "Humidity(%)", 'Severity');
+			}
 
 			// When the server sends, update the HTML
 			socket.on('hello world', function(data){
@@ -780,14 +780,9 @@
                     } );
                 } );
             });
-            // client side export button
-            // socket.on('csvexport', function(csvContent) {
-            //  console.log('ehehe');
-            //  var encodedUri = encodeURI(csvContent);
-            //  window.open(encodedUri);
-            // });
+
             socket.on('backup', function(backup){
-                console.log('backup successful');
+                console.log('Backup successful');
                 
             });
             

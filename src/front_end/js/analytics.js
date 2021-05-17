@@ -1,60 +1,23 @@
-// const data = {
-//     labels: [],
-//     datasets: [{
-//         label: "",
-//         data: [],
-//         borderWidth: 2
-//     }]
-// };
-
-// const config = {
-//     type: 'bar',
-//     data: data,
-//     options: {
-//         plugins: {
-//             title: {
-//                 display: true,
-//                 text: "",
-//                 font: {
-//                     size: 20,
-//                     weight: 'bold'
-//                 }
-//             }
-//         },
-//         scales: {
-//             x: {
-//                 display: true,
-//                 title: {
-//                     display: true,
-//                     text: "",
-//                     font: {
-//                         size: 16,
-//                         weight: 'bold'
-//                     }
-//                 }
-//             },
-//             y: {
-//                 display: true,
-//                 title: {
-//                     display: true,
-//                     text: "",
-//                     font: {
-//                         size: 16,
-//                         weight: 'bold'
-//                     }
-//                 },
-//                 beginAtZero: true
-//             }
-//         }
-//     },
-// };
-
 let chart;
 
 function updateGraph() {
-    let query = document.getElementById('analytics_query_select').value;
+    let query = document.getElementById('analytics_query_select_incremental').value;
     console.log(query);
-    socket.emit('cfilterFrequency', query);
+    if(query === 'Weather_Condition,Severity' || query === 'Airport_Code,Severity' ||
+        query === 'Humidity(%),Severity'){
+        if(query.includes('Airport_Code')){
+            socket.emit('average', 'Airport_Code', 'Severity');
+        }
+        else if(query.includes('Weather_Condition')){
+            socket.emit('average', 'Weather_Condition', 'Severity');
+        }
+        else if(query.includes('Humidity(%)')){
+            socket.emit('average', 'Humidity(%)', 'Severity');
+        }
+    }
+    else{
+        socket.emit('cfilterFrequency', query);
+    }
 }
 
 // function renderGraph(graphX, graphY, title, titleX, titleY) {
@@ -111,7 +74,8 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
             console.log('Zipcode data');
             console.log(zip_d);
         }
-        var myChart
+
+        var myChart;
         if (this.myChart) this.myChart.destroy();
         this.myChart = new Chart(ctx, {
             type: 'bar',
@@ -233,6 +197,7 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
     //var table = document.getElementById('infotable');
     //table.style.display = 'none';
     data = arrayOfFrequencies.slice(0, arrayOfFrequencies.length);
+    console.log(data);
 
     var table = '<table>';
     table += '<thead>'
