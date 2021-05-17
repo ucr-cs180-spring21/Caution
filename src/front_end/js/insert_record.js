@@ -8,6 +8,8 @@ function insertRecord() {
         }
     }
 
-    socket.emit('new', attributeValues);
-    updateTable();
+    socket.emit('new', attributeValues, function(confirmMessage) {
+        console.log(confirmMessage);
+        updateTable();
+    });
 }

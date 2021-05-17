@@ -21,12 +21,9 @@
 
 .button:hover {
 	cursor: pointer;
-	background-color: grey;
 }
 
 .button.collapse_button {
-	/* border-top-left-radius: 0px;
-	border-top-right-radius: 0px; */
 	margin-top: 10px;
 	margin-bottom: 10px;
 	width: 150px;
@@ -35,11 +32,10 @@
 }
 
 .button.collapse_button:hover {
-	transition: ease-in 0.2s;
 	background-color: rgba(73, 140, 225, 0.5);
 }
 
-.button.collapse_button.collapsed {
+.button.collapse_button.expanded {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
@@ -49,15 +45,9 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	max-height: 0;
 	overflow: hidden;
+	max-height: 0;
 	transition: max-height 0.2s;
-}
-
-.collapsible_container.collapsed {
-	
-	border: none;
-	transition: max-height ease-in 0.2s;
 }
 
 .grid {
