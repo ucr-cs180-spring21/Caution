@@ -25,12 +25,23 @@
 }
 
 .button.collapse_button {
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
+	/* border-top-left-radius: 0px;
+	border-top-right-radius: 0px; */
 	margin-top: 10px;
 	margin-bottom: 10px;
 	width: 150px;
+	transition: ease-in 0.2s;
 	background-color: rgba(113, 170, 255, 0.5);
+}
+
+.button.collapse_button:hover {
+	transition: ease-in 0.2s;
+	background-color: rgba(73, 140, 225, 0.5);
+}
+
+.button.collapse_button.collapsed {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 }
 
 .collapsible_container {
@@ -38,13 +49,15 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: auto;
+	max-height: 0;
 	overflow: hidden;
+	transition: max-height 0.2s;
 }
 
 .collapsible_container.collapsed {
-	height: 0px;
+	
 	border: none;
+	transition: max-height ease-in 0.2s;
 }
 
 .grid {
