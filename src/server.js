@@ -163,25 +163,6 @@ io.on('connection', function(client) {
 
         io.emit('sfilterFrequency', frequency_result);
     });
-
-    // client.on('csvexport', function(client){
-    //     let csvContent = "data:text/csv;charset=utf-8,";
-        
-    //     WIP: converting retdata to true array
-    //     for(var i in retdata) {
-    //         var temparr = [];
-    //         temparr.push(JSON.ConvertToCSV(retdata[i]));
-    //         let temp = temparr.join(",");
-    //         csvContent += temp + "\r\n";
-    //     }
-    //     console.log(csvContent);
-    //     io.emit('csvexport', csvContent);
-    // });
-
-    // client.on('getGraphData', function(query, fn) {
-    //     let { graphX, graphY, title, titleX, titleY } = getGraphData(data, query); 
-    //     fn(graphX, graphY, title, titleX, titleY);
-    // });
 });
 
 // Starting the server and listening to the port
