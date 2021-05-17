@@ -11,7 +11,7 @@ let chart;
 
 function updateGraph() {
     let query = document.getElementById('analytics_query_select').value;
-    console.log(query);
+    //console.log(query);
 
     t0 = performance.now();
 
@@ -27,7 +27,7 @@ function updateGraph() {
 
 function updateGraph_Avg() {
     let query = document.getElementById('analytics_query_select_incremental').value;
-    console.log(query);
+    //console.log(query);
 
     t0 = performance.now();
 
@@ -59,7 +59,7 @@ function updateGraph_Avg() {
 // If the table already exists just redisplay that so it doesn't show 
 function displayExistingAnalytics(nameOfAnalytic) {
     arrayOfFrequencies = tableCache.get(nameOfAnalytic);
-    console.log("The table exists in our cache so use that one")
+    //console.log("The table exists in our cache so use that one")
     
     /*Bar Chart JavaScript
     Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart
@@ -94,8 +94,8 @@ function displayExistingAnalytics(nameOfAnalytic) {
                 Xvals.push(dict[Yvals[i]]);
             }
 
-            console.log('Zipcode data');
-            console.log(zip_d);
+            //console.log('Zipcode data');
+            //console.log(zip_d);
         }
 
         //console.log(myChart);
@@ -260,7 +260,7 @@ function displayExistingAnalytics(nameOfAnalytic) {
 
 
 socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
-    console.log("Comes back to client TESTING")
+    //console.log("Comes back to client TESTING")
 
     // Add to table since it doesn't exist
     tableCache.set(id, arrayOfFrequencies)
@@ -300,8 +300,8 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
                 Xvals.push(dict[Yvals[i]]);
             }
 
-            console.log('Zipcode data');
-            console.log(zip_d);
+            //console.log('Zipcode data');
+            //console.log(zip_d);
         }
 
         if (myChart) myChart.destroy();
@@ -425,7 +425,7 @@ socket.on('sfilterFrequency', function(arrayOfFrequencies, id){
     //var table = document.getElementById('infotable');
     //table.style.display = 'none';
     data = arrayOfFrequencies.slice(0, arrayOfFrequencies.length);
-    console.log(data);
+    //onsole.log(data);
 
     var table = '<table>';
     table += '<thead>'
