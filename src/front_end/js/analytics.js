@@ -1,34 +1,214 @@
-//const { Chart } = require("chart.js");
+const data = {
+    labels: [],
+    datasets: [{
+        label: "",
+        data: [],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+    }]
+};
 
-// Global variables
-var tableCache = new Map(); // This is for improving performance
-var newValueAdded = false;
-var myChart;
-var t0;
-var t1;
+const config = {
+    type: 'bar',
+    data: data,
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: "",
+                font: {
+                    size: 20,
+                    weight: 'bold'
+                }
+            },
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "",
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                }
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "",
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                },
+                beginAtZero: true
+            }
+        }
+    },
+};
 
 let chart;
 
 function updateGraph() {
     let query = document.getElementById('analytics_query_select').value;
-    //console.log(query);
-
-    t0 = performance.now();
-
-    if(tableCache.has(query) == false) { // If the table has not been created before call the backend else just display 
-        socket.emit('cfilterFrequency', query);   
-    }
-    else { 
-        t0 = performance.now();
-        displayExistingAnalytics(query);
-        t1 = performance.now();
-        console.log("Took " + (t1 - t0) + " milliseconds.");
-    }
+    socket.emit('getGraphData', query, renderGraph);
 }
+
+function renderGraph(graphX, graphY, title, titleX, titleY) {
+    if (!chart) {
+        chart = new Chart(document.getElementById('analytics_graph'), config);
+    }
+
+    chart.data.labels.splice(0, chart.data.labels.length);
+    chart.data.datasets[0].data.splice(0, chart.data.datasets[0].data.length);
+
+    for (xLabel of graphX)
+        chart.data.labels.push(xLabel);
+
+    for (yLabel of graphY)
+        chart.data.datasets[0].data.push(yLabel);
+
+    chart.options.plugins.title.text = title;
+    chart.options.scales.x.title.text = titleX;
+    chart.options.scales.y.title.text = titleY;
+    chart.update();
+}
+
+
+
+
+
+// var tableCache = new Map();
+// var newValueAdded = false;
+// var myChart;
+// var t0;
+// var t1;
+
+// let chart;
+
+// function updateGraph() {
+//     let query = document.getElementById('analytics_query_select').value;
+
+//     t0 = performance.now();
+
+//     if(tableCache.has(query) == false) {
+//         socket.emit('cfilterFrequency', query);   
+//     }
+//     else { 
+//         t0 = performance.now();
+//         displayExistingAnalytics(query);
+//         t1 = performance.now();
+//         console.log("Took " + (t1 - t0) + " milliseconds.");
+//     }
+// }
 
 function updateGraph_Avg() {
     let query = document.getElementById('analytics_query_select_incremental').value;
-    //console.log(query);
 
     t0 = performance.now();
 
@@ -57,15 +237,9 @@ function updateGraph_Avg() {
     }
 }
 
-// If the table already exists just redisplay that so it doesn't show 
 function displayExistingAnalytics(nameOfAnalytic) {
     arrayOfFrequencies = tableCache.get(nameOfAnalytic);
-    //console.log("The table exists in our cache so use that one")
-    
-    /*Bar Chart JavaScript
-    Method Learned from: https://stackoverflow.com/questions/55290321/parsing-json-data-into-chart-js-bar-chart
-    Biggest issue I had is the table doesn't work well when the let data is changed to another variable name that
-    may have been just a stupid issue though */
+
     var ctx = document.getElementById('myChart').getContext('2d');
 
     let Xvals = [];

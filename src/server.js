@@ -76,8 +76,14 @@ io.on('connection', function(client) {
         datadir = 'data/' + fn;
         process(data, datadir);
     });
+
     client.on('getFullTable', function() {
         io.emit('senddata', data);
+    });
+
+    client.on('getGraphData', function(query, fn) {
+        let { graphX, graphY, title, titleX, titleY } = getGraphData(data, query); 
+        fn(graphX, graphY, title, titleX, titleY);
     });
 
     client.on('cfilterFrequency', function(id){
