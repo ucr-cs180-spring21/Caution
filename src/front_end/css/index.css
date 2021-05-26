@@ -123,6 +123,15 @@
   	grid-column-end: 3;
 }
 
+#inc_analytics_grid {
+	grid-template-columns: auto auto;
+}
+
+#inc_analytics_grid button {
+	grid-column-start: 1;
+  	grid-column-end: 3;
+}
+
 .display_container {
 	margin-top: 16px;
 	margin-bottom: 16px;

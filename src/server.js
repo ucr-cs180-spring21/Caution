@@ -31,14 +31,14 @@ io.on('connection', function(client) {
         fn(returnData);
     });
 
-    client.on('backup', function(id){
+    client.on('backup', function(fn){
         backup(data);
-        io.emit('backup', []);
+        fn("Backup Successful!");
     });
 
-    client.on('updateinput', function(fn){
+    client.on('updateinput', function(filename){
         data = [];
-        datadir = 'data/' + fn;
+        datadir = 'data/' + filename;
         process(data, datadir);
     });
 

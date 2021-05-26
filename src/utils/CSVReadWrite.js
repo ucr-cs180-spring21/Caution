@@ -2,25 +2,20 @@ var fs = require('fs')
 
 async function process(data, path) {
     const lineReader = require('readline').createInterface({
-        input: fs.createReadStream(String(path))
+        input: fs.createReadStream(path)
     });
 
-    lineReader.on('line', function (line) {
-        var splitter = new RegExp(/[^,]+/,'g');
-        let match;
-        let obj = [];
-        while ((match = splitter.exec(line)) !== null) {
-            obj.push(match[0])
-        }
-
-        data.push(obj)
-    });
-    
+    lineReader
+        .on('line', function(line) {
+            data.push(line.split(','));
+        })
+        .on('close', function() {
+            data.splice(0, 1);
+        });
 }
 
 function backup(data) {
-    //let csvContent = "data:text/csv;charset=utf-8,";
-    let csvContent;
+    let csvContent = "";
 
     data.forEach(function(rowArray) {
         let row = rowArray.join(",");

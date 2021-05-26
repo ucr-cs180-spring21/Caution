@@ -236,7 +236,7 @@
 		<button type="button" class="button collapse_button" id="import_export_collapse_button">Import/Export</button>
 		<div class="collapsible_container" id="import_export_container">
 			<div class="grid" id="import_export_grid">
-				<button type="button" class="button" onclick="buttonBackup()">Backup Data</button>
+				<button type="button" class="button" onclick="backup()">Backup Data</button>
 
 				<button type="button" class="button" onclick="updateCSV()">Import New CSV</button>
 				<label for="import_csv_file_id">CSV Name:</label>
@@ -250,14 +250,14 @@
 			<div class="grid" id="analytics_grid">
 				<label for="analytics_query_select">Query:</label>
 				<select class="dropdown_select" id="analytics_query_select">
-					<option value="Weather_Condition">Frequency due to weather</option>
-					<option value="Humidity(%)">Frequency due to humidity</option>
-					<option value="Distance(mi)">Frequency due to distance</option>
-					<option value="Bump">Frequency due to bumps</option>
-					<option value="Stop">Frequency due to stop sign</option>
-					<option value="State">Accident based off state</option>
-					<option value="Zipcode">Accident based off zipcode</option>
-					<option value="Side">Accident based on side of the road</option>
+					<option value="Weather_Condition">Frequency based on weather</option>
+					<option value="Humidity(%)">Frequency based on humidity</option>
+					<option value="Distance(mi)">Frequency based on distance</option>
+					<option value="Bump">Frequency based on bumps</option>
+					<option value="Stop">Frequency based on stop sign</option>
+					<option value="State">Frequency based on state</option>
+					<option value="Zipcode">Frequency based on zipcode</option>
+					<option value="Side">Frequency based on side of the road</option>
 				</select>
 
 				<button type="button" class="button" onclick="updateGraph()">Update Graph</button>
@@ -265,11 +265,11 @@
 		</div>
 
 		<!--Incremental Analytics-->
-		<button type="button" class="button collapse_button" id="analytics_collapse_button">Incremental Analytics</button>
-		<div class="collapsible_container" id="analytics_container">
-			<div class="grid" id="analytics_grid">
-				<label for="analytics_query_select">Query:</label>
-				<select class="dropdown_select" id="analytics_query_select_incremental">
+		<button type="button" class="button collapse_button" id="inc_analytics_collapse_button">Incremental Analytics</button>
+		<div class="collapsible_container" id="inc_analytics_container">
+			<div class="grid" id="inc_analytics_grid">
+				<label for="inc_analytics_query_select">Query:</label>
+				<select class="dropdown_select" id="inc_analytics_query_select">
 					<option value="Weather_Condition,Severity">Average severity of accidents based on weather condition</option>
 					<option value="Airport_Code,Severity">Average severity of accidents based on airport</option>
 					<option value="Humidity(%),Severity">Average severity of accidents based on humidity</option>
