@@ -4,7 +4,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server); 
 var path = require('path');
 
-var { querySnow, queryHumid, queryTrafficSig, querySeverity, queryTimezone, queryCity, queryAirport, queryPressure } = require('./utils/Query');
+var { queryRecords } = require('./utils/Query');
 var { updateValue, deleteRecord, insertRecord } = require('./utils/ModifyRecords');
 var { process, backup } = require('./utils/CSVReadWrite');
 var { getGraphData } = require('./utils/Analytics');
@@ -26,44 +26,9 @@ io.on('connection', function(client) {
         insertRecord(data, newRecord);
     });
 
-    client.on('snow', function(client){
-        let retdata = querySnow(data);
-        io.emit('senddata', retdata);
-    });
-
-    client.on('humid', function(client){
-        let retdata = queryHumid(data);
-        io.emit('senddata', retdata);
-    });
-
-    client.on('trafficsig', function(client){
-        let retdata = queryTrafficSig(data);
-        io.emit('senddata', retdata);
-    });
-
-    client.on('severity', function(client){
-        let retdata = querySeverity(data);
-        io.emit('senddata', retdata);
-    });
-
-    client.on('timezone', function(client){
-        let retdata = queryTimezone(data);
-        io.emit('senddata', retdata);
-    });
-
-    client.on('city', function(client){
-        let retdata = queryCity(data);
-        io.emit('senddata', retdata);
-    });
-
-    client.on('airport', function(client){
-        let retdata = queryAirport(data);
-        io.emit('senddata', retdata);
-    });
-
-    client.on('pressure', function(client){
-        let retdata = queryPressure(data);
-        io.emit('senddata', retdata);
+    client.on('query', function(queryType) {
+        let returnData = queryRecords(data, queryType);
+        io.emit('senddata', returnData);
     });
 
     client.on('backup', function(id){
@@ -75,10 +40,6 @@ io.on('connection', function(client) {
         data = [];
         datadir = 'data/' + fn;
         process(data, datadir);
-    });
-
-    client.on('getFullTable', function() {
-        io.emit('senddata', data);
     });
 
     client.on('getGraphData', function(query, fn) {

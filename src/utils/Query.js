@@ -1,172 +1,49 @@
-function querySnow(data) {
-    var re = []
+function queryRecords(data, queryType) {
+    let returnData;
 
-    for(var j = 0; j < data.length; j++) {
-        if (data[j][31] == 'Light Snow'){
-            re.push(data[j]);
-        }
+    switch (queryType) {
+        case "all_records":
+            returnData = data;
+            break;
+        case "traffic_signal_true":
+            returnData = getQueryResults(data, 43, 'TRUE');
+            break;
+        case "weather_condition_light_snow":
+            returnData = getQueryResults(data, 31, 'Light Snow');
+            break;
+        case "humidity_100%":
+            returnData = getQueryResults(data, 25, '100');
+            break;
+        case "severity_3/3":
+            returnData = getQueryResults(data, 3, '3');
+            break;
+        case "timezone_us/eastern":
+            returnData = getQueryResults(data, 20, 'US/Eastern');
+            break;
+        case "city_dayton":
+            returnData = getQueryResults(data, 15, 'Dayton');
+            break;
+        case "airport_kday":
+            returnData = getQueryResults(data, 21, 'KDAY');
+            break;
+        case "pressure_29.61_in":
+            returnData = getQueryResults(data, 26, '29.61');
+            break;
     }
-    retdata = [];
 
-    for(var i = 0; i < re.length; i++) {
-        var arrayToString = JSON.stringify(Object.assign({}, re[i]));
-        var stringToJsonObject = JSON.parse(arrayToString);
-        retdata.push(stringToJsonObject);
-    }
-
-    return retdata;
+    return returnData;
 }
 
-function queryHumid(data) {
-    var re = []
+function getQueryResults(data, columnIndex, value) {
+    var returnData = []
 
-    for(var j = 0; j < data.length; j++) {
-        if (data[j][25] == '100'){
-            re.push(data[j]);
-        }
-    }
-
-    retdata = [];
-
-    for(var i = 0; i < re.length; i++) {
-        var arrayToString = JSON.stringify(Object.assign({}, re[i]));
-        var stringToJsonObject = JSON.parse(arrayToString);
-        retdata.push(stringToJsonObject);
-    }
-
-    return retdata;
-}
-
-function queryTrafficSig(data) {
-    var re = []
-
-    for(var j = 0; j < data.length; j++) {
-        if (data[j][43] == 'TRUE'){
-            re.push(data[j]);
+    for(let i = 0; i < data.length; i++) {
+        if (data[i][columnIndex] == value){
+            returnData.push(data[i]);
         }
     }
 
-    retdata = [];
-
-    for(var i = 0; i < re.length; i++) {
-        var arrayToString = JSON.stringify(Object.assign({}, re[i]));
-        var stringToJsonObject = JSON.parse(arrayToString);
-        retdata.push(stringToJsonObject);
-    }
-
-    return retdata;
+    return returnData;
 }
 
-function querySeverity(data) {
-    var re = []
-
-    for(var j = 0; j < data.length; j++) {
-        if (data[j][3] == '3'){
-            re.push(data[j]);
-        }
-    }
-
-    retdata = [];
-
-    for(var i = 0; i < re.length; i++) {
-        var arrayToString = JSON.stringify(Object.assign({}, re[i]));
-        var stringToJsonObject = JSON.parse(arrayToString);
-        retdata.push(stringToJsonObject);
-    }
-
-    return re;
-}
-
-function queryTimezone(data) {
-    var re = []
-
-    for(var j = 0; j < data.length; j++) {
-        if (data[j][20] == 'US/Eastern'){
-            re.push(data[j]);
-        }
-    }
-
-    retdata = [];
-
-    for(var i = 0; i < re.length; i++) {
-        var arrayToString = JSON.stringify(Object.assign({}, re[i]));
-        var stringToJsonObject = JSON.parse(arrayToString);
-        retdata.push(stringToJsonObject);
-    }
-
-    return retdata;
-}
-
-function queryCity(data) {
-    var re = []
-
-    for(var j = 0; j < data.length; j++) {
-        if (data[j][15] == 'Dayton'){
-            re.push(data[j]);
-            //console.log(data[j]);
-        }
-    }
-
-    retdata = [];
-
-    for(var i = 0; i < re.length; i++) {
-        var arrayToString = JSON.stringify(Object.assign({}, re[i]));
-        var stringToJsonObject = JSON.parse(arrayToString);
-        retdata.push(stringToJsonObject);
-    }
-
-    return retdata;
-}
-
-function queryAirport(data) {
-    var re = []
-
-    for(var j = 0; j < data.length; j++) {
-        if (data[j][21] == 'KDAY'){
-            re.push(data[j]);
-            //console.log(data[j]);
-        }
-    }
-
-    retdata = [];
-
-    for(var i = 0; i < re.length; i++) {
-        var arrayToString = JSON.stringify(Object.assign({}, re[i]));
-        var stringToJsonObject = JSON.parse(arrayToString);
-        retdata.push(stringToJsonObject);
-    }
-
-    return retdata;
-}
-
-function queryPressure(data) {
-    var re = []
-
-    for(var j = 0; j < data.length; j++) {
-        if (data[j][26] == '29.61'){
-            re.push(data[j]);
-            //console.log(data[j]);
-        }
-    }
-
-    retdata = [];
-
-    for(var i = 0; i < re.length; i++) {
-        var arrayToString = JSON.stringify(Object.assign({}, re[i]));
-        var stringToJsonObject = JSON.parse(arrayToString);
-
-
-        retdata.push(stringToJsonObject);
-    }
-
-    return retdata;
-}
-
-exports.querySnow = querySnow;
-exports.queryHumid = queryHumid;
-exports.queryTrafficSig = queryTrafficSig;
-exports.querySeverity = querySeverity;
-exports.queryTimezone = queryTimezone;
-exports.queryCity = queryCity;
-exports.queryAirport = queryAirport;
-exports.queryPressure = queryPressure;
+exports.queryRecords = queryRecords;
