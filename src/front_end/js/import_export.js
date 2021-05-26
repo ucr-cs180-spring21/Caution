@@ -9,4 +9,5 @@ function onBackupReturn(message) {
 function updateCSV() {
     let filename = document.getElementById('import_csv_file_id').value;
     socket.emit('updateinput', filename);
+    clearCache();
 }
