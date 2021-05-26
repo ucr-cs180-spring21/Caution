@@ -226,8 +226,8 @@
 					<option value="pressure_29.61_in">Pressure: 29.61 in</option>
 				</select>
 
-				<button type="button" class="button" onclick="updateQueryTable()">Update Table</button>
-				<button type="button" class="button" onclick="displayQueryTable()">Clear Table</button>
+				<button type="button" class="button" onclick="updateQueryTable(false)">Update Table</button>
+				<button type="button" class="button" onclick="displayQueryTable(null)">Clear Table</button>
 				<button type="button" class="button" onclick="updateQueryTable(true)">View Full</button>
 			</div>
 		</div>
@@ -260,7 +260,7 @@
 					<option value="Side">Frequency based on side of the road</option>
 				</select>
 
-				<button type="button" class="button" onclick="updateGraph()">Update Graph</button>
+				<button type="button" class="button" onclick="updateGraph(false)">Update Graph</button>
 			</div>
 		</div>
 
@@ -273,11 +273,11 @@
 					<option value="Weather_Condition,Severity">Average severity of accidents based on weather condition</option>
 					<option value="Airport_Code,Severity">Average severity of accidents based on airport</option>
 					<option value="Humidity(%),Severity">Average severity of accidents based on humidity</option>
-					<option value="Wind_Speed(mph),Wind_Direction">Average wind speed of accidents based on wind direction</option>
-					<option value="Weather_Condition,Visibility(mi)">Average visibility based on weather condition</option>
+					<option value="Wind_Direction,Wind_Speed(mph)">Average wind speed of accidents based on wind direction</option>
+					<option value="Weather_Condition,Visibility(mi)">Average visibility of accidents based on weather condition</option>
 				</select>
 
-				<button type="button" class="button" onclick="updateGraph_Avg()">Update Graph</button>
+				<button type="button" class="button" onclick="updateGraph(true)">Update Graph</button>
 			</div>
 		</div>
 		

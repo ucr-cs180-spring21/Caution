@@ -154,9 +154,17 @@ const config = {
 
 let chart;
 
-function updateGraph() {
-    let query = document.getElementById('analytics_query_select').value;
-    socket.emit('getGraphData', query, renderGraph);
+function updateGraph(isInc) {
+    let graphRequest = isInc ? 'getAvgGraphData' : 'getGraphData';
+    let queryElementID = isInc ? 'inc_analytics_query_select' : 'analytics_query_select';
+    let query = document.getElementById(queryElementID).value;
+    
+    socket.emit(graphRequest, query, renderAnalyticsDisplays);
+}
+
+function renderAnalyticsDisplays(graphX, graphY, title, titleX, titleY) {
+    renderGraph(graphX, graphY, title, titleX, titleY);
+    renderAnalyticsTable(graphX, graphY, titleX, titleY);
 }
 
 function renderGraph(graphX, graphY, title, titleX, titleY) {
@@ -177,8 +185,6 @@ function renderGraph(graphX, graphY, title, titleX, titleY) {
     chart.options.scales.x.title.text = titleX;
     chart.options.scales.y.title.text = titleY;
     chart.update();
-
-    renderAnalyticsTable(graphX, graphY, titleX, titleY);
 }
 
 function renderAnalyticsTable(graphX, graphY, titleX, titleY) {

@@ -7,7 +7,7 @@ var path = require('path');
 var { queryRecords } = require('./utils/Query');
 var { updateValue, deleteRecord, insertRecord } = require('./utils/ModifyRecords');
 var { process, backup } = require('./utils/CSVReadWrite');
-var { getGraphData } = require('./utils/Analytics');
+var { getGraphData, getAvgGraphData } = require('./utils/Analytics');
 
 var data = [];
 
@@ -44,6 +44,11 @@ io.on('connection', function(client) {
 
     client.on('getGraphData', function(query, fn) {
         let { graphX, graphY, title, titleX, titleY } = getGraphData(data, query); 
+        fn(graphX, graphY, title, titleX, titleY);
+    });
+
+    client.on('getAvgGraphData', function(query, fn) {
+        let { graphX, graphY, title, titleX, titleY } = getAvgGraphData(data, query); 
         fn(graphX, graphY, title, titleX, titleY);
     });
 

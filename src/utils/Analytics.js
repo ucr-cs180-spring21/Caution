@@ -6,7 +6,7 @@ function getGraphData(data, query) {
             graphData = getFrequencyData(data, 31, "Weather VS Frequency of Accidents", "Weather", "Frequency of Accidents");
             break;
         case 'Humidity(%)':
-            graphData = getHumidityGraphData(data);
+            graphData = getFrequencyData(data, 25, "Humidity(%) VS Frequency of Accidents", "Humidity(%)", "Frequency of Accidents");
             break;
         case 'Distance(mi)':
             graphData = getFrequencyData(data, 10, "Distance(mi) VS Frequency of Accidents", "Distance(mi)", "Frequency of Accidents");
@@ -31,6 +31,30 @@ function getGraphData(data, query) {
     return graphData;
 }
 
+function getAvgGraphData(data, query) {
+    let avgGraphData;
+
+    switch (query) {
+        case 'Weather_Condition,Severity':
+            avgGraphData = getAvgData(data, 31, 3, "Weather VS Average Severity of Accidents", "Weather", "Average Severity of Accidents");
+            break;
+        case 'Airport_Code,Severity':
+            avgGraphData = getAvgData(data, 21, 3, "Airport VS Average Severity of Accidents", "Airport", "Average Severity of Accidents");
+            break;
+        case 'Humidity(%),Severity':
+            avgGraphData = getAvgData(data, 25, 3, "Humidity(%) VS Average Severity of Accidents", "Humidity(%)", "Average Severity of Accidents");
+            break;
+        case 'Wind_Direction,Wind_Speed(mph)':
+            avgGraphData = getAvgData(data, 28, 29, "Wind Direction VS Average Wind Speed(mph) of Accidents", "Wind Direction", "Average Wind Speed(mph) of Accidents");
+            break;
+        case 'Weather_Condition,Visibility(mi)':
+            avgGraphData = getAvgData(data, 31, 27, "Weather VS Average Visibility(mi) of Accidents", "Weather", "Average Visibility(mi) of Accidents");
+            break;
+    }
+
+    return avgGraphData;
+}
+
 function getFrequencyData(data, columnIndex, pTitle, pTitleX, pTitleY) {
     let graphData = {};
 
@@ -51,52 +75,32 @@ function getFrequencyData(data, columnIndex, pTitle, pTitleX, pTitleY) {
     };
 }
 
-function getHumidityGraphData(data) {
-    let humidityValues = {
-        "0-10": 0,
-        "11-20": 0,
-        "21-30": 0,
-        "31-40": 0,
-        "41-50": 0,
-        "51-60": 0,
-        "61-70": 0,
-        "71-80": 0,
-        "81-90": 0,
-        "91-100": 0
-    };
-    
+function getAvgData(data, xColumnIndex, yColumnIndex, pTitle, pTitleX, pTitleY) {
+    let graphData = {};
+    let categoryCounts = {};
+
     for (record of data) {
-        let humidity = parseInt(record[25]);
-       
-        if (humidity <= 10)
-            humidityValues["0-10"]++;
-        else if (humidity <= 20)
-            humidityValues["11-20"]++;
-        else if (humidity <= 30)
-            humidityValues["21-30"]++;
-        else if (humidity <= 40)
-            humidityValues["31-40"]++;
-        else if (humidity <= 50)
-            humidityValues["41-50"]++;
-        else if (humidity <= 60)
-            humidityValues["51-60"]++;
-        else if (humidity <= 70)
-            humidityValues["61-70"]++;
-        else if (humidity <= 80)
-            humidityValues["71-80"]++;
-        else if (humidity <= 90)
-            humidityValues["81-90"]++;
-        else if (humidity <= 100)
-            humidityValues["91-100"]++;
+        let total = graphData[record[xColumnIndex]];
+        if (!total) {
+            graphData[record[xColumnIndex]] = Number(record[yColumnIndex]);
+            categoryCounts[record[xColumnIndex]] = 1;
+        } else {
+            graphData[record[xColumnIndex]] += Number(record[yColumnIndex]);
+            categoryCounts[record[xColumnIndex]]++;
+        }
     }
 
+    for (const xVal in graphData)
+        graphData[xVal] /= categoryCounts[xVal];
+
     return { 
-        graphX: Object.keys(humidityValues), 
-        graphY: Object.values(humidityValues),
-        title: "Humidity VS Frequency of Accidents",
-        titleX: "Humidity",
-        titleY: "Frequency of Accidents"
+        graphX: Object.keys(graphData), 
+        graphY: Object.values(graphData),
+        title: pTitle,
+        titleX: pTitleX,
+        titleY: pTitleY
     };
 }
 
 exports.getGraphData = getGraphData;
+exports.getAvgGraphData = getAvgGraphData;
