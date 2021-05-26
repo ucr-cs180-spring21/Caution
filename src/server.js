@@ -26,9 +26,9 @@ io.on('connection', function(client) {
         insertRecord(data, newRecord);
     });
 
-    client.on('query', function(queryType) {
+    client.on('query', function(queryType, fn) {
         let returnData = queryRecords(data, queryType);
-        io.emit('senddata', returnData);
+        fn(returnData);
     });
 
     client.on('backup', function(id){

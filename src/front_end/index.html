@@ -11,9 +11,7 @@
 		<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script src="js/index.js" defer></script>
-		<script src="js/update_value.js" defer></script>
-		<script src="js/delete_record.js" defer></script>
-		<script src="js/insert_record.js" defer></script>
+		<script src="js/modify_records.js" defer></script>
 		<script src="js/view_table.js" defer></script>
 		<script src="js/import_export.js" defer></script>
 		<script src="js/analytics.js" defer></script>
@@ -21,9 +19,10 @@
 	
 	<body class="container">
 		<h1 id="page_title">Caution!</h1>
+
 		<!--Update Value-->
 		<button type="button" class="button collapse_button" id="update_value_collapse_button">Update Value</button>
-		<div class="collapsible_container collapsed" id="update_value_container">
+		<div class="collapsible_container" id="update_value_container">
 			<div class="grid" id="update_value_grid">
 				<label for="update_value_record_id">Record ID:</label>
 				<input type="text" class="textbox" id="update_value_record_id">
@@ -49,19 +48,19 @@
 		
 		<!--Delete Record-->
 		<button type="button" class="button collapse_button" id="delete_record_collapse_button">Delete Record</button>
-		<div class="collapsible_container collapsed" id="delete_record_container">
+		<div class="collapsible_container" id="delete_record_container">
 			<div class="grid" id="delete_record_grid">
 				<label for="delete_record_record_id">Record ID:</label>
 				<input type="text" class="textbox" id="delete_record_record_id">
 
-				<button type="button" class="button" onclick="del()">Delete Record</button>
+				<button type="button" class="button" onclick="deleteRecord()">Delete Record</button>
 			</div>
 		</div>
 		
 
 		<!--Insert Record-->
 		<button type="button" class="button collapse_button" id="insert_record_collapse_button">Insert Record</button>
-		<div class="collapsible_container collapsed" id="insert_record_container">
+		<div class="collapsible_container" id="insert_record_container">
 			<div class="grid" id="insert_record_grid">
 				<label for="insert_record_source">Source:</label>
 				<input type="text" class="textbox" id="insert_record_source">
@@ -213,7 +212,7 @@
 		
 		<!--View Table-->
 		<button type="button" class="button collapse_button" id="table_options_collapse_button">View Table</button>
-		<div class="collapsible_container collapsed" id="table_options_container">
+		<div class="collapsible_container" id="table_options_container">
 			<div class="grid" id="table_options_grid">
 				<label for="table_options_query_select">Query:</label>
 				<select class="multiple_select" id="table_options_query_select">
@@ -227,28 +226,27 @@
 					<option value="pressure_29.61_in">Pressure: 29.61 in</option>
 				</select>
 
-				<button type="button" class="button" onclick="updateTable()">Update Table</button>
-				<button type="button" class="button" onclick="displayTable()">Clear Table</button>
-				<button type="button" class="button" onclick="updateTable(true)">View Full</button>
+				<button type="button" class="button" onclick="updateQueryTable()">Update Table</button>
+				<button type="button" class="button" onclick="displayQueryTable()">Clear Table</button>
+				<button type="button" class="button" onclick="updateQueryTable(true)">View Full</button>
 			</div>
 		</div>
 		
 		<!--Import/Export-->
 		<button type="button" class="button collapse_button" id="import_export_collapse_button">Import/Export</button>
-		<div class="collapsible_container collapsed" id="import_export_container">
+		<div class="collapsible_container" id="import_export_container">
 			<div class="grid" id="import_export_grid">
 				<button type="button" class="button" onclick="buttonBackup()">Backup Data</button>
 
 				<button type="button" class="button" onclick="updateCSV()">Import New CSV</button>
 				<label for="import_csv_file_id">CSV Name:</label>
 				<input type="text" class="textbox" id="import_csv_file_id">
-				<!--div class="textarea" id="import_export_csv_filename"></div-->
 			</div>
 		</div>
 		
 		<!--Analytics-->
 		<button type="button" class="button collapse_button" id="analytics_collapse_button">Analytics</button>
-		<div class="collapsible_container collapsed" id="analytics_container">
+		<div class="collapsible_container" id="analytics_container">
 			<div class="grid" id="analytics_grid">
 				<label for="analytics_query_select">Query:</label>
 				<select class="dropdown_select" id="analytics_query_select">
@@ -268,7 +266,7 @@
 
 		<!--Incremental Analytics-->
 		<button type="button" class="button collapse_button" id="analytics_collapse_button">Incremental Analytics</button>
-		<div class="collapsible_container collapsed" id="analytics_container">
+		<div class="collapsible_container" id="analytics_container">
 			<div class="grid" id="analytics_grid">
 				<label for="analytics_query_select">Query:</label>
 				<select class="dropdown_select" id="analytics_query_select_incremental">
@@ -283,16 +281,16 @@
 			</div>
 		</div>
 		
-		<div id="analytics_graph_container" style="height:40vh; width:40vw">
+		<div class="display_container" id="analytics_graph_container">
 			<canvas id="analytics_graph"></canvas>
 		</div>
 
-		<div class="text-area">
-			<table id="analytics_table" style="text-align: center;" class="display" width="100%" cellspacing="0"></table>
+		<div class="display_container" id="analytics_table_container">
+			<table id="analytics_table" class="display"></table>
 		</div>
 
-		<div id="record_table_container">
-			<table id="record_table" class="display" style="width:100%"></table>
+		<div class="display_container" id="record_table_container">
+			<table id="record_table" class="display"></table>
 		</div>
 
 		<script src="/socket.io/socket.io.js"></script>

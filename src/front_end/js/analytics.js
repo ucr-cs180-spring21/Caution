@@ -177,9 +177,19 @@ function renderGraph(graphX, graphY, title, titleX, titleY) {
     chart.options.scales.x.title.text = titleX;
     chart.options.scales.y.title.text = titleY;
     chart.update();
+
+    renderAnalyticsTable(graphX, graphY, titleX, titleY);
 }
 
+function renderAnalyticsTable(graphX, graphY, titleX, titleY) {
+    let attributes = [titleX, titleY];
 
+    let data = [];
+    for (let i = 0; i < graphX.length; i++)
+        data.push([graphX[i], graphY[i]]);
+
+    displayTable(data, attributes, 'analytics_table');
+}
 
 
 

@@ -1,63 +1,58 @@
-function updateTable(getAllRecords) {
+function updateQueryTable(getAllRecords) {
+    let queryRequest;
+
     if (getAllRecords) {
-        socket.emit("query", "all_records");
-        return;
+        queryRequest = "all_records";
+    } else {
+        let query = document.getElementById("table_options_query_select").value;
+
+        switch(query) {
+            case "traffic_signal_true":
+                queryRequest = "traffic_signal_true";
+                break;
+            case "weather_condition_light_snow":
+                queryRequest = "weather_condition_light_snow";
+                break;
+            case "humidity_100%":
+                queryRequest = "humidity_100%";
+                break;
+            case "severity_3/3":
+                queryRequest = "severity_3/3";
+                break;
+            case "timezone_us/eastern":
+                queryRequest = "timezone_us/eastern";
+                break;
+            case "city_dayton":
+                queryRequest = "city_dayton";
+                break;
+            case "airport_kday":
+                queryRequest = "airport_kday";
+                break;
+            case "pressure_29.61_in":
+                queryRequest = "pressure_29.61_in";
+                break;
+        }
     }
 
-    let query = document.getElementById("table_options_query_select").value;
-
-    switch(query) {
-        case "traffic_signal_true":
-            socket.emit("query", "traffic_signal_true");
-            break;
-        case "weather_condition_light_snow":
-            socket.emit("query", "weather_condition_light_snow");
-            break;
-        case "humidity_100%":
-            socket.emit("query", "humidity_100%");
-            break;
-        case "severity_3/3":
-            socket.emit("query", "severity_3/3");
-            break;
-        case "timezone_us/eastern":
-            socket.emit("query", "timezone_us/eastern");
-            break;
-        case "city_dayton":
-            socket.emit("query", "city_dayton");
-            break;
-        case "airport_kday":
-            socket.emit("query", "airport_kday");
-            break;
-        case "pressure_29.61_in":
-            socket.emit("query", "pressure_29.61_in");
-            break;
-    }
+    socket.emit("query", queryRequest, displayQueryTable);
 }
 
-function renderTable() {
-    $('#record_table').DataTable({
+function renderTable(tableID) {
+    $('#' + tableID).DataTable({
         "pagingType": "full_numbers",
         "bDestroy": true,
         "ordering": false
-    });   
+    }); 
 }
 
-function displayTable(data) {
+function displayTable(data, attributes, tableID) {
     let table = "";
 
     table += '<thead>';
     table += '<tr>';
-
-    let attributes = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
-    'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
-    'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 
-    'Visibility(mi)', 'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 
-    'Crossing', 'Give_Way', 'Junction', 'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 
-    'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight', 'Nautical_Twilight', 'Astronomical_Twilight']
     
-    for(let i of attributes) {
+    for(let i of attributes)
         table += '<th>' + i + '</th>';
-    }
 
     table += '</tr>';
     table += '</thead>';
@@ -76,9 +71,18 @@ function displayTable(data) {
 
     table += '</tbody>';
     
-    document.getElementById('record_table').innerHTML = table;
+    document.getElementById(tableID).innerHTML = table;
     
-    renderTable();
+    renderTable(tableID);
 }
 
-socket.on('senddata', displayTable);
+function displayQueryTable(data) {
+    let attributes = ['ID', 'Source', 'TMC', 'Severity', 'Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'End_Lat', 
+                      'End_Lng', 'Distance(mi)', 'Description', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 
+                      'Timezone', 'Airport_Code', 'Weather_Timestamp', 'Temperature(F)', 'Wind_Chill(F)', 'Humidity(%)', 'Pressure(in)', 
+                      'Visibility(mi)', 'Wind_Direction', 'Wind_Speed(mph)', 'Precipitation(in)', 'Weather_Condition', 'Amenity', 'Bump', 
+                      'Crossing', 'Give_Way', 'Junction', 'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 
+                      'Traffic_Signal', 'Turning_Loop', 'Sunrise_Sunset', 'Civil_Twilight', 'Nautical_Twilight', 'Astronomical_Twilight'];
+
+    displayTable(data, attributes, 'record_table');
+}

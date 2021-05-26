@@ -7,17 +7,12 @@ collapseButtons.forEach(function(button) {
     let collapsible = document.getElementById(collapsibleID);
 
     button.addEventListener("click", function() {
-        const accordionContent = button.nextElementSibling;
-        //collapsible.classList.toggle("collapsed");
-        button.classList.toggle("collapsed");
-        console.log(collapsibleID);
+        button.classList.toggle("expanded");
         
-        if(button.classList.contains("collapsed")) {
-            accordionContent.style.maxHeight = accordionContent.scrollHeight * 2 + 'px';
+        if(button.classList.contains("expanded")) {
+            collapsible.style.maxHeight = collapsible.scrollHeight * 2 + 'px';
         } else {
-            accordionContent.style.maxHeight = 0;
+            collapsible.style.maxHeight = 0;
         }
-        console.log(accordionContent.scrollHeight *3 + 'px');
     });
-
 });

@@ -93,9 +93,9 @@ function getHumidityGraphData(data) {
     return { 
         graphX: Object.keys(humidityValues), 
         graphY: Object.values(humidityValues),
-        title: "Humidity VS Number of Accidents",
+        title: "Humidity VS Frequency of Accidents",
         titleX: "Humidity",
-        titleY: "Number of Accidents"
+        titleY: "Frequency of Accidents"
     };
 }
 
